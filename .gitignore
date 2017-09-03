@@ -1,2 +1,7 @@
 /.settings
 /.project
+/rss-discovery-server/.settings
+/rss-discovery-server/*.springBeans
+/rss-discovery-server/*.classpath
+/rss-discovery-server/*.gitignore
+/rss-discovery-server/*.project
