@@ -8,7 +8,11 @@
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
+    <properties>
+        <spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
+    </properties>
 	<modules>
 		<module>rss-configuration-cloudserver</module>
+		<module>rss-discovery-server</module>
 	</modules>
 </project>
