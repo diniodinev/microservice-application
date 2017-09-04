@@ -4,4 +4,4 @@
 ## Spring-config-server
 ## Spring-discovery-server Eureka
 
-[![Build Status](https://travis-ci.org/diniodinev/building-microservices.svg?branch=master)](https://travis-ci.org/diniodinev/building-microservices)
+[![Build Status](https://travis-ci.org/diniodinev/microservice-application.svg?branch=master)](https://travis-ci.org/diniodinev/microservice-application)
