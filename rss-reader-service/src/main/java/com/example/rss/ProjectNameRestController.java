@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RefreshScope
 public class ProjectNameRestController {
-    //Sample controller
+
 	@Value("${configuration.projectName}")
 	private String projectName;
 
