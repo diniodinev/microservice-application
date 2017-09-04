@@ -5,3 +5,8 @@
 /rss-discovery-server/*.classpath
 /rss-discovery-server/*.gitignore
 /rss-discovery-server/*.project
+/rss-reader-service/*.project
+/rss-reader-service/*.springBeans
+/rss-reader-service/*
+/rss-reader-service/*.classpath
+/rss-reader-service/*.gitignore

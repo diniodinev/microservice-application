@@ -8,11 +8,19 @@
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+		<relativePath />
+	</parent>
+	
     <properties>
         <spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
     </properties>
 	<modules>
 		<module>rss-configuration-cloudserver</module>
 		<module>rss-discovery-server</module>
+		<module>rss-reader-service</module>
 	</modules>
 </project>
