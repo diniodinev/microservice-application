@@ -7,3 +7,4 @@ spring:
       server:
         git :
           uri: https://github.com/diniodinev/spring-cloud-config-repo
+          search-paths: local
