@@ -18,7 +18,7 @@ import com.rometools.rome.io.FeedException;
 
 @RestController
 @RefreshScope
-public class ProjectNameRestController {
+public class DnesBgController {
 
     @Value("${configuration.projectName}")
     private String projectName;
