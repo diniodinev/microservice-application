@@ -13,9 +13,9 @@ import com.example.rss.controller.DnesBgController;
 import com.rometools.rome.feed.synd.SyndEntry;
 
 @Component
-public class NewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntry, NewsResource> {
+public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntry, NewsResource> {
     // From SyndEntry to NewsResource
-    public NewsResourceAssemblers() {
+    public DnesbgNewsResourceAssemblers() {
         super(DnesBgController.class, NewsResource.class);
     }
 

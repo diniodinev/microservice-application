@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.resources.NewsResource;
-import com.example.rss.resources.NewsResourceAssemblers;
+import com.example.rss.resources.DnesbgNewsResourceAssemblers;
 import com.example.rss.service.RssReaderService;
 import com.rometools.rome.feed.synd.SyndEntry;
 
@@ -33,7 +33,7 @@ public class DnesBgController {
     }
 
     @Autowired
-    NewsResourceAssemblers newsResourceAssemblers;
+    DnesbgNewsResourceAssemblers newsResourceAssemblers;
 
     @Autowired
     RssReaderService rssReaderService;
