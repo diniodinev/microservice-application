@@ -1,6 +1,5 @@
-package com.example.rss;
+package com.example.rss.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import com.example.rss.resources.NewsResource;
 import com.example.rss.resources.NewsResourceAssemblers;
 import com.example.rss.service.RssReaderService;
 import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.io.FeedException;
 
 @RestController
 @RefreshScope
@@ -41,18 +39,25 @@ public class DnesBgController {
     RssReaderService rssReaderService;
 
     @RequestMapping(value = "/dnesbg/today", method = RequestMethod.GET)
-    public NewsResource getDnesBgToday() throws IllegalArgumentException, FeedException, IOException {
-        return newsResourceAssemblers.toResource((SyndEntry) rssReaderService.redFeed(dnesbgToday).getEntries().get(0));
+    public NewsResource getDnesBgToday() {
+        return newsResourceAssemblers
+                .toResource((SyndEntry) rssReaderService.readFeed(dnesbgToday).getEntries().get(0));
     }
 
     @RequestMapping(value = "/dnesbg/today/all", method = RequestMethod.GET)
-    public List<NewsResource> getAllNewsToday() throws IllegalArgumentException, FeedException, IOException {
-        return newsResourceAssemblers.toResources(rssReaderService.redFeed(dnesbgToday).getEntries());
+    public List<NewsResource> getAllNewsToday() {
+        return newsResourceAssemblers.toResources(rssReaderService.readFeed(dnesbgToday).getEntries());
     }
 
     @RequestMapping("/dnesbg/world")
-    public List<SyndEntry> getDnesBgWorld() throws IllegalArgumentException, FeedException, IOException {
-        return rssReaderService.redFeed(dnesbgToday).getEntries();
+    public NewsResource getDnesBgWorld() {
+        return newsResourceAssemblers
+                .toResource((SyndEntry) rssReaderService.readFeed(dnesbgWorld).getEntries().get(0));
+    }
+
+    @RequestMapping("/dnesbg/world/all")
+    public List<NewsResource> getAllNewsWorld() {
+        return newsResourceAssemblers.toResources(rssReaderService.readFeed(dnesbgWorld).getEntries());
     }
 
 }

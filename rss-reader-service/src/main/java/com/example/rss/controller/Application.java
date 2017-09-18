@@ -1,4 +1,4 @@
-package com.example.rss;
+package com.example.rss.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

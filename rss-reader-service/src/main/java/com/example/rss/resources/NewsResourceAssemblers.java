@@ -3,16 +3,14 @@ package com.example.rss.resources;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import com.example.rss.DnesBgController;
+import com.example.rss.controller.DnesBgController;
 import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.io.FeedException;
 
 @Component
 public class NewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntry, NewsResource> {
@@ -27,11 +25,8 @@ public class NewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntry, 
         resource.setTitle(entity.getTitle());
         resource.setUri(entity.getUri());
 
-        try {
-            resource.add(linkTo(methodOn(DnesBgController.class).getDnesBgToday()).withSelfRel());
-        } catch (IllegalArgumentException | FeedException | IOException e) {
-            e.printStackTrace();
-        }
+        resource.add(linkTo(methodOn(DnesBgController.class).getDnesBgToday()).withSelfRel());
+
         return resource;
     }
 
