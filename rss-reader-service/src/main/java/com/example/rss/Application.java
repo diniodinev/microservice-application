@@ -10,13 +10,13 @@ import org.springframework.core.env.Environment;
 @EnableDiscoveryClient
 public class Application {
 
-	@Autowired
-	void setEnvironment(Environment e) {
-		System.out.println(e.getProperty("configuration.projectName"));
-	}
+    @Autowired
+    void setEnvironment(Environment e) {
+        System.out.println(e.getProperty("configuration.projectName"));
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
 }

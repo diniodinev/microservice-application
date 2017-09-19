@@ -25,14 +25,14 @@ public class BbcNewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntr
         resource.setTitle(entity.getTitle());
         resource.setUri(entity.getUri());
 
-        resource.add(linkTo(methodOn(BbcController.class).getBbcToday()).withSelfRel());
+        resource.add(linkTo(methodOn(BbcController.class).getBbcTopStories()).withSelfRel());
 
         return resource;
     }
 
     @Override
     public List<NewsResource> toResources(Iterable<? extends SyndEntry> entities) {
-        List<NewsResource> resources = new LinkedList<NewsResource>();
+        List<NewsResource> resources = new LinkedList<>();
         for (SyndEntry entity : entities) {
             resources.add(toResource(entity));
         }

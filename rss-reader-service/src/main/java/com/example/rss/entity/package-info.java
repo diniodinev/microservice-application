@@ -1,4 +1,4 @@
 /**
- * Create entity classes.        
+ * Create entity classes.
  */
 package com.example.rss.entity;

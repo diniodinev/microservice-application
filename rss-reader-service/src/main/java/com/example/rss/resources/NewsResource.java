@@ -8,7 +8,6 @@ public class NewsResource extends ResourceSupport {
 
     private String uri;
 
-    
     public NewsResource() {
     }
 
@@ -27,5 +26,5 @@ public class NewsResource extends ResourceSupport {
     public void setUri(String uri) {
         this.uri = uri;
     }
-    
+
 }
