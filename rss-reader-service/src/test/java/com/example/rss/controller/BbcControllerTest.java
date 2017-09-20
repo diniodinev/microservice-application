@@ -15,22 +15,22 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@WebMvcTest(BbcController.class)
-//public class BbcControllerTest {
-//
-//    @MockBean
-//    RssReaderService rssReaderService;
-//
-//    @Autowired
-//    MockMvc mockMvc;
-//
-//    //Eureka must be mocked not working for now.
-//    //@Test
-//    public void emptyUrlPassedFromTheConfiguration() throws Exception {
-//        given(rssReaderService.readFeed(null)).willReturn(null);
-//
-//        this.mockMvc.perform(get("/bbc/topstories")).andExpect(status().isOk());
-//
-//    }
-//}
+/*@RunWith(SpringJUnit4ClassRunner.class)
+@WebMvcTest(BbcController.class)*/
+public class BbcControllerTest {
+
+    @MockBean
+    RssReaderService rssReaderService;
+
+    @Autowired
+    MockMvc mockMvc;
+
+    //Eureka must be mocked not working for now.
+    //@Test
+    public void emptyUrlPassedFromTheConfiguration() throws Exception {
+        given(rssReaderService.readFeed(null)).willReturn(null);
+
+        this.mockMvc.perform(get("/bbc/topstories")).andExpect(status().isOk());
+
+    }
+}
