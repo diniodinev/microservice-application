@@ -14,7 +14,7 @@ import javax.persistence.Column;
 
 @Entity
 @Table(name = "NEWS_ENTITY")
-public class NewsEntity {
+public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,10 +30,10 @@ public class NewsEntity {
     @OneToOne(fetch = FetchType.EAGER)
     private Content newsContant;
 
-    public NewsEntity() {
+    public News() {
     }
 
-    public NewsEntity(long id, String title, String uri, Content newsContant) {
+    public News(long id, String title, String uri, Content newsContant) {
         super();
         this.id = id;
         this.title = title;
