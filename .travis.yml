@@ -32,7 +32,7 @@ notifications:
   email: false
 addons:
   sonarcloud:
-    organization: "Dinio"
+    organization: "diniodinev-github"
     token:
       secure: ${SONAR_TOKEN}
     branches:
