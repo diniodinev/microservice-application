@@ -26,3 +26,13 @@ notifications:
   email: false
   
 script: mvn clean install
+
+notifications:
+  email: false
+addons:
+  sonarcloud:
+    organization: "diniodinev-github"
+    token:
+      secure: $rss-token
+    branches:
+      - master
