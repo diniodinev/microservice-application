@@ -33,7 +33,7 @@ addons:
   sonarcloud:
     organization: "diniodinev-github"
     token:
-      secure: $SONAR_TOKEN
+      secure: "23d9f4bdb6610ca43090bc505153442f49bb3029"
     branches:
       - master
 script:
