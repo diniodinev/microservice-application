@@ -14,7 +14,7 @@ import javax.persistence.Column;
 
 @Entity
 @Table(name = "NEWS_ENTITY")
-public class News {
+public class News extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
