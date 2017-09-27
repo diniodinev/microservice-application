@@ -33,6 +33,6 @@ addons:
   sonarcloud:
     organization: "diniodinev-github"
     token:
-      secure: $rss-token
+      secure: $SONAR_TOKEN
     branches:
       - master
