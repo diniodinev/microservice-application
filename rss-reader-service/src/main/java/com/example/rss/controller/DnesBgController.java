@@ -27,16 +27,17 @@ public class DnesBgController {
     @Value("${site.dnesbg.world}")
     private String dnesbgWorld;
 
+    @Autowired
+    DnesbgNewsResourceAssemblers newsResourceAssemblers;
+    
+    @Autowired
+    RssReaderService rssReaderService;
     @RequestMapping("/project-name")
+    
     public String projectName() {
         return this.projectName;
     }
 
-    @Autowired
-    DnesbgNewsResourceAssemblers newsResourceAssemblers;
-
-    @Autowired
-    RssReaderService rssReaderService;
 
     @RequestMapping(value = "/dnesbg/today", method = RequestMethod.GET)
     public NewsResource getDnesBgToday() {

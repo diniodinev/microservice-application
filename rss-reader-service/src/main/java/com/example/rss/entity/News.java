@@ -1,16 +1,13 @@
 package com.example.rss.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.ColumnDefault;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.GenerationType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Column;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "NEWS_ENTITY")
@@ -24,13 +21,14 @@ public class News extends AbstractAuditingEntity {
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "URI")
+    @Column(name = "URI")   
     private String uri;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Content newsContant;
 
     public News() {
+        super();
     }
 
     public News(long id, String title, String uri, Content newsContant) {

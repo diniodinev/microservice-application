@@ -9,6 +9,7 @@ public class NewsResource extends ResourceSupport {
     private String uri;
 
     public NewsResource() {
+        super();
     }
 
     public String getTitle() {

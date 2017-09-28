@@ -23,6 +23,7 @@ public class Images extends AbstractAuditingEntity {
     private Content content;
 
     public Images() {
+        super();
     }
 
     public Images(long id, String link, Content content) {

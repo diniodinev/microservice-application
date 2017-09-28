@@ -21,18 +21,19 @@ public class Content extends AbstractAuditingEntity {
     private long id;
 
     @Column(name = "CONTENT")
-    private String content;
+    private String newsContent;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "content", cascade = CascadeType.ALL)
     private List<Images> images;
 
     public Content() {
+        super();
     }
 
     public Content(long id, String content, List<Images> images) {
         super();
         this.id = id;
-        this.content = content;
+        this.newsContent = content;
         this.images = images;
     }
 
@@ -44,12 +45,12 @@ public class Content extends AbstractAuditingEntity {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
+    public String getNewsContent() {
+        return newsContent;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setNewsContent(String newsContent) {
+        this.newsContent = newsContent;
     }
 
     public List<Images> getImages() {

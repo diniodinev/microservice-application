@@ -32,7 +32,7 @@ public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndE
 
     @Override
     public List<NewsResource> toResources(Iterable<? extends SyndEntry> entities) {
-        List<NewsResource> resources = new LinkedList<NewsResource>();
+        List<NewsResource> resources = new LinkedList<>();
         for (SyndEntry entity : entities) {
             resources.add(toResource(entity));
         }
