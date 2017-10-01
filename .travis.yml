@@ -26,8 +26,6 @@ branches:
 notifications:
   email: false
   
-script: mvn clean install
-
 notifications:
   email: false
 addons:
