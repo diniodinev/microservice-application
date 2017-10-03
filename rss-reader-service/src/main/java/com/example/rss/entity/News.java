@@ -2,6 +2,7 @@ package com.example.rss.entity;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "NEWS_ENTITY")
+@Table(name = "NEWS")
 @Access(value = AccessType.FIELD)
 public class News extends AbstractAuditingEntity {
 
@@ -27,7 +28,7 @@ public class News extends AbstractAuditingEntity {
     @Column(name = "URI")   
     private String uri;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
     private Content newsContant;
 
     public News() {

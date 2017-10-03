@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity {
 
-    @Column(name = "created_by", insertable = true, updatable = false, nullable = false)
+    @Column(name = "created_by", insertable = true, updatable = false, nullable = true)
     @CreatedBy
     private String createdBy;
 
@@ -25,7 +25,7 @@ public abstract class AbstractAuditingEntity {
     @CreatedDate
     private DateTime createdDate;
 
-    @Column(name = "last_modified_by", nullable = false)
+    @Column(name = "last_modified_by", nullable = true)
     @LastModifiedBy
     private String lastModifiedBy;
 
@@ -33,4 +33,36 @@ public abstract class AbstractAuditingEntity {
     @LastModifiedDate
     private DateTime lastModifiedDate;
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public DateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(DateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public DateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+    
 }
