@@ -38,7 +38,6 @@ public class DnesBgController {
         return this.projectName;
     }
 
-
     @RequestMapping(value = "/dnesbg/today", method = RequestMethod.GET)
     public NewsResource getDnesBgToday() {
         return newsResourceAssemblers

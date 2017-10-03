@@ -1,5 +1,7 @@
 package com.example.rss.entity;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "NEWS_ENTITY")
+@Access(value = AccessType.FIELD)
 public class News extends AbstractAuditingEntity {
 
     @Id
