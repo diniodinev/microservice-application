@@ -41,7 +41,7 @@ public class ProcessDnesBgHtmlPage {
             return document.select(tagName).first().text();
         } else {
             //TODO add meanigfyl logger
-            logger.warn("For the specified document, there is no tag with name %s", tagName);
+            logger.warn("For the specified document, there is no tag with name {}", tagName);
             return null;
         }
     }
