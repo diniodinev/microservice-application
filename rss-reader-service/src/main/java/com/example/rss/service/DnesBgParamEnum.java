@@ -6,6 +6,5 @@ package com.example.rss.service;
  *
  */
 public enum DnesBgParamEnum {
-
-    LAST, ROOTURL, DESCRIPTION, CONTENT, TITLE
+    rootUrl, last, titleSelector, descriptionSelector, contentSelector
 }
