@@ -44,7 +44,8 @@ public class ProcessDnesBgHtmlPage {
         try {
             return Jsoup.connect(link).userAgent("Mozilla").get();
         } catch (IOException e) {
-            logger.warn("Error during processing the page {}", link);
+            logger.warn("Error during processing the page {}.", link);
+            logger.debug("Error during processing the page {}.", e); 
         }
         return null;
     }
@@ -53,7 +54,6 @@ public class ProcessDnesBgHtmlPage {
         if (document.select(tagName).first() != null) {
             return document.select(tagName).first().text();
         } else {
-            // TODO add meanigfyl logger
             logger.warn("For the specified document, there is no tag with name {}", tagName);
             return null;
         }

@@ -28,6 +28,8 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         newsToSave.setTitle(page.extractInformationByTag(params.get(DnesBgParamEnum.titleSelector.name())));
         newsToSave.setNewsContant(newsContent);
         newsToSave.setUri(newsUrl);
+        
+        newsContent.setNews(newsToSave);
         return newsToSave;
     }
 

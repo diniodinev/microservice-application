@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,6 +30,7 @@ public class News extends AbstractAuditingEntity {
     private String uri;
 
     @OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+    @JoinColumn(name="CONTENT_NEWS_ID", referencedColumnName="ID")
     private Content newsContant;
 
     public News() {

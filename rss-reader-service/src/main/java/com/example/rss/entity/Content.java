@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -31,6 +32,9 @@ public class Content extends AbstractAuditingEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "content", cascade = CascadeType.ALL)
     private List<Images> images;
+    
+    @OneToOne(mappedBy="newsContant")
+    private News news;
 
     public Content() {
         super();
@@ -74,5 +78,13 @@ public class Content extends AbstractAuditingEntity {
     public void setNewsDescriptin(String newsDescriptin) {
         this.newsDescriptin = newsDescriptin;
     }
-    
+
+    public News getNews() {
+        return news;
+    }
+
+    public void setNews(News news) {
+        this.news = news;
+    }
+
 }
