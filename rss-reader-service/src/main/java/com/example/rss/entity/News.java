@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,6 +33,10 @@ public class News extends AbstractAuditingEntity {
     @OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
     @JoinColumn(name="CONTENT_NEWS_ID", referencedColumnName="ID")
     private Content newsContant;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="AUTHOR_ID", referencedColumnName="ID")
+    private Author author;
 
     public News() {
         super();
@@ -77,4 +82,12 @@ public class News extends AbstractAuditingEntity {
         this.newsContant = newsContant;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+    
 }
