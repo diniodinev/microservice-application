@@ -7,11 +7,9 @@ import java.net.URL;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.rss.exceptions.FeedReaderException;
-import com.example.rss.repository.NewsRepository;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
@@ -20,9 +18,6 @@ import com.rometools.rome.io.XmlReader;
 @Service
 public class RssReaderServiceImpl implements RssReaderService {
     private static final Log logger = LogFactory.getLog(RssReaderServiceImpl.class);
-    
-    @Autowired
-    private NewsRepository newsRepository;
 
     /**
      * return SyndFeed or null if there is a problem with the feed reading

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.config.DnesbgProperties;
 import com.example.rss.entity.News;
+import com.example.rss.repository.CommentsRepository;
 import com.example.rss.repository.NewsRepository;
+import com.example.rss.service.CommentsService;
 import com.example.rss.service.DnesBgParamEnum;
 import com.example.rss.service.ExtractionNewsService;
 
@@ -22,7 +24,13 @@ public class GetRandomDnesBgNewsController {
     NewsRepository newsRepository;
 
     @Autowired
+    CommentsRepository commentsRepository;
+
+    @Autowired
     ExtractionNewsService extractionNewsService;
+
+    @Autowired
+    CommentsService commentsService;
 
     @Autowired
     private DnesbgProperties serviceProperties;
@@ -31,14 +39,7 @@ public class GetRandomDnesBgNewsController {
     public void randomNews() throws IOException {
         Integer newsNumber = new Random()
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
-        saveNews(newsNumber);
-    }
-
-    private void saveNews(Integer newsNumber) throws IOException {
-        News news = extractionNewsService.extractNews(serviceProperties.getDnesbg(), newsNumber);
-        if (news != null) {
-            newsRepository.save(news);
-        }
+        extractionNewsService.saveNews(newsNumber);
     }
 
     @RequestMapping(value = "/random/{number}")
@@ -47,10 +48,10 @@ public class GetRandomDnesBgNewsController {
         for (int i = 0; i < newsCount; i++) {
             newsNumber = new Random()
                     .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
-            
-            saveNews(newsNumber);
-        }
 
+            News saved = extractionNewsService.saveNews(newsNumber);
+            commentsService.extractComments(saved);
+        }
     }
-    // http://www.dnes.bg/eu/2017/10/03/.23502
+
 }

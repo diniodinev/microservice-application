@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.rss.config.DnesbgProperties;
 import com.example.rss.core.ProcessDnesBgHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
 import com.example.rss.entity.News;
 import com.example.rss.repository.AuthorRepository;
+import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.CustomDateUtils;
 
 @Service
@@ -28,8 +30,23 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private DnesbgProperties serviceProperties;
+
+    @Autowired
+    private NewsRepository newsRepository;
+
     @Override
-    public News extractNews(Map<String, String> params, int number) throws IOException {
+    public News saveNews(Integer newsNumber) throws IOException {
+        News news = extractNews(newsNumber);
+        if (news != null) {
+            newsRepository.save(news);
+        }
+        return news;
+    }
+
+    private News extractNews(int number) throws IOException {
+        Map<String, String> params = serviceProperties.getDnesbg();
         String newsUrl = params.get(DnesBgParamEnum.rootUrl.name()) + number;
         ProcessDnesBgHtmlPage page = new ProcessDnesBgHtmlPage(newsUrl);
         if (page.getDocument() == null) {
@@ -62,8 +79,9 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         return newsToSave;
     }
 
-    // COntains Specific DnesBgLogic
+    // Contains Specific DnesBgLogic
     private DateTime extractNewsCreatedDate(String date) {
+        logger.debug("Input date before transformation {}", date);
         DateTime createdDateTime = new DateTime();
         Locale locale = new java.util.Locale("bg", "BG");
         // Replace 3 letters months with theri full representation in order JODA
@@ -80,6 +98,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
                 createdDateTime = dtf.parseDateTime(initial.subSequence(0, initial.indexOf(',')).toString());
             }
         }
+        logger.debug("Output date after transformation {}", createdDateTime);
         return createdDateTime;
     }
 

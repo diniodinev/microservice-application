@@ -5,6 +5,7 @@ package com.example.rss.service;
  * from Dbes.bg Their values must be read from the cloud-config.
  *
  */
+@SuppressWarnings("all")
 public enum DnesBgParamEnum {
     rootUrl, last, titleSelector, descriptionSelector, contentSelector, authorSelector, createdDateSelector
 }
