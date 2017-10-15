@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 @Entity
 @Table(name = "NEWS")
 @Access(value = AccessType.FIELD)
@@ -27,27 +30,33 @@ public class News extends AbstractAuditingEntity {
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "URI")   
+    @Column(name = "URI")
     private String uri;
 
-    @OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
-    @JoinColumn(name="CONTENT_NEWS_ID", referencedColumnName="ID")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "CONTENT_NEWS_ID", referencedColumnName = "ID")
     private Content newsContant;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="AUTHOR_ID", referencedColumnName="ID")
+    @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
     private Author author;
+
+    @Column(name = "INITAL_DATE", insertable = true, updatable = true, nullable = false)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime initialDate;
 
     public News() {
         super();
     }
 
-    public News(long id, String title, String uri, Content newsContant) {
+    public News(long id, String title, String uri, Content newsContant, Author author, DateTime initialDate) {
         super();
         this.id = id;
         this.title = title;
         this.uri = uri;
         this.newsContant = newsContant;
+        this.author = author;
+        this.initialDate = initialDate;
     }
 
     public long getId() {
@@ -89,5 +98,13 @@ public class News extends AbstractAuditingEntity {
     public void setAuthor(Author author) {
         this.author = author;
     }
-    
+
+    public DateTime getInitialDate() {
+        return initialDate;
+    }
+
+    public void setInitialDate(DateTime initialDate) {
+        this.initialDate = initialDate;
+    }
+
 }

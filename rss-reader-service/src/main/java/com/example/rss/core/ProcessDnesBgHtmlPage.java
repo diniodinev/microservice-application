@@ -2,7 +2,7 @@ package com.example.rss.core;
 
 import java.io.IOException;
 
-import org.apache.commons.validator.UrlValidator;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,17 +14,21 @@ public class ProcessDnesBgHtmlPage {
 
     private Document document;
 
+    public ProcessDnesBgHtmlPage() {
+        super();
+    }
+
+    public ProcessDnesBgHtmlPage(final String link) {
+        logger.info("Reading news with url \n {}", link);
+        this.document = removeUnnecessaryElements(getDocument(link));
+    }
+
     public Document getDocument() {
         return document;
     }
 
     public void setDocument(Document document) {
         this.document = document;
-    }
-
-    public ProcessDnesBgHtmlPage(final String link) throws IOException {
-        logger.info("Reading news with url \n {}", link);
-        this.document = removeUnnecessaryElements(getDocument(link));
     }
 
     /**
@@ -35,7 +39,6 @@ public class ProcessDnesBgHtmlPage {
      *            which has to be URL compatible
      * @return null if the URL is not valid or has error during reading
      */
-    @SuppressWarnings("deprecation")
     private Document getDocument(final String link) {
         if (!new UrlValidator().isValid(link)) {
             logger.warn("Link {} is not a valid URL", link);
@@ -45,7 +48,7 @@ public class ProcessDnesBgHtmlPage {
             return Jsoup.connect(link).userAgent("Mozilla").get();
         } catch (IOException e) {
             logger.warn("Error during processing the page {}.", link);
-            logger.debug("Error during processing the page {}.", e); 
+            logger.debug("Error during processing the page {}.", e);
         }
         return null;
     }
@@ -97,5 +100,5 @@ public class ProcessDnesBgHtmlPage {
         }
         return document;
     }
-    
+
 }
