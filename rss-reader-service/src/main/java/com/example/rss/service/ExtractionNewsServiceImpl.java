@@ -2,7 +2,6 @@ package com.example.rss.service;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -13,14 +12,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.rss.config.DnesbgProperties;
 import com.example.rss.core.ProcessDnesBgHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
 import com.example.rss.entity.News;
+import com.example.rss.reading.ReadingDnesBgPage;
 import com.example.rss.repository.AuthorRepository;
 import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.CustomDateUtils;
+import com.example.rss.utils.DnesBgParams;
 
 @Service
 public class ExtractionNewsServiceImpl implements ExtractionNewsService {
@@ -31,10 +31,13 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
     private AuthorRepository authorRepository;
 
     @Autowired
-    private DnesbgProperties serviceProperties;
+    private NewsRepository newsRepository;
 
     @Autowired
-    private NewsRepository newsRepository;
+    private ReadingDnesBgPage readingDnesBgPage;
+
+    @Autowired
+    private DnesBgParams params;
 
     @Override
     public News saveNews(Integer newsNumber) throws IOException {
@@ -46,19 +49,14 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
     }
 
     private News extractNews(int number) throws IOException {
-        Map<String, String> params = serviceProperties.getDnesbg();
-        String newsUrl = params.get(DnesBgParamEnum.rootUrl.name()) + number;
-        ProcessDnesBgHtmlPage page = new ProcessDnesBgHtmlPage(newsUrl);
-        if (page.getDocument() == null) {
-            return null;
-        }
+        String newsUrl = readingDnesBgPage.getUrl(number);
+        ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
 
         Content newsContent = new Content();
-        newsContent.setNewsDescriptin(
-                page.extractInformationByTag(params.get(DnesBgParamEnum.descriptionSelector.name())));
-        newsContent.setNewsContent(page.extractInformationByTag(params.get(DnesBgParamEnum.contentSelector.name())));
+        newsContent.setNewsDescriptin(page.extractInformationByTag(params.getDescription()));
+        newsContent.setNewsContent(page.extractInformationByTag(params.getContent()));
 
-        String authorNames = page.extractInformationByTag(params.get(DnesBgParamEnum.authorSelector.name()));
+        String authorNames = page.extractInformationByTag(params.getAuthor());
         Author newsAuthor = authorRepository.findOneByNames(authorNames);
 
         if (newsAuthor == null) {
@@ -68,12 +66,11 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
 
         // News information
         News newsToSave = new News();
-        newsToSave.setTitle(page.extractInformationByTag(params.get(DnesBgParamEnum.titleSelector.name())));
+        newsToSave.setTitle(page.extractInformationByTag(params.getTitle()));
         newsToSave.setNewsContant(newsContent);
         newsToSave.setUri(newsUrl);
         newsToSave.setAuthor(newsAuthor);
-        newsToSave.setInitialDate(extractNewsCreatedDate(
-                page.extractInformationByTag(params.get(DnesBgParamEnum.createdDateSelector.name()))));
+        newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTag(params.getCreatedDate())));
 
         newsContent.setNews(newsToSave);
         return newsToSave;
