@@ -30,7 +30,7 @@ public class Comment extends AbstractAuditingEntity {
     private int likes;
 
     @Column(name = "DISLIKES")
-    private String dislikes;
+    private int dislikes;
 
     @ManyToOne
     @JoinColumn(name = "News_id", referencedColumnName = "NEWS_ID")
@@ -40,7 +40,7 @@ public class Comment extends AbstractAuditingEntity {
         super();
     }
 
-    public Comment(long id, String authorName, String content, int likes, String dislikes) {
+    public Comment(long id, String authorName, String content, int likes, int dislikes) {
         super();
         this.id = id;
         this.authorName = authorName;
@@ -65,10 +65,6 @@ public class Comment extends AbstractAuditingEntity {
         return likes;
     }
 
-    public String getDislikes() {
-        return dislikes;
-    }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -85,7 +81,11 @@ public class Comment extends AbstractAuditingEntity {
         this.likes = likes;
     }
 
-    public void setDislikes(String dislikes) {
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
         this.dislikes = dislikes;
     }
 

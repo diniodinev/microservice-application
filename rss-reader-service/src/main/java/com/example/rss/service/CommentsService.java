@@ -1,9 +1,12 @@
 package com.example.rss.service;
 
+import java.io.IOException;
+
+import com.example.rss.entity.Comment;
 import com.example.rss.entity.News;
 
 public interface CommentsService {
 
-    void extractComments(News news);
+    Iterable<Comment> extractComments(News news) throws IOException;
 
 }

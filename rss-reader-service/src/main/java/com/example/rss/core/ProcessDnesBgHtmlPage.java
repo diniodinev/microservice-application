@@ -6,6 +6,7 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +54,15 @@ public class ProcessDnesBgHtmlPage {
         return null;
     }
 
+    public Elements extractElementsByTag(String tagName) throws IOException {
+        if (document.select(tagName) != null) {
+            return document.select(tagName);
+        } else {
+            logger.warn("For the specified document, there is no elements with name {}", tagName);
+            return null;
+        }
+    }
+
     public String extractInformationByTag(String tagName) throws IOException {
         if (document.select(tagName).first() != null) {
             return document.select(tagName).first().text();
@@ -86,6 +96,13 @@ public class ProcessDnesBgHtmlPage {
         return document;
     }
 
+    protected Document removeFeedbackOnComments(Document document) {
+        if (!document.select("div[class=feedback_comment]").isEmpty()) {
+            document.select("div[class=feedback_comment]").remove();
+        }
+        return document;
+    }
+
     protected Document removePictureElement(Document document) {
         if (!document.select("div[class=photo_descr]").isEmpty()) {
             document.select("div[class=photo_descr]").first().remove();
@@ -97,6 +114,7 @@ public class ProcessDnesBgHtmlPage {
         if (document != null) {
             removeOnThemeElements(document);
             removePictureElement(document);
+            removeFeedbackOnComments(document);
         }
         return document;
     }

@@ -5,8 +5,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.example.rss.exceptions.FeedReaderException;
@@ -17,7 +17,7 @@ import com.rometools.rome.io.XmlReader;
 
 @Service
 public class RssReaderServiceImpl implements RssReaderService {
-    private static final Log logger = LogFactory.getLog(RssReaderServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExtractionNewsServiceImpl.class);
 
     /**
      * return SyndFeed or null if there is a problem with the feed reading
