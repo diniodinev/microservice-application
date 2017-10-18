@@ -46,16 +46,34 @@ public class RssApplicationTests {
     ExtractionNewsService extractionNewsService;
 
     @Test
-    public void someTest() {
+    public void testIf404PageIsHitDoNotThrowException() {
+        try {
+            getRandomDnesBgNewsController.getSpecificNews(356084);
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testLargeAmountOf100LastNews() {
         try {
             getRandomDnesBgNewsController.lastN(100);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-        // 356174
-
     }
 
+    @Test
+    public void testLargeAmountOf100RandomNews() {
+        try {
+            getRandomDnesBgNewsController.randomNews(100);
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    @AfterClass
     public static void logout() {
         try {
             Connection conn = DriverManager

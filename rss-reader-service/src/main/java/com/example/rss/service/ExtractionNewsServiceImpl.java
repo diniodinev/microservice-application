@@ -54,6 +54,11 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         String newsUrl = readingDnesBgPage.getUrl(number);
         ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
 
+        if (page == null) {
+            logger.warn("Page {} can not be processed.", number);
+            return null;
+        }
+
         Content newsContent = new Content();
         newsContent.setNewsDescriptin(page.extractInformationByTag(params.getDescription()));
         newsContent.setNewsContent(page.extractInformationByTag(params.getContent()));
