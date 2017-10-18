@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.rss.core.ProcessDnesBgHtmlPage;
 import com.example.rss.entity.Author;
@@ -40,6 +41,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
     private DnesBgParams params;
 
     @Override
+    @Transactional
     public News saveNews(Integer newsNumber) throws IOException {
         News news = extractNews(newsNumber);
         if (news != null) {
@@ -62,6 +64,8 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         if (newsAuthor == null) {
             newsAuthor = new Author();
             newsAuthor.setNames(authorNames);
+        } else {
+            System.out.println("asd");
         }
 
         // News information

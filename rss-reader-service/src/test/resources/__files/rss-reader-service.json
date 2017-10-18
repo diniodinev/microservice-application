@@ -1,0 +1,44 @@
+{
+  "name": "rss-reader-service",
+  "profiles": [
+    "default"
+  ],
+  "label": null,
+  "version": "a31c898e32be859bfa024a6f601860adac11046d",
+  "state": null,
+  "propertySources": [
+    {
+      "name": "https://github.com/diniodinev/spring-cloud-config-repo/local/rss-reader-service.yml",
+      "source": {
+        "configuration.projectName": "RSS Reader Local",
+        "site.dnesbg.today": "http://www.dnes.bg/rss.php?today",
+        "site.dnesbg.bulgaria": "http://www.dnes.bg/rss.php?cat=1",
+        "site.dnesbg.world": "http://www.dnes.bg/rss.php?cat=2",
+        "site.dnesbg.technologies": "http://www.dnes.bg/rss.php?cat=4",
+        "site.dnesbg.rootUrl": "http://www.dnes.bg/eu/2017/10/03/.",
+        "site.dnesbg.last": 356174,
+        "site.dnesbg.datetimeFormatter": "dd MMM yyyy HH:mm",
+        "site.dnesbg.titleSelector": "h1.title",
+        "site.dnesbg.descriptionSelector": "div.descr",
+        "site.dnesbg.contentSelector": "#article_text",
+        "site.dnesbg.authorSelector": "a[title*=Всички]",
+        "site.dnesbg.createdDateSelector": "div.art_author",
+        "site.dnesbg.commentTextSelector": "div.comment_text",
+        "site.dnesbg.commentUsernameSelector": "div.comment_user",
+        "site.dnesbg.commentBoxSelector": "div.comment-box",
+        "site.dnesbg.commentUpSelector": "span.comments-grades-up",
+        "site.dnesbg.commentDownSelector": "span.comments-grades-down",
+        "site.bbc.topstories": "http://feeds.bbci.co.uk/news/rss.xml",
+        "site.bbc.world": "http://feeds.bbci.co.uk/news/world/rss.xml",
+        "site.bbc.uk": "http://feeds.bbci.co.uk/news/uk/rss.xml",
+        "site.bbc.science": "http://feeds.bbci.co.uk/news/science_and_environment/rss.xml"
+      }
+    },
+    {
+      "name": "https://github.com/diniodinev/spring-cloud-config-repo/rss-reader-service.properties",
+      "source": {
+        "configuration.projectName": "RSS Reader"
+      }
+    }
+  ]
+}

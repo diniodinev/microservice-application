@@ -24,11 +24,11 @@ public class Author extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "AUTHOR_NAMES", unique=true)
+    @Column(name = "AUTHOR_NAMES", unique = true)
     private String names;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "AUTHOR_ID", referencedColumnName="ID")
+    @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
     private List<News> news = new ArrayList<>();
 
     public Author() {
