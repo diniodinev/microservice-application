@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -30,8 +31,9 @@ public class Content extends AbstractAuditingEntity {
     @Column(name = "DESCRIPTION")
     private String newsDescriptin;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "content", cascade = CascadeType.ALL)
-    private List<Images> images;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Image_Id", referencedColumnName = "id")
+    private List<Image> images;
     
     @OneToOne(mappedBy="newsContant")
     private News news;
@@ -40,7 +42,7 @@ public class Content extends AbstractAuditingEntity {
         super();
     }
 
-    public Content(long id, String content, List<Images> images) {
+    public Content(long id, String content, List<Image> images) {
         super();
         this.id = id;
         this.newsContent = content;
@@ -63,11 +65,11 @@ public class Content extends AbstractAuditingEntity {
         this.newsContent = newsContent;
     }
 
-    public List<Images> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<Images> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 

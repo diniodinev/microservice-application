@@ -7,6 +7,6 @@ package com.example.rss.service;
  */
 @SuppressWarnings("all")
 public enum DnesBgParamEnum {
-    rootUrl, last, titleSelector, descriptionSelector, contentSelector, authorSelector, createdDateSelector, 
+    rootUrl, last, titleSelector, descriptionSelector, contentSelector, contentImage, authorSelector, createdDateSelector, 
     commentBoxSelector, commentTextSelector, commentUsernameSelector, commentUpSelector, commentDownSelector
 }

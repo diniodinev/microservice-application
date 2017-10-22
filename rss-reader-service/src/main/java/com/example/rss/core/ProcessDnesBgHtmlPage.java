@@ -72,6 +72,15 @@ public class ProcessDnesBgHtmlPage {
         }
     }
 
+    public String extractInformationByTagAndAttribute(String tagName, String attr) throws IOException {
+        if (document.select(tagName).first() != null) {
+            return document.select(tagName).first().attr(attr);
+        } else {
+            logger.warn("For the specified document, there is no tag with name {} and attribute {}.", tagName, attr);
+            return null;
+        }
+    }
+
     public String extractAuthor() {
         String author = null;
         if (!document.select("meta[itemprop=author]").isEmpty()) {

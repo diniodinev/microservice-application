@@ -20,6 +20,10 @@ public class DnesBgParams {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.contentSelector.name());
     }
 
+    public String getContentImage() {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.contentImage.name());
+    }
+
     public String getAuthor() {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.authorSelector.name());
     }
@@ -51,5 +55,7 @@ public class DnesBgParams {
     public String getCommentsDown() {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.commentDownSelector.name());
     }
+
+
 
 }

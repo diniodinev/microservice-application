@@ -5,12 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "IMAGES")
-public class Images extends AbstractAuditingEntity {
+public class Image extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,18 +19,17 @@ public class Images extends AbstractAuditingEntity {
     @Column(name = "URL")
     private String link;
 
-    @ManyToOne
-    private Content content;
+    @Lob
+    private byte[] byteData;
 
-    public Images() {
+    public Image() {
         super();
     }
 
-    public Images(long id, String link, Content content) {
+    public Image(long id, String link) {
         super();
         this.id = id;
         this.link = link;
-        this.content = content;
     }
 
     public long getId() {
@@ -49,12 +48,12 @@ public class Images extends AbstractAuditingEntity {
         this.link = link;
     }
 
-    public Content getContent() {
-        return content;
+    public byte[] getByteData() {
+        return byteData;
     }
 
-    public void setContent(Content content) {
-        this.content = content;
+    public void setByteData(byte[] byteData) {
+        this.byteData = byteData;
     }
 
 }

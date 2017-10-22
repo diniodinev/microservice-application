@@ -1,6 +1,7 @@
 package com.example.rss.service;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.rss.core.ProcessDnesBgHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
+import com.example.rss.entity.Image;
 import com.example.rss.entity.News;
 import com.example.rss.reading.ReadingDnesBgPage;
 import com.example.rss.repository.AuthorRepository;
@@ -40,6 +42,9 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
     @Autowired
     private DnesBgParams params;
 
+    @Autowired
+    private ImageService imageService;
+
     @Override
     @Transactional
     public News saveNews(Integer newsNumber) throws IOException {
@@ -59,9 +64,15 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
             return null;
         }
 
+        Image image = new Image();
+        image.setLink(page.extractInformationByTagAndAttribute(params.getContentImage(), "src"));
+        image.setByteData(imageService.extractData(image.getLink()));
+
         Content newsContent = new Content();
         newsContent.setNewsDescriptin(page.extractInformationByTag(params.getDescription()));
         newsContent.setNewsContent(page.extractInformationByTag(params.getContent()));
+        newsContent.setImages(Collections.singletonList(image));
+
 
         String authorNames = page.extractInformationByTag(params.getAuthor());
         Author newsAuthor = authorRepository.findOneByNames(authorNames);
@@ -69,8 +80,6 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         if (newsAuthor == null) {
             newsAuthor = new Author();
             newsAuthor.setNames(authorNames);
-        } else {
-            System.out.println("asd");
         }
 
         // News information
