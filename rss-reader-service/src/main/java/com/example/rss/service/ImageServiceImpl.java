@@ -17,6 +17,10 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public byte[] extractData(String urlPath) throws MalformedURLException {
+        if (urlPath == null) {
+            logger.warn("Link {} is empty.", urlPath);
+            return null;
+        }
         if (!new UrlValidator().isValid(urlPath)) {
             logger.warn("Link {} is not a valid URL", urlPath);
             return null;
