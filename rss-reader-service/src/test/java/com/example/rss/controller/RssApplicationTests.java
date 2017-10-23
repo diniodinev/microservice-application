@@ -56,6 +56,15 @@ public class RssApplicationTests {
     }
 
     @Test
+    public void testIfBlogPhotoIsProcessed() {
+        try {
+            getRandomDnesBgNewsController.getSpecificNews(227619);
+        } catch (IOException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void testLargeAmountOf100LastNews() {
         try {
             getRandomDnesBgNewsController.lastN(100);
