@@ -65,7 +65,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         }
 
         Image image = new Image();
-        image.setLink(page.extractInformationByTagAndAttribute(params.getContentImage(), "src"));
+        image.setLink(page.extractInformationByTagAndAttribute(params.getContent(), params.getContentImage(), "src"));
         image.setByteData(imageService.extractData(image.getLink()));
 
         Content newsContent = new Content();
