@@ -18,6 +18,11 @@ public class ReadingDnesBgPage extends ReadingPage {
     }
 
     @Override
+    public String getUrl(String identifier) {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.rootUrl.name()) + identifier;
+    }
+
+    @Override
     public String getUrl() {
         throw new NotImplementedException("This method is not supported.");
     }

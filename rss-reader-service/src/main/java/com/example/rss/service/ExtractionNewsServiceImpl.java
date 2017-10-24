@@ -1,7 +1,10 @@
 package com.example.rss.service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
@@ -64,18 +67,12 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
             return null;
         }
 
-        Image image = new Image();
-        if (!page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src")) {
-            image.setLink(
-                    page.extractInformationByTagAndAttribute(params.getContent(), params.getContentImage(), "src"));
-            image.setByteData(imageService.extractData(image.getLink()));
-        }
+        List<Image> images = extractSlideShowImages(number);
 
         Content newsContent = new Content();
         newsContent.setNewsDescriptin(page.extractInformationByTag(params.getDescription()));
         newsContent.setNewsContent(page.extractInformationByTag(params.getContent()));
-        newsContent.setImages(Collections.singletonList(image));
-
+        newsContent.setImages(images);
 
         String authorNames = page.extractInformationByTag(params.getAuthor());
         Author newsAuthor = authorRepository.findOneByNames(authorNames);
@@ -95,6 +92,40 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
 
         newsContent.setNews(newsToSave);
         return newsToSave;
+    }
+
+    private List<Image> extractSlideShowImages(int number) throws IOException, MalformedURLException {
+        ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
+
+        if (page == null) {
+            logger.warn("Page {} can not be processed.", number);
+            return null;
+        }
+        
+        List<Image> allImages = new LinkedList<>();
+        Image image;
+        if (!page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src")) {
+            image = new Image();
+            image.setLink(
+                    page.extractInformationByTagAndAttribute(params.getContent(), params.getContentImage(), "src"));
+            image.setByteData(imageService.extractData(image.getLink()));
+            allImages.add(image);
+        } else {
+            // ,image
+            int currentPhoto = 1;
+            do {
+                if (page == null) {
+                    logger.warn("Current slideshowpage {} can not be processed.", number);
+                    return null;
+                }
+                image = new Image();
+                image.setLink(
+                        page.extractInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src"));
+                allImages.add(image);
+                page = readingDnesBgPage.getPage(readingDnesBgPage.getUrl(number + ",image" + ++currentPhoto));
+            } while (page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src"));
+        }
+        return allImages;
     }
 
     // Contains Specific DnesBgLogic

@@ -39,4 +39,6 @@ public abstract class ReadingPage {
      * @return the URL representation
      */
     public abstract String getUrl(int number);
+
+    public abstract String getUrl(String identifier);
 }
