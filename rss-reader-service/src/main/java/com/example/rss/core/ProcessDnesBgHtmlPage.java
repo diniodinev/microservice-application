@@ -75,10 +75,23 @@ public class ProcessDnesBgHtmlPage {
     public String extractInformationByTagAndAttribute(String parentTag, String tagName, String attr)
             throws IOException {
         if (document.select(parentTag).first() != null) {
-            return document.select(parentTag).first().select(tagName).attr(attr);
+            String selected = document.select(parentTag).first().select(tagName).attr(attr);
+            return selected.length() > 0 ? selected : null;
         } else {
             logger.warn("For the specified document, there is no tag with name {} and attribute {}.", tagName, attr);
             return null;
+        }
+    }
+    
+    public boolean isPresentInformationByTagAndAttribute(String parentTag, String tagName, String attr)
+            throws IOException {
+        if (document.select(parentTag).first() != null) {
+            String selected = document.select(parentTag).first().select(tagName).attr(attr);
+            return selected.length() > 0 ? true : false;
+        } else {
+            logger.warn("For the specified document, there is no presence of tag with name {} and attribute {}.",
+                    tagName, attr);
+            return false;
         }
     }
 

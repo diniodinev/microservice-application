@@ -56,6 +56,11 @@ public class DnesBgParams {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.commentDownSelector.name());
     }
 
+    public String getSlideShow() {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.slideShowSelector.name());
+    }
+
+
 
 
 }

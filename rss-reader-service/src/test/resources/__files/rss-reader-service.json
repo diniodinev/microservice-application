@@ -22,6 +22,7 @@
         "site.dnesbg.descriptionSelector": "div.descr",
         "site.dnesbg.contentSelector": "#article_text",
         "site.dnesbg.contentImage": "img[src~=(images/photos|photos)]",
+		"site.dnesbg.slideShowSelector": "img[src~=(images/slideshows)]",
         "site.dnesbg.authorSelector": "a[title*=Всички]",
         "site.dnesbg.createdDateSelector": "div.art_author",
         "site.dnesbg.commentTextSelector": "div.comment_text",

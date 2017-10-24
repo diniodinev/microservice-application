@@ -42,6 +42,10 @@ public class CommentsServiceImpl implements CommentsService {
     public Iterable<Comment> extractComments(News news) {
         ProcessDnesBgHtmlPage page = readingPage.getPage(news.getUri());
 
+        if (page == null) {
+            logger.warn("Comments can not be processed. Error during extracting information for {}.", news.getUri());
+            return null;
+        }
         List<Comment> allComments = new LinkedList<>();
 
         Elements comments;
