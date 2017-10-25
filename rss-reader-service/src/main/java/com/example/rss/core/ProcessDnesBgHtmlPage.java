@@ -14,6 +14,7 @@ public class ProcessDnesBgHtmlPage {
     private static final Logger logger = LoggerFactory.getLogger(ProcessDnesBgHtmlPage.class);
 
     private Document document;
+    private String link;
 
     public ProcessDnesBgHtmlPage() {
         super();
@@ -21,6 +22,7 @@ public class ProcessDnesBgHtmlPage {
 
     public ProcessDnesBgHtmlPage(final String link) {
         logger.info("Reading news with url \n {}", link);
+        this.link = link;
         this.document = removeUnnecessaryElements(getDocument(link));
     }
 
@@ -30,6 +32,15 @@ public class ProcessDnesBgHtmlPage {
 
     public void setDocument(Document document) {
         this.document = document;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+        this.document = removeUnnecessaryElements(getDocument(link));
     }
 
     /**

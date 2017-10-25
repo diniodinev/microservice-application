@@ -67,7 +67,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
             return null;
         }
 
-        List<Image> images = extractSlideShowImages(number);
+        List<Image> images = extractSlideShowImages(page);
 
         Content newsContent = new Content();
         newsContent.setNewsDescriptin(page.extractInformationByTag(params.getDescription()));
@@ -94,11 +94,10 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         return newsToSave;
     }
 
-    private List<Image> extractSlideShowImages(int number) throws IOException, MalformedURLException {
-        ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
+    private List<Image> extractSlideShowImages(ProcessDnesBgHtmlPage page) throws IOException, MalformedURLException {
 
         if (page == null) {
-            logger.warn("Page {} can not be processed.", number);
+            logger.warn("Image extraction can't be done. Page is null.");
             return null;
         }
         
@@ -115,15 +114,16 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
             int currentPhoto = 1;
             do {
                 if (page == null) {
-                    logger.warn("Current slideshowpage {} can not be processed.", number);
+                    logger.warn("Current slideshowpage can not be accomplished.");
                     return null;
                 }
                 image = new Image();
                 image.setLink(
                         page.extractInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src"));
                 allImages.add(image);
-                page = readingDnesBgPage.getPage(readingDnesBgPage.getUrl(number + ",image" + ++currentPhoto));
-            } while (page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src"));
+                page.setLink(StringUtils.substringBefore(page.getLink(), ",image") + ",image" + ++currentPhoto);
+            } while (page != null
+                    && page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src"));
         }
         return allImages;
     }
