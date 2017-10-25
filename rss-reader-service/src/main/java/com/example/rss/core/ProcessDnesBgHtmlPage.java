@@ -74,7 +74,7 @@ public class ProcessDnesBgHtmlPage {
         }
     }
 
-    public String extractInformationByTag(String tagName) throws IOException {
+    public String extractInformationByTag(String tagName) {
         if (document.select(tagName).first() != null) {
             return document.select(tagName).first().text();
         } else {
@@ -83,8 +83,7 @@ public class ProcessDnesBgHtmlPage {
         }
     }
 
-    public String extractInformationByTagAndAttribute(String parentTag, String tagName, String attr)
-            throws IOException {
+    public String extractInformationByTagAndAttribute(String parentTag, String tagName, String attr) {
         if (document.select(parentTag).first() != null) {
             String selected = document.select(parentTag).first().select(tagName).attr(attr);
             return selected.length() > 0 ? selected : null;
@@ -93,9 +92,8 @@ public class ProcessDnesBgHtmlPage {
             return null;
         }
     }
-    
-    public boolean isPresentInformationByTagAndAttribute(String parentTag, String tagName, String attr)
-            throws IOException {
+
+    public boolean isPresentInformationByTagAndAttribute(String parentTag, String tagName, String attr) {
         if (document.select(parentTag).first() != null) {
             String selected = document.select(parentTag).first().select(tagName).attr(attr);
             return selected.length() > 0 ? true : false;

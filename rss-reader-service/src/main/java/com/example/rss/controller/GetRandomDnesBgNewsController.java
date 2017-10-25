@@ -2,6 +2,7 @@ package com.example.rss.controller;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,20 +48,23 @@ public class GetRandomDnesBgNewsController {
 
     @RequestMapping(value = "/random/{number}")
     public void randomNews(@PathVariable("number") int newsCount) throws IOException {
-        Integer newsNumber;
-        for (int i = 0; i < newsCount; i++) {
+
+        IntStream.range(0, newsCount).parallel().forEach(i -> {
+            Integer newsNumber;
             newsNumber = new Random()
                     .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
 
-            News saved = extractionNewsService.saveNews(newsNumber);
-            if (saved != null) {
-                commentsService.extractComments(saved);
-            }
+            News saved;
+                saved = extractionNewsService.saveNews(newsNumber);
+                if (saved != null) {
+                    commentsService.extractComments(saved);
+                }
         }
+        );
     }
 
     @RequestMapping(value = "/last/{number}")
-    public void lastN(@PathVariable("number") int newsCount) throws IOException {
+    public void lastN(@PathVariable("number") int newsCount) {
         Integer newsNumber;
         for (int i = 0; i < newsCount; i++) {
             newsNumber = Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name())) + 1 - i;

@@ -2,7 +2,6 @@ package com.example.rss.service;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -50,7 +49,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
 
     @Override
     @Transactional
-    public News saveNews(Integer newsNumber) throws IOException {
+    public News saveNews(Integer newsNumber) {
         News news = extractNews(newsNumber);
         if (news != null) {
             newsRepository.save(news);
@@ -58,7 +57,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         return news;
     }
 
-    private News extractNews(int number) throws IOException {
+    private News extractNews(int number) {
         String newsUrl = readingDnesBgPage.getUrl(number);
         ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
 
@@ -94,28 +93,31 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         return newsToSave;
     }
 
-    private List<Image> extractSlideShowImages(ProcessDnesBgHtmlPage page) throws IOException, MalformedURLException {
+    private List<Image> extractSlideShowImages(ProcessDnesBgHtmlPage page) {
 
         if (page == null) {
             logger.warn("Image extraction can't be done. Page is null.");
-            return null;
+            return new LinkedList<>();
         }
-        
+
         List<Image> allImages = new LinkedList<>();
         Image image;
         if (!page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src")) {
             image = new Image();
             image.setLink(
                     page.extractInformationByTagAndAttribute(params.getContent(), params.getContentImage(), "src"));
-            image.setByteData(imageService.extractData(image.getLink()));
+            try {
+                image.setByteData(imageService.extractData(image.getLink()));
+            } catch (MalformedURLException e) {
+                logger.warn("Image extraction can't be done. THe url is not valid {}.", image.getLink());
+            }
             allImages.add(image);
         } else {
-            // ,image
             int currentPhoto = 1;
             do {
                 if (page == null) {
                     logger.warn("Current slideshowpage can not be accomplished.");
-                    return null;
+                    return new LinkedList<>();
                 }
                 image = new Image();
                 image.setLink(
@@ -133,7 +135,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         logger.debug("Input date before transformation {}", date);
         DateTime createdDateTime = new DateTime();
         Locale locale = new java.util.Locale("bg", "BG");
-        // Replace 3 letters months with theri full representation in order JODA
+        // Replace 3 letters months with their full representation in order JODA
         // to parse them.
         date = CustomDateUtils.replaceWithFullMonthName(date);
         DateTimeFormatter dtf = DateTimeFormat.forPattern("dd MMM yyyy HH:mm").withLocale(locale);
@@ -142,7 +144,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
             if (!StringUtils.contains(date, '|')) {
                 createdDateTime = dtf.parseDateTime(date.subSequence(0, date.indexOf(',')).toString());
             } else {
-                // If news is changed get the inital date only.
+                // If news is changed get the initial date only.
                 String initial = StringUtils.substringAfter(date, "| ");
                 createdDateTime = dtf.parseDateTime(initial.subSequence(0, initial.indexOf(',')).toString());
             }

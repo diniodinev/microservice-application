@@ -7,6 +7,6 @@ import com.example.rss.entity.News;
 
 public interface CommentsService {
 
-    Iterable<Comment> extractComments(News news) throws IOException;
+    Iterable<Comment> extractComments(News news);
 
 }
