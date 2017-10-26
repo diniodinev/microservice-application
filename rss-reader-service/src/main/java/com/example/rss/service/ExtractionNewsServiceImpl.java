@@ -109,7 +109,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
             try {
                 image.setByteData(imageService.extractData(image.getLink()));
             } catch (MalformedURLException e) {
-                logger.warn("Image extraction can't be done. THe url is not valid {}.", image.getLink());
+                logger.warn("Image extraction can't be done. The url is not valid {}.", image.getLink());
             }
             allImages.add(image);
         } else {

@@ -39,11 +39,13 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public Iterable<Comment> extractComments(News news) {
-        ProcessDnesBgHtmlPage page = readingPage.getPage(news.getUri());
+    public Iterable<Comment> extractComments(int newsNumber) {
+        ProcessDnesBgHtmlPage page = readingPage
+                .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + 1);
 
         if (page == null) {
-            logger.warn("Comments can not be processed. Error during extracting information for {}.", news.getUri());
+            logger.warn("Comments can not be processed. Error during extracting information for {}.",
+                    params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + 1);
             return null;
         }
         List<Comment> allComments = new LinkedList<>();
@@ -59,7 +61,7 @@ public class CommentsServiceImpl implements CommentsService {
                 if (comments.isEmpty()) {
                     return null;
                 } else {
-                    List<Comment> pageComments = getSinglePageComments(news, ++currentPage);
+                    List<Comment> pageComments = getSinglePageComments(newsNumber, ++currentPage);
                     allCommentsPerPage = pageComments.size();
                     if (allCommentsPerPage > 0) {
                         allComments.addAll(pageComments);
@@ -72,8 +74,9 @@ public class CommentsServiceImpl implements CommentsService {
         return commentsRepository.save(allComments);
     }
 
-    private List<Comment> getSinglePageComments(News news, int currentNumber) {
-        ProcessDnesBgHtmlPage page = readingPage.getPage(news.getUri() + "," + currentNumber);
+    private List<Comment> getSinglePageComments(int newsNumber, int currentNumber) {
+        ProcessDnesBgHtmlPage page = readingPage
+                .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + currentNumber);
         List<Comment> commentsList = new LinkedList<>();
         try {
 
@@ -83,9 +86,9 @@ public class CommentsServiceImpl implements CommentsService {
             while (s.hasNext()) {
                 Element el = s.next();
                 Comment nextComment = new Comment();
-                nextComment.setRelatedNews(news);
+                // nextComment.setRelatedNews(news);
                 nextComment.setAuthorName(extractUsername(el.select(params.getCommentsUsername()).first().text()));
-                nextComment.setContent(el.select(params.getCommentsText()).first().text());
+                nextComment.setContent(el.select(params.getCommentsText()).get(1).text());
                 nextComment.setLikes(Integer.valueOf(el.select(params.getCommentsUp()).first().text()));
                 nextComment.setDislikes(Integer.valueOf(el.select(params.getCommentsDown()).first().text()));
                 commentsList.add(nextComment);

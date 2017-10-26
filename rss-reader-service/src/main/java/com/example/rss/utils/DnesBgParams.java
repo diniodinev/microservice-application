@@ -60,7 +60,12 @@ public class DnesBgParams {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.slideShowSelector.name());
     }
 
+    public String getCommentUrl() {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.commentUrl.name());
+    }
 
-
+    public String getCommentUrlSeparator() {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.commentUrlSeparator.name());
+    }
 
 }

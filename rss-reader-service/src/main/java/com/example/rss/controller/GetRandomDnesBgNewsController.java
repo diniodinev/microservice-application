@@ -42,7 +42,7 @@ public class GetRandomDnesBgNewsController {
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
         News saved = extractionNewsService.saveNews(newsNumber);
         if (saved != null) {
-            commentsService.extractComments(saved);
+            commentsService.extractComments(newsNumber);
         }
     }
 
@@ -57,7 +57,7 @@ public class GetRandomDnesBgNewsController {
             News saved;
                 saved = extractionNewsService.saveNews(newsNumber);
                 if (saved != null) {
-                    commentsService.extractComments(saved);
+                commentsService.extractComments(newsNumber);
                 }
         }
         );
@@ -71,7 +71,7 @@ public class GetRandomDnesBgNewsController {
 
             News saved = extractionNewsService.saveNews(newsNumber);
             if (saved != null) {
-                commentsService.extractComments(saved);
+                commentsService.extractComments(newsNumber);
             }
         }
     }
@@ -80,7 +80,7 @@ public class GetRandomDnesBgNewsController {
     public void getSpecificNews(@PathVariable("id") int newsId) throws IOException {
         News saved = extractionNewsService.saveNews(newsId);
         if (saved != null) {
-            commentsService.extractComments(saved);
+            commentsService.extractComments(newsId);
         }
     }
 
