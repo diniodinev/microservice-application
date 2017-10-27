@@ -28,7 +28,7 @@
         "site.dnesbg.authorSelector": "a[title*=Всички]",
         "site.dnesbg.createdDateSelector": "div.art_author",
         "site.dnesbg.commentTextSelector": "div.right",
-        "site.dnesbg.commentUsernameSelector": "div.comment_user",
+        "site.dnesbg.commentUsernameSelector": "div.author-name",
         "site.dnesbg.commentBoxSelector": "div.comment-box",
         "site.dnesbg.commentUpSelector": "a[class*=comments-grades-up]",
         "site.dnesbg.commentDownSelector": "a[class*=comments-grades-down]",
