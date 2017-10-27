@@ -16,7 +16,7 @@
         "site.dnesbg.world": "http://www.dnes.bg/rss.php?cat=2",
         "site.dnesbg.technologies": "http://www.dnes.bg/rss.php?cat=4",
         "site.dnesbg.rootUrl": "http://www.dnes.bg/eu/2017/10/03/.",
-		"site.dnesbg.commentUrl": "http://www.dnes.bg/eu/2017/10/03/.",
+		"site.dnesbg.commentUrl": "http://m.dnes.bg/comments.php?id=",
 		"site.dnesbg.commentUrlSeparator": "&cp=",
         "site.dnesbg.last": 357425,
         "site.dnesbg.datetimeFormatter": "dd MMM yyyy HH:mm",

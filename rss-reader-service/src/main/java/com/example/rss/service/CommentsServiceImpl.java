@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.rss.core.ProcessDnesBgHtmlPage;
 import com.example.rss.entity.Comment;
-import com.example.rss.entity.News;
 import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.CommentsRepository;
 import com.example.rss.utils.DnesBgParams;
