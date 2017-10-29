@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.rss.resources.BbcNewsResourceAssemblers;
 import com.example.rss.resources.NewsResource;
 import com.example.rss.service.RssReaderService;
-import com.rometools.rome.feed.synd.SyndEntry;
 
 @RestController
 @RefreshScope
 @RequestMapping(value = "/bbc")
-public class BbcController {
+public class BbcController extends AbstractController {
 
     @Value("${site.bbc.topstories}")
     private String bbcTopstoris;
@@ -40,7 +39,7 @@ public class BbcController {
     @RequestMapping(value = "/topstories", method = RequestMethod.GET)
     public NewsResource getBbcTopStories() {
         return bbcNewsResourceAssemblers
-                .toResource((SyndEntry) rssReaderService.readFeed(bbcTopstoris).getEntries().get(0));
+                .toResource(rssReaderService.readFeed(bbcTopstoris).getEntries().get(0));
     }
 
     @RequestMapping(value = "/topstories/all", method = RequestMethod.GET)
@@ -51,7 +50,7 @@ public class BbcController {
     @RequestMapping(value = "/world", method = RequestMethod.GET)
     public NewsResource getBbcWorld() {
         return bbcNewsResourceAssemblers
-                .toResource((SyndEntry) rssReaderService.readFeed(bbcWorld).getEntries().get(0));
+                .toResource(rssReaderService.readFeed(bbcWorld).getEntries().get(0));
     }
 
     @RequestMapping(value = "/world/all", method = RequestMethod.GET)
@@ -61,7 +60,7 @@ public class BbcController {
 
     @RequestMapping(value = "/bbcUk", method = RequestMethod.GET)
     public NewsResource getBbcUk() {
-        return bbcNewsResourceAssemblers.toResource((SyndEntry) rssReaderService.readFeed(bbcUk).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcUk).getEntries().get(0));
     }
 
     @RequestMapping(value = "/bbcUk/all", method = RequestMethod.GET)
@@ -72,7 +71,7 @@ public class BbcController {
     @RequestMapping(value = "/science", method = RequestMethod.GET)
     public NewsResource getBbcScience() {
         return bbcNewsResourceAssemblers
-                .toResource((SyndEntry) rssReaderService.readFeed(bbcScience).getEntries().get(0));
+                .toResource(rssReaderService.readFeed(bbcScience).getEntries().get(0));
     }
 
     @RequestMapping(value = "/science/all", method = RequestMethod.GET)

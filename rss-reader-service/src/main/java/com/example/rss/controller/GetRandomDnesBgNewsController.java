@@ -19,7 +19,7 @@ import com.example.rss.service.ExtractionNewsService;
 
 @RestController
 @RequestMapping(value = "/dnesbg")
-public class GetRandomDnesBgNewsController {
+public class GetRandomDnesBgNewsController extends AbstractController {
 
     @Autowired
     NewsRepository newsRepository;
