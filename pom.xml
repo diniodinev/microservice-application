@@ -27,5 +27,17 @@
     <module>rss-reader-service</module>
   </modules>
 
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <executable>false</executable>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
  
 </project>
