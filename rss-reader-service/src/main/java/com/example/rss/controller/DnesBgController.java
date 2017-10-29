@@ -14,6 +14,7 @@ import com.example.rss.resources.DnesbgNewsResourceAssemblers;
 import com.example.rss.service.RssReaderService;
 
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RefreshScope
@@ -29,24 +30,25 @@ public class DnesBgController extends AbstractController {
     private String dnesbgWorld;
 
     @Autowired
-    DnesbgNewsResourceAssemblers newsResourceAssemblers;
+    private DnesbgNewsResourceAssemblers newsResourceAssemblers;
 
     @Autowired
-    RssReaderService rssReaderService;
+    private RssReaderService rssReaderService;
 
     @RequestMapping("/project-name")
 
+    @ApiIgnore
     public String projectName() {
         return this.projectName;
     }
 
-    @ApiOperation(value = "Get todays'news as Rss", notes = "This is only basic information for the today's news.", response = NewsResource.class)
+    @ApiOperation(value = "Get todays'news as Rss.", notes = "This is only basic information for the today's news.", response = NewsResource.class)
     @RequestMapping(value = "/dnesbg/today", method = RequestMethod.GET)
     public NewsResource getDnesBgToday() {
         return newsResourceAssemblers.toResource(rssReaderService.readFeed(dnesbgToday).getEntries().get(0));
     }
 
-    @ApiOperation(value = "Get All todays'news as Rss", notes = "This is only basic information for all today's news.")
+    @ApiOperation(value = "Get All todays'news as Rss.", notes = "This is only basic information for all today's news.")
     @RequestMapping(value = "/dnesbg/today/all", method = RequestMethod.GET)
     public List<NewsResource> getAllNewsToday() {
         return newsResourceAssemblers.toResources(rssReaderService.readFeed(dnesbgToday).getEntries());

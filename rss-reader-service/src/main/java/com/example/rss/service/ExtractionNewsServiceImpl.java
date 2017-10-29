@@ -62,7 +62,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
 
         if (page == null) {
-            logger.warn("Page {} can not be processed.", number);
+            logger.warn("Page {} can not be processed. 404", number);
             return null;
         }
 

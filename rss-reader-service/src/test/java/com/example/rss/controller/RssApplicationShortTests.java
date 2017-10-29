@@ -23,7 +23,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = { "spring.cloud.config.uri=http://localhost:12345", "eureka.client.enabled=false",
         "spring.datasource.url=jdbc:h2:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" }, webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
-public class RssApplicationTests {
+public class RssApplicationShortTests {
 
     @ClassRule
     public static WireMockClassRule wiremock = new WireMockClassRule(WireMockSpring.options().port(12345));
@@ -41,7 +41,6 @@ public class RssApplicationTests {
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
-
     }
 
     @Test
@@ -57,29 +56,6 @@ public class RssApplicationTests {
     public void testIfNoImage() {
         try {
             getRandomDnesBgNewsController.getSpecificNews(18658);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void testSlideShowImages() {
-        try {
-            getRandomDnesBgNewsController.getSpecificNews(357158);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void testLargeAmountOf100LastNews() {
-            getRandomDnesBgNewsController.lastN(100);
-    }
-
-    @Test
-    public void testLargeAmountOf100RandomNews() {
-        try {
-            getRandomDnesBgNewsController.randomNews(100);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }

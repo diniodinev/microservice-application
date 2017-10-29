@@ -15,7 +15,6 @@ import com.example.rss.service.RssReaderService;
 
 @RestController
 @RefreshScope
-@RequestMapping(value = "/bbc")
 public class BbcController extends AbstractController {
 
     @Value("${site.bbc.topstories}")
@@ -36,45 +35,42 @@ public class BbcController extends AbstractController {
     @Autowired
     RssReaderService rssReaderService;
 
-    @RequestMapping(value = "/topstories", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/topstories", method = RequestMethod.GET)
     public NewsResource getBbcTopStories() {
-        return bbcNewsResourceAssemblers
-                .toResource(rssReaderService.readFeed(bbcTopstoris).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcTopstoris).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/topstories/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/topstories/all", method = RequestMethod.GET)
     public List<NewsResource> getAllBbcTopStories() {
         return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcTopstoris).getEntries());
     }
 
-    @RequestMapping(value = "/world", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/world", method = RequestMethod.GET)
     public NewsResource getBbcWorld() {
-        return bbcNewsResourceAssemblers
-                .toResource(rssReaderService.readFeed(bbcWorld).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcWorld).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/world/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/world/all", method = RequestMethod.GET)
     public List<NewsResource> getAllBbcWorld() {
         return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcWorld).getEntries());
     }
 
-    @RequestMapping(value = "/bbcUk", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/bbcUk", method = RequestMethod.GET)
     public NewsResource getBbcUk() {
         return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcUk).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/bbcUk/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/bbcUk/all", method = RequestMethod.GET)
     public List<NewsResource> getAllBbcUk() {
         return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcUk).getEntries());
     }
 
-    @RequestMapping(value = "/science", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/science", method = RequestMethod.GET)
     public NewsResource getBbcScience() {
-        return bbcNewsResourceAssemblers
-                .toResource(rssReaderService.readFeed(bbcScience).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcScience).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/science/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/bbc/science/all", method = RequestMethod.GET)
     public List<NewsResource> getAllBbcScience() {
         return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcScience).getEntries());
     }

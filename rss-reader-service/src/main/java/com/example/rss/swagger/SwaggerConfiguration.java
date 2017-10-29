@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -41,28 +42,21 @@ public class SwaggerConfiguration extends WebMvcConfigurerAdapter {
     }
 
     private ApiInfo getApiInfo() {
-        return new ApiInfoBuilder().title("Rss news API").description("Rss Reader").contact("dev.example@example.com")
+
+        return new ApiInfoBuilder().title("Rss news API").description("Rss Reader")
+                .contact(new Contact("Dinyo DInev", "", "dev.example@example.com"))
                 .version("v1").build();
     }
 
     @SuppressWarnings("unchecked")
     private Predicate<String> getApiPaths() {
-        return or(regex("/dnesbg/.*"), regex("/v1/.*"));
+        return or(regex("/v1/.*"));
     }
 
-    /**
-     * Adding the property spring.resources.add-mappings: false to the
-     * application.yml was required for OP-404; in order to stop spring
-     * exceptions being returned instead of json error blocks. But adding that
-     * flag stopped access to resources; so now they have to be manually added.
-     * And this includes access to the swagger html.
-     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

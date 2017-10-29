@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.config.DnesbgProperties;
@@ -18,25 +19,24 @@ import com.example.rss.service.DnesBgParamEnum;
 import com.example.rss.service.ExtractionNewsService;
 
 @RestController
-@RequestMapping(value = "/dnesbg")
 public class GetRandomDnesBgNewsController extends AbstractController {
 
     @Autowired
-    NewsRepository newsRepository;
+    private NewsRepository newsRepository;
 
     @Autowired
-    CommentsRepository commentsRepository;
+    private CommentsRepository commentsRepository;
 
     @Autowired
-    ExtractionNewsService extractionNewsService;
+    private ExtractionNewsService extractionNewsService;
 
     @Autowired
-    CommentsService commentsService;
+    private CommentsService commentsService;
 
     @Autowired
     private DnesbgProperties serviceProperties;
 
-    @RequestMapping(value = "/random")
+    @RequestMapping(value = "/dnesbg/random", method = RequestMethod.GET)
     public void randomNews() throws IOException {
         Integer newsNumber = new Random()
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
@@ -46,7 +46,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
         }
     }
 
-    @RequestMapping(value = "/random/{number}")
+    @RequestMapping(value = "/dnesbg/random/{number}", method = RequestMethod.GET)
     public void randomNews(@PathVariable("number") int newsCount) throws IOException {
 
         IntStream.range(0, newsCount).parallel().forEach(i -> {
@@ -55,15 +55,14 @@ public class GetRandomDnesBgNewsController extends AbstractController {
                     .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
 
             News saved;
-                saved = extractionNewsService.saveNews(newsNumber);
-                if (saved != null) {
+            saved = extractionNewsService.saveNews(newsNumber);
+            if (saved != null) {
                 commentsService.extractComments(newsNumber);
-                }
-        }
-        );
+            }
+        });
     }
 
-    @RequestMapping(value = "/last/{number}")
+    @RequestMapping(value = "/dnesbg/last/{number}", method = RequestMethod.GET)
     public void lastN(@PathVariable("number") int newsCount) {
         Integer newsNumber;
         for (int i = 0; i < newsCount; i++) {
@@ -76,7 +75,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
         }
     }
 
-    @RequestMapping(value = "/{id}")
+    @RequestMapping(value = "/dnesbg/{id}", method = RequestMethod.GET)
     public void getSpecificNews(@PathVariable("id") int newsId) throws IOException {
         News saved = extractionNewsService.saveNews(newsId);
         if (saved != null) {
