@@ -26,7 +26,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 public class RssLongRunningTests {
 
     @ClassRule
-    public static WireMockClassRule wiremock = new WireMockClassRule(WireMockSpring.options().port(12345));
+    public static WireMockClassRule wiremock = new WireMockClassRule(WireMockSpring.options().port(12346));
 
     @Autowired
     GetRandomDnesBgNewsController getRandomDnesBgNewsController;
