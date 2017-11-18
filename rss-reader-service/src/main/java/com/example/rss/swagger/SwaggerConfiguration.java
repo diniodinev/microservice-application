@@ -44,8 +44,7 @@ public class SwaggerConfiguration extends WebMvcConfigurerAdapter {
     private ApiInfo getApiInfo() {
 
         return new ApiInfoBuilder().title("Rss news API").description("Rss Reader")
-                .contact(new Contact("Dinyo DInev", "", "dev.example@example.com"))
-                .version("v1").build();
+                .contact(new Contact("Dinyo DInev", "", "dev.example@example.com")).version("v1").build();
     }
 
     @SuppressWarnings("unchecked")

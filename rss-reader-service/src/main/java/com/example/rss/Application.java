@@ -13,7 +13,7 @@ import com.example.rss.config.security.AuditorAwareImpl;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableJpaAuditing(auditorAwareRef="auditorProvider")
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class Application {
 
     @Autowired
@@ -24,7 +24,7 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-    
+
     @Bean
     AuditorAware<String> auditorProvider() {
         return new AuditorAwareImpl();

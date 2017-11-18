@@ -25,17 +25,17 @@ public class Content extends AbstractAuditingEntity {
     private long id;
 
     @Column(name = "CONTENT")
-    @Type(type="text")  
+    @Type(type = "text")
     private String newsContent;
-    
+
     @Column(name = "DESCRIPTION")
     private String newsDescriptin;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "Image_Id", referencedColumnName = "id")
     private List<Image> images;
-    
-    @OneToOne(mappedBy="newsContant")
+
+    @OneToOne(mappedBy = "newsContant")
     private News news;
 
     public Content() {

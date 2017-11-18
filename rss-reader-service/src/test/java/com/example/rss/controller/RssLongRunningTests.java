@@ -34,7 +34,6 @@ public class RssLongRunningTests {
     @Autowired
     ExtractionNewsService extractionNewsService;
 
-
     @Test
     public void testSlideShowImages() {
         try {
@@ -70,4 +69,3 @@ public class RssLongRunningTests {
         }
     }
 }
-

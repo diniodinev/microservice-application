@@ -64,5 +64,5 @@ public abstract class AbstractAuditingEntity {
     public void setLastModifiedDate(DateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
-    
+
 }

@@ -39,6 +39,5 @@ public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndE
 
         return resources;
     }
-    
 
 }
