@@ -22,7 +22,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = { "spring.cloud.config.uri=http://localhost:12346", "eureka.client.enabled=false",
-        "spring.datasource.url=jdbc:h2:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" }, webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
+        "spring.datasource.url=jdbc:hsqldb:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" }, webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
 public class RssLongRunningTests {
 
     @ClassRule
@@ -61,7 +61,7 @@ public class RssLongRunningTests {
     public static void logout() {
         try {
             Connection conn = DriverManager
-                    .getConnection("jdbc:h2:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
+                    .getConnection("jdbc:hsqldb:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
             conn.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block

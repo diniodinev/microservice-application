@@ -18,7 +18,6 @@
   <properties>
     <spring-cloud.version>Dalston.RELEASE</spring-cloud.version>
     <java.version>1.8</java.version>
-    <dbh2.version>1.4.187</dbh2.version>
   </properties>
   
   <modules>
