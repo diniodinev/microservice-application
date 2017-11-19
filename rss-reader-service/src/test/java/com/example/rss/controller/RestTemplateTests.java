@@ -18,13 +18,6 @@ public class RestTemplateTests extends BaseIntegrationTest {
     private static final String VERSION_PREFIX = "/v1";
 
     @Test
-    public void testOldDnesbgNotAccessable() {
-        ResponseEntity<String> responseException = this.restTemplate.getForEntity("/dnesbg/today", String.class);
-        responseException.getStatusCode().compareTo(HttpStatus.NOT_FOUND);
-
-    }
-
-    @Test
     public void testLastDnesbg() {
         String body = this.restTemplate.getForObject(VERSION_PREFIX + "/dnesbg/today", String.class);
         assertThat(body, containsString("title"));
