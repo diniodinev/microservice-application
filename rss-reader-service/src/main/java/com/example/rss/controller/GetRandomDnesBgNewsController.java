@@ -37,7 +37,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
     private DnesbgProperties serviceProperties;
 
     @RequestMapping(value = "/dnesbg/random", method = RequestMethod.GET)
-    public void randomNews() throws IOException {
+    public void randomNews() {
         Integer newsNumber = new Random()
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
         News saved = extractionNewsService.saveNews(newsNumber);
@@ -47,7 +47,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
     }
 
     @RequestMapping(value = "/dnesbg/random/{number}", method = RequestMethod.GET)
-    public void randomNews(@PathVariable("number") int newsCount) throws IOException {
+    public void randomNews(@PathVariable("number") int newsCount) {
 
         IntStream.range(0, newsCount).parallel().forEach(i -> {
             Integer newsNumber;
@@ -76,7 +76,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
     }
 
     @RequestMapping(value = "/dnesbg/{id}", method = RequestMethod.GET)
-    public void getSpecificNews(@PathVariable("id") int newsId) throws IOException {
+    public void getSpecificNews(@PathVariable("id") int newsId) {
         News saved = extractionNewsService.saveNews(newsId);
         if (saved != null) {
             commentsService.extractComments(newsId);

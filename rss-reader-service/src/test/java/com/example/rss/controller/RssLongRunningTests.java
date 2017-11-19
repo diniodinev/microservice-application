@@ -1,12 +1,10 @@
 package com.example.rss.controller;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,8 +19,11 @@ import com.example.rss.service.ExtractionNewsService;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = { "spring.cloud.config.uri=http://localhost:12346", "eureka.client.enabled=false",
-        "spring.datasource.url=jdbc:hsqldb:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" }, webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
+@SpringBootTest(
+        properties = { "spring.cloud.config.uri=http://localhost:12346", "eureka.client.enabled=false",
+                "spring.datasource.url=jdbc:hsqldb:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" },
+        webEnvironment = WebEnvironment.RANDOM_PORT,
+        classes = Application.class)
 public class RssLongRunningTests {
 
     @ClassRule
@@ -36,11 +37,7 @@ public class RssLongRunningTests {
 
     @Test
     public void testSlideShowImages() {
-        try {
-            getRandomDnesBgNewsController.getSpecificNews(357158);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
+        getRandomDnesBgNewsController.getSpecificNews(357158);
     }
 
     @Test
@@ -50,11 +47,7 @@ public class RssLongRunningTests {
 
     @Test
     public void testLargeAmountOf25RandomNews() {
-        try {
-            getRandomDnesBgNewsController.randomNews(25);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
+        getRandomDnesBgNewsController.randomNews(25);
     }
 
     @AfterClass

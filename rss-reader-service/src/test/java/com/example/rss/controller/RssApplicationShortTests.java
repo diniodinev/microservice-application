@@ -21,8 +21,11 @@ import com.example.rss.service.ExtractionNewsService;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(properties = { "spring.cloud.config.uri=http://localhost:12345", "eureka.client.enabled=false",
-        "spring.datasource.url=jdbc:hsqldb:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" }, webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
+@SpringBootTest(
+        properties = { "spring.cloud.config.uri=http://localhost:12345", "eureka.client.enabled=false",
+                "spring.datasource.url=jdbc:hsqldb:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" },
+        webEnvironment = WebEnvironment.RANDOM_PORT,
+        classes = Application.class)
 public class RssApplicationShortTests {
 
     @ClassRule
@@ -36,29 +39,17 @@ public class RssApplicationShortTests {
 
     @Test
     public void testIf404PageIsHitDoNotThrowException() {
-        try {
-            getRandomDnesBgNewsController.getSpecificNews(356084);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
+        getRandomDnesBgNewsController.getSpecificNews(356084);
     }
 
     @Test
     public void testIfBlogPhotoIsProcessed() {
-        try {
-            getRandomDnesBgNewsController.getSpecificNews(227619);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
+        getRandomDnesBgNewsController.getSpecificNews(227619);
     }
 
     @Test
     public void testIfNoImage() {
-        try {
-            getRandomDnesBgNewsController.getSpecificNews(18658);
-        } catch (IOException e) {
-            Assert.fail(e.getMessage());
-        }
+        getRandomDnesBgNewsController.getSpecificNews(18658);
     }
 
     @AfterClass
