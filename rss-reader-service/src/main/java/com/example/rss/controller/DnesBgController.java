@@ -42,7 +42,10 @@ public class DnesBgController extends AbstractController {
         return this.projectName;
     }
 
-    @ApiOperation(value = "Get todays'news as Rss.", notes = "This is only basic information for the today's news.", response = NewsResource.class)
+    @ApiOperation(
+            value = "Get todays'news as Rss.",
+            notes = "This is only basic information for the today's news.",
+            response = NewsResource.class)
     @RequestMapping(value = "/dnesbg/today", method = RequestMethod.GET)
     public NewsResource getDnesBgToday() {
         return newsResourceAssemblers.toResource(rssReaderService.readFeed(dnesbgToday).getEntries().get(0));
@@ -54,13 +57,17 @@ public class DnesBgController extends AbstractController {
         return newsResourceAssemblers.toResources(rssReaderService.readFeed(dnesbgToday).getEntries());
     }
 
-    @ApiOperation(value = "Get last todays news for the World Category as RSS.", notes = "This is only basic information for the last today's news from World category.")
+    @ApiOperation(
+            value = "Get last todays news for the World Category as RSS.",
+            notes = "This is only basic information for the last today's news from World category.")
     @RequestMapping(value = "/dnesbg/world", method = RequestMethod.GET)
     public NewsResource getDnesBgWorld() {
         return newsResourceAssemblers.toResource(rssReaderService.readFeed(dnesbgWorld).getEntries().get(0));
     }
 
-    @ApiOperation(value = "Get All todays'news for the World Category as RSS.", notes = "This is only basic information for all today's news from World category.")
+    @ApiOperation(
+            value = "Get All todays'news for the World Category as RSS.",
+            notes = "This is only basic information for all today's news from World category.")
     @RequestMapping(value = "/dnesbg/world/all", method = RequestMethod.GET)
     public List<NewsResource> getAllNewsWorld() {
         return newsResourceAssemblers.toResources(rssReaderService.readFeed(dnesbgWorld).getEntries());

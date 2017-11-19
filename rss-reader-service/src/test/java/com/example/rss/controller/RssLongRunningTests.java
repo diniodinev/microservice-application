@@ -44,14 +44,14 @@ public class RssLongRunningTests {
     }
 
     @Test
-    public void testLargeAmountOf100LastNews() {
-        getRandomDnesBgNewsController.lastN(100);
+    public void testLargeAmountOf25LastNews() {
+        getRandomDnesBgNewsController.lastN(25);
     }
 
     @Test
-    public void testLargeAmountOf100RandomNews() {
+    public void testLargeAmountOf25RandomNews() {
         try {
-            getRandomDnesBgNewsController.randomNews(100);
+            getRandomDnesBgNewsController.randomNews(25);
         } catch (IOException e) {
             Assert.fail(e.getMessage());
         }
