@@ -1,6 +1,5 @@
 package com.example.rss.controller;
 
-import java.io.IOException;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -12,20 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.config.DnesbgProperties;
 import com.example.rss.entity.News;
-import com.example.rss.repository.CommentsRepository;
-import com.example.rss.repository.NewsRepository;
+import com.example.rss.resources.DetailsNewsResource;
+import com.example.rss.resources.assemblers.DetailsNewsAssembler;
 import com.example.rss.service.CommentsService;
 import com.example.rss.service.DnesBgParamEnum;
 import com.example.rss.service.ExtractionNewsService;
 
 @RestController
 public class GetRandomDnesBgNewsController extends AbstractController {
-
-    @Autowired
-    private NewsRepository newsRepository;
-
-    @Autowired
-    private CommentsRepository commentsRepository;
 
     @Autowired
     private ExtractionNewsService extractionNewsService;
@@ -36,14 +29,18 @@ public class GetRandomDnesBgNewsController extends AbstractController {
     @Autowired
     private DnesbgProperties serviceProperties;
 
+    @Autowired
+    private DetailsNewsAssembler detailsNewsAssembler;
+
     @RequestMapping(value = "/dnesbg/random", method = RequestMethod.GET)
-    public void randomNews() {
+    public DetailsNewsResource randomNews() {
         Integer newsNumber = new Random()
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
         News saved = extractionNewsService.saveNews(newsNumber);
         if (saved != null) {
             commentsService.extractComments(newsNumber);
         }
+        return detailsNewsAssembler.toResource(saved);
     }
 
     @RequestMapping(value = "/dnesbg/random/{number}", method = RequestMethod.GET)

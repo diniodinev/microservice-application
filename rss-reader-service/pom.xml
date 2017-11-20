@@ -70,10 +70,10 @@
 
     <!-- H2 DB -->
     <dependency>
-		<groupId>org.hsqldb</groupId>
-		<artifactId>hsqldb</artifactId>
-	</dependency>
-    
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -149,6 +149,30 @@
       <artifactId>springfox-swagger-ui</artifactId>
       <version>2.7.0</version>
     </dependency>
+
+    <!-- Feign Dependencies -->
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-okhttp</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-gson</artifactId>
+      <version>9.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-slf4j</artifactId>
+    </dependency>
+  <!-- <dependency> -->
+  <!-- <groupId>org.springframework.cloud</groupId> -->
+  <!-- <artifactId>spring-cloud-starter-zuul</artifactId> -->
+  <!-- </dependency> -->
+  <!-- <dependency> -->
+  <!-- <groupId>org.springframework.cloud</groupId> -->
+  <!-- <artifactId>spring-cloud-starter-zookeeper-discovery</artifactId> -->
+  <!-- </dependency> -->
+
   </dependencies>
 
 </project>

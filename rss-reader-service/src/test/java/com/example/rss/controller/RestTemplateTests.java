@@ -2,7 +2,7 @@ package com.example.rss.controller;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-import org.mockito.internal.matchers.GreaterThan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,9 @@ import wiremock.org.eclipse.jetty.http.HttpHeader;
 
 public class RestTemplateTests extends BaseIntegrationTest {
 
+    /**
+     * RestTemplate is used for making the synchronous call
+     */
     @Autowired
     TestRestTemplate restTemplate;
 

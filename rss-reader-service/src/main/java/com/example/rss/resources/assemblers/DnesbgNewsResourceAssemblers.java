@@ -1,4 +1,4 @@
-package com.example.rss.resources;
+package com.example.rss.resources.assemblers;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -10,6 +10,7 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import com.example.rss.controller.DnesBgController;
+import com.example.rss.resources.NewsResource;
 import com.rometools.rome.feed.synd.SyndEntry;
 
 @Component

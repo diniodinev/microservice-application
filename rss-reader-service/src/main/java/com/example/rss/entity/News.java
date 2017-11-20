@@ -16,10 +16,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "NEWS")
 @Access(value = AccessType.FIELD)
+@Component
 public class News extends AbstractAuditingEntity {
 
     @Id
