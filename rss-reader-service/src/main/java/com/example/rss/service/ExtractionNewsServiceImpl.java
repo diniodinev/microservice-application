@@ -1,5 +1,6 @@
 package com.example.rss.service;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +106,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         if (!page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src")) {
             image = new Image();
             image.setLink(
-                    page.extractInformationByTagAndAttribute(params.getContent(), params.getContentImage(), "src"));
+                    page.extractInformationByTagAndAttribute(params.getUriImage(), params.getContentImage(), "src"));
             try {
                 image.setByteData(imageService.extractData(image.getLink()));
             } catch (MalformedURLException e) {
@@ -112,23 +114,27 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
             }
             allImages.add(image);
         } else {
-            int currentPhoto = 1;
-            do {
-                if (page == null) {
-                    logger.warn("Current slideshowpage can not be accomplished.");
-                    return new LinkedList<>();
+            try {
+                for (Element elementImage : page.extractElementsByTag(params.getSlideShowAllImagesParentSelector())) {
+                    image = new Image();
+                    image.setLink(normalizeDnesBgUrl(elementImage.select(params.getSlideShowAllImagesParentSelector())
+                            .first().select("img").attr("src")));
+                    image.setByteData(imageService.extractData(image.getLink()));
+                    allImages.add(image);
+                    logger.debug(String.format("Processed slideshow image: %s", image.getLink()));
+
                 }
-                image = new Image();
-                image.setLink(
-                        page.extractInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src"));
-                allImages.add(image);
-                page.setLink(StringUtils.substringBefore(page.getLink(), ",image") + ",image" + ++currentPhoto);
-            } while (page != null
-                    && page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
         return allImages;
     }
 
+    private String normalizeDnesBgUrl(String url) {
+        return StringUtils.replaceOnce(url, "//", "http://");
+    }
     // Contains Specific DnesBgLogic
     private DateTime extractNewsCreatedDate(String date) {
         logger.debug("Input date before transformation {}", date);

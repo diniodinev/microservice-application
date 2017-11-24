@@ -24,6 +24,10 @@ public class DnesBgParams {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.contentImage.name());
     }
 
+    public String getUriImage() {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.uriImageSelector.name());
+    }
+
     public String getAuthor() {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.authorSelector.name());
     }
@@ -75,6 +79,10 @@ public class DnesBgParams {
 
     public String getCommentUrlSeparator() {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.commentUrlSeparator.name());
+    }
+
+    public String getSlideShowAllImagesParentSelector() {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.slideShowAllImagesParentSelector.name());
     }
 
 }
