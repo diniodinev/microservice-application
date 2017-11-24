@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.rss.core.BaseNewsHtmlPage;
 import com.example.rss.core.DnesBgHtmlPage;
 import com.example.rss.entity.Comment;
 import com.example.rss.reading.ReadingPage;
@@ -39,7 +40,7 @@ public class CommentsServiceImpl implements CommentsService {
 
     @Override
     public Iterable<Comment> extractComments(int newsNumber) {
-        DnesBgHtmlPage page = readingPage
+        BaseNewsHtmlPage page = readingPage
                 .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + 1);
 
         if (page == null) {
@@ -74,7 +75,7 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     private List<Comment> getSinglePageComments(int newsNumber, int currentNumber) {
-        DnesBgHtmlPage page = readingPage
+        BaseNewsHtmlPage page = readingPage
                 .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + currentNumber);
         List<Comment> commentsList = new LinkedList<>();
         try {

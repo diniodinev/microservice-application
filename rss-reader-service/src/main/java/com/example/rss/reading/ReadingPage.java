@@ -3,26 +3,26 @@ package com.example.rss.reading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.rss.core.DnesBgHtmlPage;
+import com.example.rss.core.BaseNewsHtmlPage;
 
 public abstract class ReadingPage {
 
     private static final Logger logger = LoggerFactory.getLogger(ReadingPage.class);
 
-    public DnesBgHtmlPage getPage(int number) {
+    public BaseNewsHtmlPage getPage(int number) {
         String newsUrl = getUrl(number);
-        DnesBgHtmlPage page = new DnesBgHtmlPage(newsUrl);
+        BaseNewsHtmlPage page = new BaseNewsHtmlPage(newsUrl);
         if (page.getDocument() == null) {
             return null;
         }
         return page;
     }
 
-    public DnesBgHtmlPage getPage(String uri) {
+    public BaseNewsHtmlPage getPage(String uri) {
         if (logger.isDebugEnabled()) {
             logger.debug("Processing uri {}", uri);
         }
-        DnesBgHtmlPage page = new DnesBgHtmlPage(uri);
+        BaseNewsHtmlPage page = new BaseNewsHtmlPage(uri);
         if (page.getDocument() == null) {
             return null;
         }

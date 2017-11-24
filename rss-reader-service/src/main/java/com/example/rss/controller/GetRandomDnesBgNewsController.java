@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.rss.config.DnesbgProperties;
 import com.example.rss.entity.News;
 import com.example.rss.service.CommentsService;
-import com.example.rss.service.DnesBgParamEnum;
 import com.example.rss.service.ExtractionNewsService;
+import com.example.rss.utils.DnesBgParamEnum;
 import com.example.rss.web.assemblers.DetailsNewsAssembler;
 import com.example.rss.web.resources.DetailsNewsResource;
 

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.rss.config.DnesbgProperties;
-import com.example.rss.service.DnesBgParamEnum;
+import com.example.rss.utils.DnesBgParamEnum;
 
 @Component
 public class ReadingDnesBgPage extends ReadingPage {
@@ -26,4 +26,5 @@ public class ReadingDnesBgPage extends ReadingPage {
     public String getUrl() {
         throw new NotImplementedException("This method is not supported.");
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.rss.service;
+package com.example.rss.utils;
 
 /**
  * Contains all needed parameters keys needed for extraction of the news content

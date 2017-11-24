@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @author Dinyo Dinev
  *
  */
-public abstract class BaseNewsHtmlPage {
+public class BaseNewsHtmlPage {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseNewsHtmlPage.class);
 
@@ -154,10 +154,14 @@ public abstract class BaseNewsHtmlPage {
     /**
      * Remove redundant code from the page.
      * 
+     * Note! Must be override in sub-classes.
+     * 
      * @param document
      *            in which we want to remove a content
      * @return sub-document cleaned from unnecessary elements.
      */
-    public abstract Document removeUnnecessaryElements(Document document);
+    public Document removeUnnecessaryElements(Document document) {
+        return document;
+    }
 
 }

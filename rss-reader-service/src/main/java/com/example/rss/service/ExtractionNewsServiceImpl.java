@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.rss.core.BaseNewsHtmlPage;
 import com.example.rss.core.DnesBgHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
@@ -59,9 +60,9 @@ public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
     }
 
     @Override
-    public News extractNews(int number) {
+    public News extractNews(Integer number) {
         String newsUrl = readingDnesBgPage.getUrl(number);
-        DnesBgHtmlPage page = readingDnesBgPage.getPage(number);
+        BaseNewsHtmlPage page = readingDnesBgPage.getPage(number);
 
         if (page == null) {
             logger.warn("Page {} can not be processed. 404", number);
@@ -96,7 +97,7 @@ public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
     }
 
     @Override
-    public List<Image> extractSlideShowImages(DnesBgHtmlPage page) {
+    public List<Image> extractSlideShowImages(BaseNewsHtmlPage page) {
 
         if (page == null) {
             logger.warn("Image extraction can't be done. Page is null.");
@@ -137,6 +138,7 @@ public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
     private String normalizeDnesBgUrl(String url) {
         return StringUtils.replaceOnce(url, "//", "http://");
     }
+
     // Contains Specific DnesBgLogic
     private DateTime extractNewsCreatedDate(String date) {
         logger.debug("Input date before transformation {}", date);
