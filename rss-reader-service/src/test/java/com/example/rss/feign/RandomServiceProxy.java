@@ -4,7 +4,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.example.rss.resources.DetailsNewsResource;
+import com.example.rss.web.resources.DetailsNewsResource;
 
 @FeignClient(name = "RandomServiceProxy", url = "http://localhost:8080/")
 public interface RandomServiceProxy {

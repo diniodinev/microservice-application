@@ -1,0 +1,1 @@
+SELECT Author_name, Count(Author_name) FROM "COMMENT" group by  "PUBLIC"."COMMENT".Author_name order by Count(Author_name)  desc;

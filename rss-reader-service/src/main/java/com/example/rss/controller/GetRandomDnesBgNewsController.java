@@ -1,5 +1,7 @@
 package com.example.rss.controller;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -11,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.config.DnesbgProperties;
 import com.example.rss.entity.News;
-import com.example.rss.resources.DetailsNewsResource;
-import com.example.rss.resources.assemblers.DetailsNewsAssembler;
 import com.example.rss.service.CommentsService;
 import com.example.rss.service.DnesBgParamEnum;
 import com.example.rss.service.ExtractionNewsService;
+import com.example.rss.web.assemblers.DetailsNewsAssembler;
+import com.example.rss.web.resources.DetailsNewsResource;
 
 @RestController
 public class GetRandomDnesBgNewsController extends AbstractController {
@@ -44,8 +46,8 @@ public class GetRandomDnesBgNewsController extends AbstractController {
     }
 
     @RequestMapping(value = "/dnesbg/random/{number}", method = RequestMethod.GET)
-    public void randomNews(@PathVariable("number") int newsCount) {
-
+    public List<DetailsNewsResource> randomNews(@PathVariable("number") int newsCount) {
+        List<News> allNews = new LinkedList<>();
         IntStream.range(0, newsCount).parallel().forEach(i -> {
             Integer newsNumber;
             newsNumber = new Random()
@@ -54,30 +56,36 @@ public class GetRandomDnesBgNewsController extends AbstractController {
             News saved;
             saved = extractionNewsService.saveNews(newsNumber);
             if (saved != null) {
+                allNews.add(saved);
                 commentsService.extractComments(newsNumber);
             }
         });
+        return detailsNewsAssembler.toResources(allNews);
     }
 
     @RequestMapping(value = "/dnesbg/last/{number}", method = RequestMethod.GET)
-    public void lastN(@PathVariable("number") int newsCount) {
+    public List<DetailsNewsResource> lastN(@PathVariable("number") int newsCount) {
+        List<News> allNews = new LinkedList<>();
         Integer newsNumber;
         for (int i = 0; i < newsCount; i++) {
             newsNumber = Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name())) + 1 - i;
 
             News saved = extractionNewsService.saveNews(newsNumber);
             if (saved != null) {
+                allNews.add(saved);
                 commentsService.extractComments(newsNumber);
             }
         }
+        return detailsNewsAssembler.toResources(allNews);
     }
 
     @RequestMapping(value = "/dnesbg/{id}", method = RequestMethod.GET)
-    public void getSpecificNews(@PathVariable("id") int newsId) {
+    public DetailsNewsResource getSpecificNews(@PathVariable("id") int newsId) {
         News saved = extractionNewsService.saveNews(newsId);
         if (saved != null) {
             commentsService.extractComments(newsId);
         }
+        return detailsNewsAssembler.toResource(saved);
     }
 
 }

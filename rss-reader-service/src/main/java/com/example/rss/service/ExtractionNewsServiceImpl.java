@@ -72,7 +72,7 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         newsContent.setNewsContent(page.extractInformationByTag(params.getContent()));
         newsContent.setImages(images);
 
-        String authorNames = page.extractInformationByTag(params.getAuthor());
+        String authorNames = page.extractInformationAfter(params.getAuthor(), params.getAuthorAfterText());
         Author newsAuthor = authorRepository.findOneByNames(authorNames);
 
         if (newsAuthor == null) {

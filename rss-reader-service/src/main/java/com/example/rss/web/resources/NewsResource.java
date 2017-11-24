@@ -1,7 +1,11 @@
-package com.example.rss.resources;
+package com.example.rss.web.resources;
 
 import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class NewsResource extends ResourceSupport {
 
     private String title;
@@ -10,6 +14,12 @@ public class NewsResource extends ResourceSupport {
 
     public NewsResource() {
         super();
+    }
+
+    public NewsResource(String title, String uri) {
+        super();
+        this.title = title;
+        this.uri = uri;
     }
 
     public String getTitle() {

@@ -28,6 +28,15 @@ public class DnesBgParams {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.authorSelector.name());
     }
 
+    /**
+     * Specifies the text after which is the name of the author.
+     * 
+     * @return
+     */
+    public String getAuthorAfterText() {
+        return serviceProperties.getDnesbg().get(DnesBgParamEnum.authorAfterTextSelector.name());
+    }
+
     public String getTitle() {
         return serviceProperties.getDnesbg().get(DnesBgParamEnum.titleSelector.name());
     }

@@ -2,6 +2,7 @@ package com.example.rss.core;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -104,14 +105,22 @@ public class ProcessDnesBgHtmlPage {
         }
     }
 
-    public String extractAuthor() {
-        String author = null;
-        if (!document.select("meta[itemprop=author]").isEmpty()) {
-            Element meta = document.select("meta[itemprop=author]").first();
-            author = meta.attr("content");
-
+    /**
+     * Extracts trimmed content for the special <code>tagName</code> and extract
+     * the part of it after special <code>separator</code>.
+     * 
+     * @param tagName
+     * @param separator
+     * @return
+     */
+    public String extractInformationAfter(String tagName, String separator) {
+        if (document.select(tagName).first() != null) {
+            return StringUtils.substringAfter(document.select(tagName).first().text(), separator).trim();
+        } else {
+            logger.warn("For the specified document, there is no tag with name {}", tagName);
+            return null;
         }
-        return author;
+
     }
 
     /**
@@ -142,11 +151,21 @@ public class ProcessDnesBgHtmlPage {
         return document;
     }
 
+    protected Document removeAdvertaising(Document document) {
+        if (!document.select("a[target=_blank]").isEmpty()) {
+            for (Element element : document.select("a[target=_blank]")) {
+                element.remove();
+            }
+        }
+        return document;
+    }
+
     protected Document removeUnnecessaryElements(Document document) {
         if (document != null) {
             removeOnThemeElements(document);
             removePictureElement(document);
             removeFeedbackOnComments(document);
+            removeAdvertaising(document);
         }
         return document;
     }

@@ -1,4 +1,4 @@
-package com.example.rss.resources.assemblers;
+package com.example.rss.web.assemblers;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -9,15 +9,15 @@ import java.util.List;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import com.example.rss.controller.DnesBgController;
-import com.example.rss.resources.NewsResource;
+import com.example.rss.controller.BbcController;
+import com.example.rss.web.resources.NewsResource;
 import com.rometools.rome.feed.synd.SyndEntry;
 
 @Component
-public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntry, NewsResource> {
+public class BbcNewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntry, NewsResource> {
     // From SyndEntry to NewsResource
-    public DnesbgNewsResourceAssemblers() {
-        super(DnesBgController.class, NewsResource.class);
+    public BbcNewsResourceAssemblers() {
+        super(SyndEntry.class, NewsResource.class);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndE
         resource.setTitle(entity.getTitle());
         resource.setUri(entity.getUri());
 
-        resource.add(linkTo(methodOn(DnesBgController.class).getDnesBgToday()).withSelfRel());
+        resource.add(linkTo(methodOn(BbcController.class).getBbcTopStories()).withSelfRel());
 
         return resource;
     }
@@ -37,7 +37,6 @@ public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndE
         for (SyndEntry entity : entities) {
             resources.add(toResource(entity));
         }
-
         return resources;
     }
 

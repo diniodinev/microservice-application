@@ -15,7 +15,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.example.rss.resources.NewsResource;
+import com.example.rss.web.resources.NewsResource;
 
 import wiremock.org.eclipse.jetty.http.HttpHeader;
 

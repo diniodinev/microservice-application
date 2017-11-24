@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.rss.resources.NewsResource;
-import com.example.rss.resources.assemblers.DnesbgNewsResourceAssemblers;
 import com.example.rss.service.RssReaderService;
+import com.example.rss.web.assemblers.DnesbgNewsResourceAssemblers;
+import com.example.rss.web.resources.NewsResource;
 
 import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;

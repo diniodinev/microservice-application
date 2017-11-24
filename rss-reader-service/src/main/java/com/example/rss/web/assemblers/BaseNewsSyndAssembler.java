@@ -1,4 +1,4 @@
-package com.example.rss.resources.assemblers;
+package com.example.rss.web.assemblers;
 
 import org.springframework.stereotype.Component;
 

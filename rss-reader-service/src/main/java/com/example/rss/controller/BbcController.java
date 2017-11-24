@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.rss.resources.NewsResource;
-import com.example.rss.resources.assemblers.BbcNewsResourceAssemblers;
 import com.example.rss.service.RssReaderService;
+import com.example.rss.web.assemblers.BbcNewsResourceAssemblers;
+import com.example.rss.web.resources.NewsResource;
 
 @RestController
 @RefreshScope
