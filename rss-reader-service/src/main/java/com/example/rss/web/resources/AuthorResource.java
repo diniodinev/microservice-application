@@ -7,6 +7,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class AuthorResource extends NewsResource {
     private String names;
 
+    public AuthorResource() {
+        super();
+    }
+
+    public AuthorResource(String title, String uri) {
+        super(title, uri);
+    }
+
     public AuthorResource(String names) {
         super();
         this.names = names;

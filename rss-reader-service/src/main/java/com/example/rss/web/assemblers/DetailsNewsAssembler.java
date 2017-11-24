@@ -25,6 +25,9 @@ public class DetailsNewsAssembler extends ResourceAssemblerSupport<News, Details
 
     @Override
     public DetailsNewsResource toResource(News entity) {
+        if (entity == null) {
+            return null;
+        }
         DetailsNewsResource detailsNewsResource = new DetailsNewsResource();
         detailsNewsResource.setTitle(entity.getTitle());
         detailsNewsResource.setUri(entity.getUri());
@@ -38,6 +41,9 @@ public class DetailsNewsAssembler extends ResourceAssemblerSupport<News, Details
 
     @Override
     public List<DetailsNewsResource> toResources(Iterable<? extends News> entities) {
+        if (entities == null) {
+            return null;
+        }
         List<DetailsNewsResource> resources = new LinkedList<>();
         for (News news : entities) {
             resources.add(toResource(news));
