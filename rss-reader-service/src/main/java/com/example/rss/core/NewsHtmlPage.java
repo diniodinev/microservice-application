@@ -1,0 +1,136 @@
+package com.example.rss.core;
+
+import java.io.IOException;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.validator.routines.UrlValidator;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public abstract class NewsHtmlPage {
+
+    private static final Logger logger = LoggerFactory.getLogger(NewsHtmlPage.class);
+
+    private Document document;
+    private String link;
+
+    public NewsHtmlPage() {
+        super();
+    }
+
+    public NewsHtmlPage(final String link) {
+        logger.info("Reading news with url \n {}", link);
+        this.link = link;
+        this.document = removeUnnecessaryElements(getDocument(link));
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+        this.document = removeUnnecessaryElements(getDocument(link));
+    }
+
+    /**
+     * Return Document for the given link which has to be URL compatible, or
+     * html String page which will be transformed to Document.
+     *
+     * @param link
+     *            which has to be URL compatible
+     * @return null if the URL is not valid or has error during reading
+     */
+    public Document getDocument(final String link) {
+        if (!new UrlValidator().isValid(link)) {
+            logger.warn("Link {} is not a valid URL", link);
+            return null;
+        }
+        try {
+            return Jsoup.connect(link).userAgent("Mozilla").get();
+        } catch (IOException e) {
+            logger.warn("Error during processing the page {}.", link);
+            logger.debug("Error during processing the page {}.", e);
+        }
+        return null;
+    }
+
+    public Elements extractElementsByTag(String tagName) throws IOException {
+        if (document.select(tagName) != null) {
+            return document.select(tagName);
+        } else {
+            logger.warn("For the specified document, there is no elements with name {}", tagName);
+            return null;
+        }
+    }
+
+    public String extractInformationByTag(String tagName) {
+        if (document.select(tagName).first() != null) {
+            return document.select(tagName).first().text();
+        } else {
+            logger.warn("For the specified document, there is no tag with name {}", tagName);
+            return null;
+        }
+    }
+
+    public String extractInformationByTagAndAttribute(String parentTag, String tagName, String attr) {
+        if (document.select(parentTag).first() != null) {
+            String selected = document.select(parentTag).first().select(tagName).attr(attr);
+            return selected.length() > 0 ? selected : null;
+        } else {
+            logger.warn("For the specified document, there is no tag with name {} and attribute {}.", tagName, attr);
+            return null;
+        }
+    }
+
+    public boolean isPresentInformationByTagAndAttribute(String parentTag, String tagName, String attr) {
+        if (document.select(parentTag).first() != null) {
+            String selected = document.select(parentTag).first().select(tagName).attr(attr);
+            return selected.length() > 0 ? true : false;
+        } else {
+            logger.warn("For the specified document, there is no presence of tag with name {} and attribute {}.",
+                    tagName, attr);
+            return false;
+        }
+    }
+
+    /**
+     * Extracts trimmed content for the special <code>tagName</code> and extract
+     * the part of it after special <code>separator</code>.
+     * 
+     * @param tagName
+     * @param separator
+     * @return
+     */
+    public String extractInformationAfter(String tagName, String separator) {
+        if (document.select(tagName).first() != null) {
+            return StringUtils.substringAfter(document.select(tagName).first().text(), separator).trim();
+        } else {
+            logger.warn("For the specified document, there is no tag with name {}", tagName);
+            return null;
+        }
+
+    }
+
+    /**
+     * Remove redundant code from the page.
+     * 
+     * @param document
+     *            in which we want to remove a content
+     * @return sub-document cleaned from unnecessary elements.
+     */
+    public abstract Document removeUnnecessaryElements(Document document);
+
+}

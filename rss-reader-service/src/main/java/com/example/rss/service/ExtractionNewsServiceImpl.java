@@ -29,7 +29,7 @@ import com.example.rss.utils.CustomDateUtils;
 import com.example.rss.utils.DnesBgParams;
 
 @Service
-public class ExtractionNewsServiceImpl implements ExtractionNewsService {
+public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
 
     private static final Logger logger = LoggerFactory.getLogger(ExtractionNewsServiceImpl.class);
 
@@ -58,7 +58,8 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         return news;
     }
 
-    private News extractNews(int number) {
+    @Override
+    public News extractNews(int number) {
         String newsUrl = readingDnesBgPage.getUrl(number);
         ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
 
@@ -94,7 +95,8 @@ public class ExtractionNewsServiceImpl implements ExtractionNewsService {
         return newsToSave;
     }
 
-    private List<Image> extractSlideShowImages(ProcessDnesBgHtmlPage page) {
+    @Override
+    public List<Image> extractSlideShowImages(ProcessDnesBgHtmlPage page) {
 
         if (page == null) {
             logger.warn("Image extraction can't be done. Page is null.");
