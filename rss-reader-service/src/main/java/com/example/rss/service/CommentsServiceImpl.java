@@ -1,6 +1,5 @@
 package com.example.rss.service;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.rss.core.BaseNewsHtmlPage;
-import com.example.rss.core.DnesBgHtmlPage;
 import com.example.rss.entity.Comment;
 import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.CommentsRepository;
@@ -51,26 +49,22 @@ public class CommentsServiceImpl implements CommentsService {
         List<Comment> allComments = new LinkedList<>();
 
         Elements comments;
-        try {
-            comments = page.extractElementsByTag(params.getCommentBox());
+        comments = page.extractElementsByTag(params.getCommentBox());
 
-            int currentPage = 0;
-            int allCommentsPerPage;
-            do {
-                allCommentsPerPage = 0;
-                if (comments.isEmpty()) {
-                    return null;
-                } else {
-                    List<Comment> pageComments = getSinglePageComments(newsNumber, ++currentPage);
-                    allCommentsPerPage = pageComments.size();
-                    if (allCommentsPerPage > 0) {
-                        allComments.addAll(pageComments);
-                    }
+        int currentPage = 0;
+        int allCommentsPerPage;
+        do {
+            allCommentsPerPage = 0;
+            if (comments.isEmpty()) {
+                return null;
+            } else {
+                List<Comment> pageComments = getSinglePageComments(newsNumber, ++currentPage);
+                allCommentsPerPage = pageComments.size();
+                if (allCommentsPerPage > 0) {
+                    allComments.addAll(pageComments);
                 }
-            } while (allCommentsPerPage != 0);
-        } catch (IOException e) {
-            logger.warn("Commens can not be extracted.", e);
-        }
+            }
+        } while (allCommentsPerPage != 0);
         return commentsRepository.save(allComments);
     }
 
@@ -78,23 +72,18 @@ public class CommentsServiceImpl implements CommentsService {
         BaseNewsHtmlPage page = readingPage
                 .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + currentNumber);
         List<Comment> commentsList = new LinkedList<>();
-        try {
+        Elements comments = page.extractElementsByTag(params.getCommentBox());
+        Iterator<Element> s = comments.iterator();
 
-            Elements comments = page.extractElementsByTag(params.getCommentBox());
-            Iterator<Element> s = comments.iterator();
-
-            while (s.hasNext()) {
-                Element el = s.next();
-                Comment nextComment = new Comment();
-                // nextComment.setRelatedNews(news);
-                nextComment.setAuthorName(extractUsername(el.select(params.getCommentsUsername()).first().text()));
-                nextComment.setContent(el.select(params.getCommentsText()).get(1).text());
-                nextComment.setLikes(Integer.valueOf(el.select(params.getCommentsUp()).first().text()));
-                nextComment.setDislikes(Integer.valueOf(el.select(params.getCommentsDown()).first().text()));
-                commentsList.add(nextComment);
-            }
-        } catch (IOException e) {
-            logger.warn("Commens can not be extracted.", e);
+        while (s.hasNext()) {
+            Element el = s.next();
+            Comment nextComment = new Comment();
+            // nextComment.setRelatedNews(news);
+            nextComment.setAuthorName(extractUsername(el.select(params.getCommentsUsername()).first().text()));
+            nextComment.setContent(el.select(params.getCommentsText()).get(1).text());
+            nextComment.setLikes(Integer.valueOf(el.select(params.getCommentsUp()).first().text()));
+            nextComment.setDislikes(Integer.valueOf(el.select(params.getCommentsDown()).first().text()));
+            commentsList.add(nextComment);
         }
 
         return commentsList;

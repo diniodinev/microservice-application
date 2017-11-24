@@ -74,7 +74,7 @@ public class BaseNewsHtmlPage {
         return null;
     }
 
-    public Elements extractElementsByTag(String tagName) throws IOException {
+    public Elements extractElementsByTag(String tagName) {
         if (document.select(tagName) != null) {
             return document.select(tagName);
         } else {

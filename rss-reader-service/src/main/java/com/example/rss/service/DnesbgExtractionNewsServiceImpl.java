@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.rss.core.BaseNewsHtmlPage;
-import com.example.rss.core.DnesBgHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
 import com.example.rss.entity.Image;
@@ -30,9 +29,9 @@ import com.example.rss.utils.CustomDateUtils;
 import com.example.rss.utils.DnesBgParams;
 
 @Service
-public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
+public class DnesbgExtractionNewsServiceImpl extends AbstractNewsExtraction {
 
-    private static final Logger logger = LoggerFactory.getLogger(ExtractionNewsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(DnesbgExtractionNewsServiceImpl.class);
 
     @Autowired
     private AuthorRepository authorRepository;
@@ -125,7 +124,6 @@ public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
                     image.setByteData(imageService.extractData(image.getLink()));
                     allImages.add(image);
                     logger.debug(String.format("Processed slideshow image: %s", image.getLink()));
-
                 }
             } catch (IOException e) {
                 e.printStackTrace();

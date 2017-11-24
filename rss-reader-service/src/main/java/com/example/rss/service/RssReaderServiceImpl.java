@@ -17,7 +17,7 @@ import com.rometools.rome.io.XmlReader;
 
 @Service
 public class RssReaderServiceImpl implements RssReaderService {
-    private static final Logger logger = LoggerFactory.getLogger(ExtractionNewsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(DnesbgExtractionNewsServiceImpl.class);
 
     /**
      * return SyndFeed or null if there is a problem with the feed reading
