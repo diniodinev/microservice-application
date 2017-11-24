@@ -5,14 +5,21 @@ import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ProcessDnesBgHtmlPage extends NewsHtmlPage {
-    private static final Logger logger = LoggerFactory.getLogger(ProcessDnesBgHtmlPage.class);
+/**
+ * Class for processing Dnes.bg site.
+ * 
+ * @author Dinyo Dinev
+ * @since 2017
+ *
+ */
+public class DnesBgHtmlPage extends BaseNewsHtmlPage {
+    private static final Logger logger = LoggerFactory.getLogger(DnesBgHtmlPage.class);
 
-    public ProcessDnesBgHtmlPage() {
+    public DnesBgHtmlPage() {
         super();
     }
 
-    public ProcessDnesBgHtmlPage(final String link) {
+    public DnesBgHtmlPage(final String link) {
         super(link);
         logger.info("Reading news with url \n {}", link);
         setLink(link);

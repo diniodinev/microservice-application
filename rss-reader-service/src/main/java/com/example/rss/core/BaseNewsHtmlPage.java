@@ -11,18 +11,25 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class NewsHtmlPage {
+/**
+ * Base class which provides basic methods for page, parsing, tag extraction,
+ * attribute extraction etc.
+ * 
+ * @author Dinyo Dinev
+ *
+ */
+public abstract class BaseNewsHtmlPage {
 
-    private static final Logger logger = LoggerFactory.getLogger(NewsHtmlPage.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseNewsHtmlPage.class);
 
     private Document document;
     private String link;
 
-    public NewsHtmlPage() {
+    public BaseNewsHtmlPage() {
         super();
     }
 
-    public NewsHtmlPage(final String link) {
+    public BaseNewsHtmlPage(final String link) {
         logger.info("Reading news with url \n {}", link);
         this.link = link;
         this.document = removeUnnecessaryElements(getDocument(link));
@@ -107,8 +114,8 @@ public abstract class NewsHtmlPage {
     }
 
     /**
-     * Extracts trimmed content for the special <code>tagName</code> and extract
-     * the part of it after special <code>separator</code>.
+     * Extracts the first trimmed content for the special <code>tagName</code>
+     * and extract the part of it after special <code>separator</code>.
      * 
      * @param tagName
      * @param separator
@@ -122,6 +129,26 @@ public abstract class NewsHtmlPage {
             return null;
         }
 
+    }
+
+    /**
+     * Remove all tags for the given selector <code>cssSelector</code> for given
+     * {@link Document document}.
+     * 
+     * @param document
+     *            from which we want to remove tags
+     * @param cssSelector
+     *            which specifies one ore more tags which we want to remove
+     * @return final version of the document which is wthout tags with specified
+     *         cssSelector
+     */
+    public Document removeAllTags(final Document document, final String cssSelector) {
+        if (!document.select(cssSelector).isEmpty()) {
+            for (Element element : document.select(cssSelector)) {
+                element.remove();
+            }
+        }
+        return document;
     }
 
     /**

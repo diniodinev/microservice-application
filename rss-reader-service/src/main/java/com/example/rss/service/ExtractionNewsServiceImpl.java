@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.rss.core.ProcessDnesBgHtmlPage;
+import com.example.rss.core.DnesBgHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
 import com.example.rss.entity.Image;
@@ -61,7 +61,7 @@ public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
     @Override
     public News extractNews(int number) {
         String newsUrl = readingDnesBgPage.getUrl(number);
-        ProcessDnesBgHtmlPage page = readingDnesBgPage.getPage(number);
+        DnesBgHtmlPage page = readingDnesBgPage.getPage(number);
 
         if (page == null) {
             logger.warn("Page {} can not be processed. 404", number);
@@ -96,7 +96,7 @@ public class ExtractionNewsServiceImpl extends AbstractNewsExtraction {
     }
 
     @Override
-    public List<Image> extractSlideShowImages(ProcessDnesBgHtmlPage page) {
+    public List<Image> extractSlideShowImages(DnesBgHtmlPage page) {
 
         if (page == null) {
             logger.warn("Image extraction can't be done. Page is null.");
