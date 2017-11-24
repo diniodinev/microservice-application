@@ -33,38 +33,10 @@ public class DnesBgHtmlPage extends BaseNewsHtmlPage {
         }
 
         if (document != null) {
-            removeOnThemeElements(document);
-            removePictureElement(document);
-            removeFeedbackOnComments(document);
+            removeAllTags(document, "div[class=article_related article_related_right]");
+            removeAllTags(document, "div[class=feedback_comment]");
+            removeAllTags(document, "div[class=photo_descr]");
             removeAdvertaising(document);
-        }
-        return document;
-    }
-
-    /**
-     * Remove other theme from the html. Div tag with class article_related
-     * article_related_right is removed.
-     *
-     * @param document
-     * @return
-     */
-    private Document removeOnThemeElements(Document document) {
-        if (!document.select("div[class=article_related article_related_right]").isEmpty()) {
-            document.select("div[class=article_related article_related_right]").first().remove();
-        }
-        return document;
-    }
-
-    private Document removeFeedbackOnComments(Document document) {
-        if (!document.select("div[class=feedback_comment]").isEmpty()) {
-            document.select("div[class=feedback_comment]").remove();
-        }
-        return document;
-    }
-
-    private Document removePictureElement(Document document) {
-        if (!document.select("div[class=photo_descr]").isEmpty()) {
-            document.select("div[class=photo_descr]").first().remove();
         }
         return document;
     }
