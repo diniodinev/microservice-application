@@ -1,10 +1,13 @@
 package com.example.rss.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import org.hsqldb.lib.tar.TarMalformatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.config.DnesbgProperties;
+import com.example.rss.db.DbOperations;
 import com.example.rss.entity.News;
 import com.example.rss.service.CommentsService;
 import com.example.rss.service.ExtractionNewsService;
@@ -35,7 +39,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
     private DetailsNewsAssembler detailsNewsAssembler;
 
     @RequestMapping(value = "/dnesbg/random", method = RequestMethod.GET)
-    public DetailsNewsResource randomNews() {
+    public DetailsNewsResource randomNews() throws SQLException, IOException, TarMalformatException {
         Integer newsNumber = new Random()
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
         News saved = extractionNewsService.saveNews(newsNumber);
