@@ -1,8 +1,7 @@
 package com.example.rss.web.assemblers;
 
-import java.util.List;
-
 import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;

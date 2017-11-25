@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.config.DnesbgProperties;
-import com.example.rss.db.DbOperations;
 import com.example.rss.entity.News;
 import com.example.rss.service.CommentsService;
 import com.example.rss.service.ExtractionNewsService;
