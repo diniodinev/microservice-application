@@ -16,6 +16,7 @@ import com.example.rss.core.BaseNewsHtmlPage;
 import com.example.rss.entity.Comment;
 import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.CommentsRepository;
+import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.DnesBgParams;
 
 @Service
@@ -25,6 +26,9 @@ public class CommentsServiceImpl implements CommentsService {
 
     @Autowired
     private CommentsRepository commentsRepository;
+
+    @Autowired
+    private NewsRepository newsRepository;
 
     @Autowired
     private ReadingPage readingPage;
@@ -37,7 +41,7 @@ public class CommentsServiceImpl implements CommentsService {
     }
 
     @Override
-    public Iterable<Comment> extractComments(int newsNumber) {
+    public Iterable<Comment> extractComments(int newsNumber, long newsId) {
         BaseNewsHtmlPage page = readingPage
                 .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + 1);
 
@@ -58,7 +62,7 @@ public class CommentsServiceImpl implements CommentsService {
             if (comments.isEmpty()) {
                 return null;
             } else {
-                List<Comment> pageComments = getSinglePageComments(newsNumber, ++currentPage);
+                List<Comment> pageComments = getSinglePageComments(newsNumber, ++currentPage, newsId);
                 allCommentsPerPage = pageComments.size();
                 if (allCommentsPerPage > 0) {
                     allComments.addAll(pageComments);
@@ -68,7 +72,7 @@ public class CommentsServiceImpl implements CommentsService {
         return commentsRepository.save(allComments);
     }
 
-    private List<Comment> getSinglePageComments(int newsNumber, int currentNumber) {
+    private List<Comment> getSinglePageComments(int newsNumber, int currentNumber, long newsId) {
         BaseNewsHtmlPage page = readingPage
                 .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + currentNumber);
         if (page == null) {
@@ -81,11 +85,11 @@ public class CommentsServiceImpl implements CommentsService {
         while (s.hasNext()) {
             Element el = s.next();
             Comment nextComment = new Comment();
-            // nextComment.setRelatedNews(news);
             nextComment.setAuthorName(extractUsername(el.select(params.getCommentsUsername()).first().text()));
             nextComment.setContent(el.select(params.getCommentsText()).get(1).text());
             nextComment.setLikes(Integer.valueOf(el.select(params.getCommentsUp()).first().text()));
             nextComment.setDislikes(Integer.valueOf(el.select(params.getCommentsDown()).first().text()));
+            nextComment.setRelatedNews(newsRepository.findOne(newsId));
             commentsList.add(nextComment);
         }
 

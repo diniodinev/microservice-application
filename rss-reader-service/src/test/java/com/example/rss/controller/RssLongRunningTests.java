@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import javax.transaction.Transactional;
+
 import org.junit.AfterClass;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -20,14 +22,15 @@ import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(
-        properties = { "spring.cloud.config.uri=http://localhost:12346", "eureka.client.enabled=false",
+        properties = { "spring.cloud.config.uri=http://localhost:12345", "eureka.client.enabled=false",
                 "spring.datasource.url=jdbc:hsqldb:mem:ingest;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE" },
         webEnvironment = WebEnvironment.RANDOM_PORT,
         classes = Application.class)
+@Transactional
 public class RssLongRunningTests {
 
     @ClassRule
-    public static WireMockClassRule wiremock = new WireMockClassRule(WireMockSpring.options().port(12346));
+    public static WireMockClassRule wiremock = new WireMockClassRule(WireMockSpring.options().port(12345));
 
     @Autowired
     GetRandomDnesBgNewsController getRandomDnesBgNewsController;

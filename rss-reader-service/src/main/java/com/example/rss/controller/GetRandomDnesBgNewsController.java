@@ -43,7 +43,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
         News saved = extractionNewsService.saveNews(newsNumber);
         if (saved != null) {
-            commentsService.extractComments(newsNumber);
+            commentsService.extractComments(newsNumber, saved.getId());
         }
         return detailsNewsAssembler.toResource(saved);
     }
@@ -60,7 +60,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
             saved = extractionNewsService.saveNews(newsNumber);
             if (saved != null) {
                 allNews.add(saved);
-                commentsService.extractComments(newsNumber);
+                commentsService.extractComments(newsNumber, saved.getId());
             }
         });
         return detailsNewsAssembler.toResources(allNews);
@@ -76,7 +76,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
             News saved = extractionNewsService.saveNews(newsNumber);
             if (saved != null) {
                 allNews.add(saved);
-                commentsService.extractComments(newsNumber);
+                commentsService.extractComments(newsNumber, saved.getId());
             }
         }
         return detailsNewsAssembler.toResources(allNews);
@@ -86,7 +86,7 @@ public class GetRandomDnesBgNewsController extends AbstractController {
     public DetailsNewsResource getSpecificNews(@PathVariable("id") int newsId) {
         News saved = extractionNewsService.saveNews(newsId);
         if (saved != null) {
-            commentsService.extractComments(newsId);
+            commentsService.extractComments(newsId, saved.getId());
         }
         return detailsNewsAssembler.toResource(saved);
     }
