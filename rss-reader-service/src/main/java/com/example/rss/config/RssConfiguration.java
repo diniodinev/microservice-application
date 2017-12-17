@@ -14,10 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.init.DataSourceInitializer;
-import org.springframework.jdbc.datasource.init.DatabasePopulator;
-import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
-import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import com.example.rss.config.security.AuditorAwareImpl;
 
