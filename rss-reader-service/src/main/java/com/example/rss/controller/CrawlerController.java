@@ -8,17 +8,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.rss.repository.CrawlerInfoRepository;
+import com.example.rss.service.CrawlerService;
 
 @Controller
 @RefreshScope
 public class CrawlerController extends AbstractController {
 
     @Autowired
-    private CrawlerInfoRepository crawlerInfoRepository;
+    private CrawlerService crawlerService;
 
     @RequestMapping(value = "/continue", method = RequestMethod.GET)
     @ResponseBody
     public void continueReading() {
+        int startPosition = crawlerService.getLast();
 
     }
 
