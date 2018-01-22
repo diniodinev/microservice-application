@@ -1,9 +1,5 @@
 package com.example.rss.web.resources;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-@JsonInclude(Include.NON_NULL)
 public class ContentResource extends NewsResource {
     private String newsContent;
 

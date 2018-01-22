@@ -18,7 +18,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RefreshScope
-public class DnesBgController extends AbstractController {
+public class DnesBgFeedController extends AbstractController {
 
     @Value("${configuration.projectName}")
     private String projectName;

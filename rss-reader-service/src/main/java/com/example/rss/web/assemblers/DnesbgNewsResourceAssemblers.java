@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import com.example.rss.controller.DnesBgController;
+import com.example.rss.controller.DnesBgFeedController;
 import com.example.rss.web.resources.NewsResource;
 import com.rometools.rome.feed.synd.SyndEntry;
 
@@ -17,7 +17,7 @@ import com.rometools.rome.feed.synd.SyndEntry;
 public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntry, NewsResource> {
     // From SyndEntry to NewsResource
     public DnesbgNewsResourceAssemblers() {
-        super(DnesBgController.class, NewsResource.class);
+        super(DnesBgFeedController.class, NewsResource.class);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DnesbgNewsResourceAssemblers extends ResourceAssemblerSupport<SyndE
         resource.setTitle(entity.getTitle());
         resource.setUri(entity.getUri());
 
-        resource.add(linkTo(methodOn(DnesBgController.class).getDnesBgToday()).withSelfRel());
+        resource.add(linkTo(methodOn(DnesBgFeedController.class).getDnesBgToday()).withSelfRel());
 
         return resource;
     }

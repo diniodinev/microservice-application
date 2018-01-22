@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.example.rss.controller.DnesBgController;
+import com.example.rss.controller.DnesBgFeedController;
 import com.google.common.base.Predicate;
 
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,7 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableAutoConfiguration
-@ComponentScan(basePackageClasses = { DnesBgController.class })
+@ComponentScan(basePackageClasses = { DnesBgFeedController.class })
 public class SwaggerConfiguration extends WebMvcConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(SwaggerConfiguration.class);
 

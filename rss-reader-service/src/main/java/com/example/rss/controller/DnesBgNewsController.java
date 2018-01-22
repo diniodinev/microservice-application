@@ -23,7 +23,7 @@ import com.example.rss.web.assemblers.DetailsNewsAssembler;
 import com.example.rss.web.resources.DetailsNewsResource;
 
 @RestController
-public class GetRandomDnesBgNewsController extends AbstractController {
+public class DnesBgNewsController extends AbstractController {
 
     @Autowired
     private ExtractionNewsService extractionNewsService;

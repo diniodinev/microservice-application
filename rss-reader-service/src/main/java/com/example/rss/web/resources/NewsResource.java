@@ -2,10 +2,6 @@ package com.example.rss.web.resources;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-@JsonInclude(Include.NON_NULL)
 public class NewsResource extends ResourceSupport {
 
     private String title;

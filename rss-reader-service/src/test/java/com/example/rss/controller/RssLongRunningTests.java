@@ -33,7 +33,7 @@ public class RssLongRunningTests {
     public static WireMockClassRule wiremock = new WireMockClassRule(WireMockSpring.options().port(12345));
 
     @Autowired
-    GetRandomDnesBgNewsController getRandomDnesBgNewsController;
+    DnesBgNewsController getRandomDnesBgNewsController;
 
     @Autowired
     ExtractionNewsService extractionNewsService;
