@@ -51,7 +51,7 @@ public class DnesBgNewsController extends AbstractController {
     @RequestMapping(value = "/dnesbg/random/{number}", method = RequestMethod.GET)
     public List<DetailsNewsResource> randomNews(@PathVariable("number") int newsCount) {
         List<News> allNews = new LinkedList<>();
-        IntStream.range(0, newsCount).parallel().forEach(i -> {
+        IntStream.range(0, newsCount).forEach(i -> {
             Integer newsNumber;
             newsNumber = new Random()
                     .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
