@@ -1,7 +1,8 @@
 package com.example.rss.controller;
 
 import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,19 +12,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.rss.entity.CrawlerInfo;
 import com.example.rss.repository.CrawlerInfoRepository;
 import com.example.rss.service.CrawlerService;
+import com.example.rss.web.assemblers.CrawlerInfoAssembler;
+import com.example.rss.web.resources.CrawlerInfoResource;
 
-@Controller
 @RefreshScope
+@RestController
 public class CrawlerController extends AbstractController {
 
     /** Logger. */
@@ -35,7 +37,10 @@ public class CrawlerController extends AbstractController {
     private CrawlerService dnesBgCrawler;
 
     @Autowired
-    CrawlerInfoRepository crawlerInfoRepository;
+    private CrawlerInfoRepository crawlerInfoRepository;
+
+    @Autowired
+    private CrawlerInfoAssembler crawlerInfoAssembler;
 
     private RestTemplate restTemplate;
 
@@ -44,13 +49,12 @@ public class CrawlerController extends AbstractController {
     }
 
     @RequestMapping(value = "/dnesbgcontinue/{number}", method = RequestMethod.GET)
-    @ResponseBody
-    public void continueReading(Writer writer, HttpServletRequest request, @PathVariable int number)
+    public CrawlerInfoResource continueReading(HttpServletRequest request,
+            @PathVariable int number)
             throws IOException {
         CrawlerInfo dnesBgCrawlerInfo = dnesBgCrawler.getSiteName(DNESBG_NAME);
         if (dnesBgCrawlerInfo == null) {
-            writer.append("Site Crawler cannot be started. No entry in the DB for the key " + DNESBG_NAME);
-            return;
+            return new CrawlerInfoResource();
         }
 
         dnesBgCrawlerInfo.setInitialDate(DateTime.now());
@@ -63,7 +67,8 @@ public class CrawlerController extends AbstractController {
 
             dnesBgCrawlerInfo.setLastRead(i + startNews);
         }
-        crawlerInfoRepository.save(dnesBgCrawlerInfo);
+        return crawlerInfoAssembler.toResource(crawlerInfoRepository.save(dnesBgCrawlerInfo));
+
     }
 
 }

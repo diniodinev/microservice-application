@@ -76,7 +76,7 @@ public class CommentsServiceImpl implements CommentsService {
         BaseNewsHtmlPage page = readingPage
                 .getPage(params.getCommentUrl() + newsNumber + params.getCommentUrlSeparator() + currentNumber);
         if (page == null) {
-            return new LinkedList<Comment>();
+            return new LinkedList<>();
         }
         List<Comment> commentsList = new LinkedList<>();
         Elements comments = page.extractElementsByTag(params.getCommentBox());
