@@ -45,12 +45,12 @@ public class RssLongRunningTests {
 
     @Test
     public void testLargeAmountOf25LastNews() {
-        getRandomDnesBgNewsController.lastN(25);
+        getRandomDnesBgNewsController.lastN(5);
     }
 
     @Test
     public void testLargeAmountOf25RandomNews() {
-        getRandomDnesBgNewsController.randomNews(25);
+        getRandomDnesBgNewsController.randomNews(5);
     }
 
     @AfterClass
