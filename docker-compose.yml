@@ -1,0 +1,37 @@
+version: '3'
+services:
+    cloud-config:
+        image: java:8
+        volumes:
+        - "/e/DinioDinev/Projects/microservice-application/rss-configuration-cloudserver/target:/config/:rw"
+        restart: always
+        command: bash -c "cd /config/ && ls -alh && java -jar rss-configuration-cloudserver.jar"
+        container_name: cloud_config
+        ports : 
+        - 8888:8888
+    eureka:
+        image: java:8
+        volumes:
+        - "/e/DinioDinev/Projects/microservice-application/rss-discovery-server/target:/eureka/:rw"
+        restart: always
+        command: bash -c "cd /eureka/ && ls -alh && java -jar rss-discovery-server.jar"
+        container_name: cloud_discovery
+        depends_on:
+        - "cloud-config"
+        ports : 
+        - 8761:8761
+    rss-reader:
+        image: java:8
+        volumes:
+        - "/e/DinioDinev/Projects/microservice-application/rss-reader-service/target/:/rss/:rw"
+        - "/e/DinioDinev/Projects/microservice-application/rss-reader-service/src/main/resources/hsql/:/db/:rw"
+        restart: always
+        command: bash -c "cd /rss/ && ls -alh && java -jar rss-reader-service.jar"
+        container_name: rss_reader
+        environment:
+        - JVM_OPTS=-Xmx12g -Xms12g -XX:MaxPermSize=1024m
+        - db=/db/Backup.tgz
+        ports : 
+        - 8080:8080
+        depends_on:
+        - "cloud-config"
