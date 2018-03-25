@@ -9,11 +9,13 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.restdocs.JUnitRestDocumentation;
 
 import com.example.rss.web.resources.NewsResource;
 
@@ -26,6 +28,9 @@ public class RestTemplateTests extends BaseIntegrationTest {
      */
     @Autowired
     TestRestTemplate restTemplate;
+
+    @Rule
+    public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
 
     private static final String VERSION_PREFIX = "/v1";
 
