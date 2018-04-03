@@ -32,9 +32,6 @@ public class RssApplicationShortTests {
     @Autowired
     DnesBgNewsController getRandomDnesBgNewsController;
 
-    @Autowired
-    ExtractionNewsService extractionNewsService;
-
     @Test
     public void testIf404PageIsHitDoNotThrowException() {
         getRandomDnesBgNewsController.getSpecificNews(356084);

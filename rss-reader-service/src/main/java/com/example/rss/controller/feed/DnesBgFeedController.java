@@ -1,4 +1,4 @@
-package com.example.rss.controller;
+package com.example.rss.controller.feed;
 
 import java.util.List;
 

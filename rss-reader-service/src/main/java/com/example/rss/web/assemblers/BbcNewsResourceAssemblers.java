@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import com.example.rss.controller.BbcController;
+import com.example.rss.controller.feed.BbcFeedController;
 import com.example.rss.web.resources.NewsResource;
 import com.rometools.rome.feed.synd.SyndEntry;
 
@@ -26,7 +26,7 @@ public class BbcNewsResourceAssemblers extends ResourceAssemblerSupport<SyndEntr
         resource.setTitle(entity.getTitle());
         resource.setUri(entity.getUri());
 
-        resource.add(linkTo(methodOn(BbcController.class).getBbcTopStories()).withSelfRel());
+        resource.add(linkTo(methodOn(BbcFeedController.class).getBbcTopStories()).withSelfRel());
 
         return resource;
     }

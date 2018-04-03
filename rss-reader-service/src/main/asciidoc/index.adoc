@@ -43,6 +43,6 @@ include::{snippets}/dnesbgworldall/httpie-request[]
 
 And for this request we get the last news for dnesbg site.
 
-include::{snippets}/dnesbgworldall/httpie-request[]
+include::{snippets}/dnesbgworldall/httpie-request.adoc[]
 
 

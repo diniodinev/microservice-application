@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -22,14 +24,14 @@ import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
 import com.example.rss.entity.Image;
 import com.example.rss.entity.News;
-import com.example.rss.reading.ReadingDnesBgPage;
+import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.AuthorRepository;
 import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.CustomDateUtils;
 import com.example.rss.utils.DnesBgParams;
 
 @Service
-public class DnesbgExtractionNewsServiceImpl extends AbstractNewsExtraction {
+public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
 
     private static final Logger logger = LoggerFactory.getLogger(DnesbgExtractionNewsServiceImpl.class);
 
@@ -39,8 +41,8 @@ public class DnesbgExtractionNewsServiceImpl extends AbstractNewsExtraction {
     @Autowired
     private NewsRepository newsRepository;
 
-    @Autowired
-    private ReadingDnesBgPage readingDnesBgPage;
+    @Resource
+    private ReadingPage readingDnesBgPage;
 
     @Autowired
     private DnesBgParams params;
@@ -61,7 +63,7 @@ public class DnesbgExtractionNewsServiceImpl extends AbstractNewsExtraction {
     @Override
     public News extractNews(Integer number) {
         String newsUrl = readingDnesBgPage.getUrl(number);
-        BaseNewsHtmlPage page = readingDnesBgPage.getPage(number);
+        BaseNewsHtmlPage page = parsePage(number, readingDnesBgPage);
 
         if (page == null) {
             logger.warn("Page {} can not be processed. 404", number);
@@ -71,17 +73,12 @@ public class DnesbgExtractionNewsServiceImpl extends AbstractNewsExtraction {
         List<Image> images = extractSlideShowImages(page);
 
         Content newsContent = new Content();
-        newsContent.setNewsDescriptin(page.extractInformationByTag(params.getDescription()));
+        newsContent.setNewsDescription(page.extractInformationByTag(params.getDescription()));
         newsContent.setNewsContent(page.extractInformationByTag(params.getContent()));
         newsContent.setImages(images);
 
-        String authorNames = page.extractInformationAfter(params.getAuthor(), params.getAuthorAfterText());
-        Author newsAuthor = authorRepository.findOneByNames(authorNames);
 
-        if (newsAuthor == null) {
-            newsAuthor = new Author();
-            newsAuthor.setNames(authorNames);
-        }
+        Author newsAuthor = extractAuthor(page, authorRepository, null);
 
         // News information
         News newsToSave = new News();
@@ -93,6 +90,15 @@ public class DnesbgExtractionNewsServiceImpl extends AbstractNewsExtraction {
 
         newsContent.setNews(newsToSave);
         return newsToSave;
+    }
+
+    @Override
+    public Author extractAuthor(BaseNewsHtmlPage page, AuthorRepository authorRepository, String author) {
+        author = page.extractInformationAfter(params.getAuthor(), params.getAuthorAfterText());
+        if (logger.isDebugEnabled()) {
+            logger.debug("Extracted author namesL {}", author);
+        }
+        return super.extractAuthor(page, authorRepository, author);
     }
 
     @Override

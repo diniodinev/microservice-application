@@ -38,7 +38,11 @@
         "site.bbc.topstories": "https://feeds.bbci.co.uk/news/rss.xml",
         "site.bbc.world": "https://feeds.bbci.co.uk/news/world/rss.xml",
         "site.bbc.uk": "https://feeds.bbci.co.uk/news/uk/rss.xml",
-        "site.bbc.science": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml"
+        "site.bbc.science": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+        "site.capital.bulgaria": "https://www.capital.bg/rss/?rubrid=2249",
+        "site.capital.world": "https://www.capital.bg/rss/?rubrid=2253",
+        "site.capital.technologies": "https://www.capital.bg/rss/?rubrid=2274",
+        "site.capital.galeries": "https://www.capital.bg/rss/?rubrid=2344"
       }
     },
     {

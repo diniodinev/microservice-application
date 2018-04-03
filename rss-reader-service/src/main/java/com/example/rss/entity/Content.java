@@ -29,7 +29,7 @@ public class Content extends AbstractAuditingEntity {
     private String newsContent;
 
     @Column(name = "DESCRIPTION")
-    private String newsDescriptin;
+    private String newsDescription;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "Image_Id", referencedColumnName = "id")
@@ -73,12 +73,12 @@ public class Content extends AbstractAuditingEntity {
         this.images = images;
     }
 
-    public String getNewsDescriptin() {
-        return newsDescriptin;
+    public String getNewsDescription() {
+        return newsDescription;
     }
 
-    public void setNewsDescriptin(String newsDescriptin) {
-        this.newsDescriptin = newsDescriptin;
+    public void setNewsDescription(String newsDescription) {
+        this.newsDescription = newsDescription;
     }
 
     public News getNews() {

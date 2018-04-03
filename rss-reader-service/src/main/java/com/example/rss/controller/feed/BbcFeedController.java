@@ -1,4 +1,4 @@
-package com.example.rss.controller;
+package com.example.rss.controller.feed;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import com.example.rss.web.resources.NewsResource;
 
 @RestController
 @RefreshScope
-public class BbcController extends AbstractController {
+public class BbcFeedController extends AbstractController {
 
     @Value("${site.bbc.topstories}")
     private String bbcTopstoris;

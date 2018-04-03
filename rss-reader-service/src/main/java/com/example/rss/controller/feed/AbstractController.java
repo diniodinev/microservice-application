@@ -1,4 +1,4 @@
-package com.example.rss.controller;
+package com.example.rss.controller.feed;
 
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;

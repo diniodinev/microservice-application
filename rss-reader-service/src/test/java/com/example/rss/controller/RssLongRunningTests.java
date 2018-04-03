@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.junit.AfterClass;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.example.rss.Application;
 import com.example.rss.service.ExtractionNewsService;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(
         properties = { "spring.cloud.config.uri=http://localhost:12345", "eureka.client.enabled=false",

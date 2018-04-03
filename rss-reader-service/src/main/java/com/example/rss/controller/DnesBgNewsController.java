@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rss.config.DnesbgProperties;
+import com.example.rss.controller.feed.AbstractController;
 import com.example.rss.entity.News;
 import com.example.rss.service.CommentsService;
 import com.example.rss.service.ExtractionNewsService;
@@ -26,7 +27,7 @@ import com.example.rss.web.resources.DetailsNewsResource;
 public class DnesBgNewsController extends AbstractController {
 
     @Autowired
-    private ExtractionNewsService extractionNewsService;
+    private ExtractionNewsService dnesbgExtractionNewsServiceImpl;
 
     @Autowired
     private CommentsService commentsService;
@@ -41,7 +42,7 @@ public class DnesBgNewsController extends AbstractController {
     public DetailsNewsResource randomNews() throws SQLException, IOException, TarMalformatException {
         Integer newsNumber = new Random()
                 .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
-        News saved = extractionNewsService.saveNews(newsNumber);
+        News saved = dnesbgExtractionNewsServiceImpl.saveNews(newsNumber);
         if (saved != null) {
             commentsService.extractComments(newsNumber, saved.getId());
         }
@@ -57,7 +58,7 @@ public class DnesBgNewsController extends AbstractController {
                     .nextInt(Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name()))) + 1;
 
             News saved;
-            saved = extractionNewsService.saveNews(newsNumber);
+            saved = dnesbgExtractionNewsServiceImpl.saveNews(newsNumber);
             if (saved != null) {
                 allNews.add(saved);
                 commentsService.extractComments(newsNumber, saved.getId());
@@ -73,7 +74,7 @@ public class DnesBgNewsController extends AbstractController {
         for (int i = 0; i < newsCount; i++) {
             newsNumber = Integer.valueOf(serviceProperties.getDnesbg().get(DnesBgParamEnum.last.name())) + 1 - i;
 
-            News saved = extractionNewsService.saveNews(newsNumber);
+            News saved = dnesbgExtractionNewsServiceImpl.saveNews(newsNumber);
             if (saved != null) {
                 allNews.add(saved);
                 commentsService.extractComments(newsNumber, saved.getId());
@@ -84,7 +85,7 @@ public class DnesBgNewsController extends AbstractController {
 
     @RequestMapping(value = "/dnesbg/{id}", method = RequestMethod.GET)
     public DetailsNewsResource getSpecificNews(@PathVariable("id") int newsId) {
-        News saved = extractionNewsService.saveNews(newsId);
+        News saved = dnesbgExtractionNewsServiceImpl.saveNews(newsId);
         if (saved != null) {
             commentsService.extractComments(newsId, saved.getId());
         }

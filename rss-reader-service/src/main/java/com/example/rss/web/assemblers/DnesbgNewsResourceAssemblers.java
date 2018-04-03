@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import com.example.rss.controller.DnesBgFeedController;
+import com.example.rss.controller.feed.DnesBgFeedController;
 import com.example.rss.web.resources.NewsResource;
 import com.rometools.rome.feed.synd.SyndEntry;
 

@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.rss.core.BaseNewsHtmlPage;
@@ -31,6 +32,7 @@ public class CommentsServiceImpl implements CommentsService {
     private NewsRepository newsRepository;
 
     @Autowired
+    @Qualifier("readingDnesBgPage")
     private ReadingPage readingPage;
 
     @Autowired

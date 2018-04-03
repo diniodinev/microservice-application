@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.rss.controller.feed.AbstractController;
 import com.example.rss.entity.CrawlerInfo;
 import com.example.rss.repository.CrawlerInfoRepository;
 import com.example.rss.service.CrawlerService;

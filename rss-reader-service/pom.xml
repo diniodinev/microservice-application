@@ -211,18 +211,19 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-actuator-docs</artifactId>
     </dependency>
+
   </dependencies>
 
   <build>
     <resources>
       <resource>
-       <directory>src/main/resources</directory>
+        <directory>src/main/resources</directory>
         <excludes>
           <exclude>**/*.tgz</exclude>
         </excludes>
       </resource>
     </resources>
-    
+
     <plugins>
       <plugin>
         <groupId>org.asciidoctor</groupId>

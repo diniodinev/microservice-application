@@ -29,7 +29,7 @@ public class ContentAssembler extends ResourceAssemblerSupport<Content, ContentR
     public ContentResource toResource(Content entity) {
         ContentResource contentResource = new ContentResource();
         contentResource.setNewsContent(entity.getNewsContent());
-        contentResource.setNewsDescriptin(entity.getNewsDescriptin());
+        contentResource.setNewsDescriptin(entity.getNewsDescription());
 
         return contentResource;
     }

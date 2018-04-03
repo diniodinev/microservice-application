@@ -1,7 +1,8 @@
 package com.example.rss.reading;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.NotImplementedException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.rss.config.DnesbgProperties;
@@ -9,7 +10,7 @@ import com.example.rss.utils.DnesBgParamEnum;
 
 @Component
 public class ReadingDnesBgPage extends ReadingPage {
-    @Autowired
+    @Resource
     private DnesbgProperties serviceProperties;
 
     @Override
