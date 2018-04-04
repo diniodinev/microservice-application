@@ -7,7 +7,7 @@ import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
 import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.AuthorRepository;
-import com.example.rss.utils.ContentTags;
+import com.example.rss.utils.tags.ContentTags;
 
 public abstract class BaseNewsExtraction implements ExtractionNewsService {
 
@@ -28,6 +28,7 @@ public abstract class BaseNewsExtraction implements ExtractionNewsService {
 
     @Override
     public Author extractAuthor(BaseNewsHtmlPage page, AuthorRepository authorRepository, String author) {
+
         Author newsAuthor = authorRepository.findOneByNames(author);
         if (newsAuthor == null) {
             newsAuthor = new Author();

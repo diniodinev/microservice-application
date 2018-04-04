@@ -29,6 +29,7 @@ import com.example.rss.repository.AuthorRepository;
 import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.CustomDateUtils;
 import com.example.rss.utils.DnesBgParams;
+import com.example.rss.utils.tags.ContentTags;
 
 @Service
 public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
@@ -40,6 +41,9 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private ContentTags dnesbgContentTags;
 
     @Resource
     private ReadingPage readingDnesBgPage;
@@ -70,14 +74,10 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
             return null;
         }
 
-        List<Image> images = extractSlideShowImages(page);
+        // Extract content and images
+        Content newsContent = extractContent(page, dnesbgContentTags);
 
-        Content newsContent = new Content();
-        newsContent.setNewsDescription(page.extractInformationByTag(params.getDescription()));
-        newsContent.setNewsContent(page.extractInformationByTag(params.getContent()));
-        newsContent.setImages(images);
-
-
+        // Extract author
         Author newsAuthor = extractAuthor(page, authorRepository, null);
 
         // News information
@@ -111,7 +111,8 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
 
         List<Image> allImages = new LinkedList<>();
         Image image;
-        if (!page.isPresentInformationByTagAndAttribute(params.getContent(), params.getSlideShow(), "src")) {
+        if (!page.isPresentInformationByTagAndAttribute(dnesbgContentTags.getContentTag(), params.getSlideShow(),
+                "src")) {
             image = new Image();
             image.setLink(
                     page.extractInformationByTagAndAttribute(params.getUriImage(), params.getContentImage(), "src"));

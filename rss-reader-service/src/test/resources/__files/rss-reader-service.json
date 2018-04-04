@@ -21,8 +21,8 @@
         "site.dnesbg.last": 357425,
         "site.dnesbg.datetimeFormatter": "dd MMM yyyy HH:mm",
         "site.dnesbg.titleSelector": "div.article-title h1",
-        "site.dnesbg.descriptionSelector": "div.descr",
-        "site.dnesbg.contentSelector": "div.article",
+        "site.dnesbg.descriptionTag": "div.descr",
+        "site.dnesbg.contentTag": "div.article",
 		"site.dnesbg.uriImageSelector": "div.article-photo",
         "site.dnesbg.contentImage": "img[src~=(images/photos|photos)]",
 		"site.dnesbg.slideShowSelector": "img[src~=(images/slideshows)]",
@@ -42,7 +42,16 @@
         "site.capital.bulgaria": "https://www.capital.bg/rss/?rubrid=2249",
         "site.capital.world": "https://www.capital.bg/rss/?rubrid=2253",
         "site.capital.technologies": "https://www.capital.bg/rss/?rubrid=2274",
-        "site.capital.galeries": "https://www.capital.bg/rss/?rubrid=2344"
+        "site.capital.galeries": "https://www.capital.bg/rss/?rubrid=2344",
+        "site.capital.base": "https://www.capital.bg/politika_i_ikonomika/imena/2018/03/27/",
+        "site.capital.urlSufix": "_",
+        "site.capital.bulgaria": "https://www.capital.bg/rss/?rubrid=2249",
+        "site.capital.world": "https://www.capital.bg/rss/?rubrid=2253",
+        "site.capital.technologies": "https://www.capital.bg/rss/?rubrid=2274",
+        "site.capital.galeries": "https://www.capital.bg/rss/?rubrid=2344",
+        "site.capital.contentTag": "div#ourStoryContent",
+        "site.capital.descriptionTag": "div.showhead h2",
+        "site.capital.authorTag": "div.author span.name"
       }
     },
     {
