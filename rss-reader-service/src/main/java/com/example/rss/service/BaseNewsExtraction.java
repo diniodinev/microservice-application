@@ -1,7 +1,5 @@
 package com.example.rss.service;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.example.rss.core.BaseNewsHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;

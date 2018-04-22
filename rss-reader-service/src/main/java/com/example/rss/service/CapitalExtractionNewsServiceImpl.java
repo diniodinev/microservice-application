@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -21,11 +20,9 @@ import com.example.rss.entity.News;
 import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.AuthorRepository;
 import com.example.rss.repository.NewsRepository;
-import com.example.rss.utils.CustomDateUtils;
 import com.example.rss.utils.tags.AuthorTags;
 import com.example.rss.utils.tags.CapitalNewsTags;
 import com.example.rss.utils.tags.ContentTags;
-import com.example.rss.utils.tags.NewsTags;
 
 @Service
 public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {

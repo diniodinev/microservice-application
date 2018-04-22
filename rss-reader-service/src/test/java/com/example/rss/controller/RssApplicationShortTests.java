@@ -15,7 +15,6 @@ import org.springframework.cloud.contract.wiremock.WireMockSpring;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.rss.Application;
-import com.example.rss.service.ExtractionNewsService;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 
 @RunWith(SpringRunner.class)

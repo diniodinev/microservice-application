@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
@@ -30,7 +29,7 @@ public class Application {
 
     /** Logger. */
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
-    public static final String restoreFolder = System.getProperty("user.home") + "/restoreFolder";
+    public static final String RESTORE_FOLDER = System.getProperty("user.home") + "/restoreFolder";
     /** Active or not hsqldb explorer */
     private static final boolean DEBUG_DB = true;
 
@@ -39,7 +38,7 @@ public class Application {
 
     @Autowired
     void setEnvironment(Environment e) {
-        System.out.println(e.getProperty("configuration.projectName"));
+        LOG.info("Project {} is sterting...", e.getProperty("configuration.projectName"));
     }
 
     /**
@@ -73,7 +72,7 @@ public class Application {
     private static void restoreHsqlDb() throws IOException, TarMalformatException {
         if (DbOperations.baseDir.exists()) {
             LOG.info("Start Db restore from {}", DbOperations.baseDir.getAbsolutePath());
-            File restoreFolderFile = new File(restoreFolder);
+            File restoreFolderFile = new File(RESTORE_FOLDER);
             if (restoreFolderFile.exists()) {
                 FileUtils.cleanDirectory(restoreFolderFile);
             } else {
