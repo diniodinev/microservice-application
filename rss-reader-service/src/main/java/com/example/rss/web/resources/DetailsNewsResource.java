@@ -5,11 +5,13 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DetailsNewsResource extends NewsResource implements TemporalFormat {
 
-    private ContentResource newsContant;
+    private ContentResource news;
 
+    @JsonProperty("author")
     private AuthorResource authorResource;
 
     @JsonFormat(shape = Shape.STRING, pattern = TIMESTAMP)
@@ -25,21 +27,21 @@ public class DetailsNewsResource extends NewsResource implements TemporalFormat 
 
     public DetailsNewsResource(ContentResource newsContant, AuthorResource authorResource, Date initialDate) {
         super();
-        this.newsContant = newsContant;
+        this.news = newsContant;
         this.authorResource = authorResource;   
         this.initialDate = initialDate;
     }
 
-    public ContentResource getNewsContant() {
-        return newsContant;
+    public ContentResource getNews() {
+        return news;
     }
 
     public Date getInitialDate() {
         return initialDate;
     }
 
-    public void setNewsContant(ContentResource newsContant) {
-        this.newsContant = newsContant;
+    public void setNews(ContentResource news) {
+        this.news = news;
     }
 
     public void setInitialDate(Date initialDate) {

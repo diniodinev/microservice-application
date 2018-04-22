@@ -101,6 +101,19 @@ public class BaseNewsHtmlPage {
             return null;
         }
     }
+    
+    public String extractInformationByTagAndAttribute(String parentChildTag, String attr) {
+        if (document.select(StringUtils.substringBefore(parentChildTag, " ")).first() != null) {
+            String selected = document.select(StringUtils.substringBefore(parentChildTag, " ")).first()
+                    .select(StringUtils.substringAfter(parentChildTag, " ")).attr(attr);
+            return selected.length() > 0 ? selected : null;
+        } else {
+            logger.warn("For the specified document, there is no tag with name {} and attribute {}.",
+                    StringUtils.substringAfter(parentChildTag, " "), attr);
+            return null;
+        }
+    }
+    
 
     public boolean isPresentInformationByTagAndAttribute(String parentTag, String tagName, String attr) {
         if (document.select(parentTag).first() != null) {

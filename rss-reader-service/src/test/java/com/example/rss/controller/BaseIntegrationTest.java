@@ -33,6 +33,6 @@ public class BaseIntegrationTest {
     public void testOldDnesbgNotAccessable() {
         ResponseEntity<String> responseException = this.restTemplate.getForEntity("/dnesbg/today", String.class);
         responseException.getStatusCode().compareTo(HttpStatus.NOT_FOUND);
-
     }
+
 }

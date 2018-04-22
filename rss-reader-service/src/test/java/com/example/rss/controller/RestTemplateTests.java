@@ -1,8 +1,11 @@
 package com.example.rss.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.isEmptyString;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -17,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.restdocs.JUnitRestDocumentation;
 
+import com.example.rss.web.resources.DetailsNewsResource;
 import com.example.rss.web.resources.NewsResource;
 
 import wiremock.org.eclipse.jetty.http.HttpHeader;
@@ -71,5 +75,20 @@ public class RestTemplateTests extends BaseIntegrationTest {
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(todaysNews.size(), is(not(0)));
+    }
+
+    @Test
+    public void testCapitalNewsShouldWork() {
+        ResponseEntity<DetailsNewsResource> response = this.restTemplate
+                .getForEntity(VERSION_PREFIX + "/capital/3155166", DetailsNewsResource.class);
+        DetailsNewsResource body = response.getBody();
+
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(body.getTitle(), not(isEmptyString()));
+        assertThat(body.getTitle(), is("ВЕИ-тата излизат на борсата, детайлът е кога точно"));
+        assertThat(body.getAuthorResource().getNames(), is(notNullValue()));
+        assertThat(body.getInitialDate(), is(notNullValue()));
+        assertThat(body.getUri(), not(isEmptyString()));
+
     }
 }
