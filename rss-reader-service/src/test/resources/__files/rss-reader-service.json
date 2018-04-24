@@ -15,10 +15,10 @@
 				"site.dnesbg.bulgaria": "https://www.dnes.bg/rss.php?cat=1",
 				"site.dnesbg.world": "https://www.dnes.bg/rss.php?cat=2",
 				"site.dnesbg.technologies": "https://www.dnes.bg/rss.php?cat=4",
-				"site.dnesbg.rootUrl": "https://www.dnes.bg/eu/2017/10/03/.",
+				"site.dnesbg.rootUrl": "https://m.dnes.bg/politika/2017/11/10/.",
 				"site.dnesbg.commentUrl": "https://m.dnes.bg/comments.php?id=",
 				"site.dnesbg.commentUrlSeparator": "&cp=",
-				"site.dnesbg.last": 357425,
+				"site.dnesbg.last": 365662,
 				"site.dnesbg.datetimeFormatter": "dd MMM yyyy HH:mm",
 				"site.dnesbg.titleSelector": "div.article-title h1",
 				"site.dnesbg.descriptionTag": "div.descr",
@@ -35,6 +35,7 @@
 				"site.dnesbg.commentBoxSelector": "div.comment-box",
 				"site.dnesbg.commentUpSelector": "a[class*=comments-grades-up]",
 				"site.dnesbg.commentDownSelector": "a[class*=comments-grades-down]",
+				"site.dnesbg.excludePaths": "div.span.article_author_bottom,div.photo_descr,div.feedback_comment,div.article_related_right",
 				"site.bbc.topstories": "https://feeds.bbci.co.uk/news/rss.xml",
 				"site.bbc.world": "https://feeds.bbci.co.uk/news/world/rss.xml",
 				"site.bbc.uk": "https://feeds.bbci.co.uk/news/uk/rss.xml",
@@ -51,7 +52,8 @@
 				"site.capital.title": "div.content h1",
 				"site.capital.secondTitle": "div.content h2",
 				"site.capital.initialDate": "div.showHeadTop span.text",
-				"site.capital.initialDateAttribute": "data-pubdate"
+				"site.capital.initialDateAttribute": "data-pubdate",
+				"site.capital.excludePaths": "div.info,div.amore,table.news_tblwide"
 			}
 		},
 		{

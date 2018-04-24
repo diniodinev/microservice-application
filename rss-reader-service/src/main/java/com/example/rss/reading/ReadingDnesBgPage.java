@@ -3,11 +3,13 @@ package com.example.rss.reading;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.example.rss.config.DnesbgProperties;
 import com.example.rss.utils.DnesBgParamEnum;
 
+@ConfigurationProperties(prefix = "site.dnesbg")
 @Component
 public class ReadingDnesBgPage extends ReadingPage {
     @Resource

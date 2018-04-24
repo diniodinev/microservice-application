@@ -11,7 +11,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Base class which provides basic methods for page, parsing, tag extraction,
@@ -164,7 +163,7 @@ public class BaseNewsHtmlPage {
      *         specified cssSelector
      */
     public Document removeAllTags(final Document document, final String cssSelector) {
-        if (!document.select(cssSelector).isEmpty()) {
+        if (document != null && cssSelector != null && !document.select(cssSelector).isEmpty()) {
             for (Element element : document.select(cssSelector)) {
                 element.remove();
             }

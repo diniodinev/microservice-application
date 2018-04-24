@@ -77,6 +77,26 @@ public class RestTemplateTests extends BaseIntegrationTest {
     }
 
     @Test
+    public void testDnesbgNewsShouldWork() {
+        ResponseEntity<DetailsNewsResource> response = this.restTemplate
+                .getForEntity(VERSION_PREFIX + "/dnesbg/255086", DetailsNewsResource.class);
+        DetailsNewsResource body = response.getBody();
+
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(body.getTitle(), not(isEmptyString()));
+        assertThat(body.getTitle(), is("ВСС единодушно реши: Владимира Янева е аут от СГС"));
+        assertThat(body.getAuthorResource().getNames(), is(notNullValue()));
+        assertThat(body.getInitialDate(), is(notNullValue()));
+        assertThat(body.getUri(), not(isEmptyString()));
+
+        // Test tags removal
+        assertTrue(body.getNews().getNewsContent().startsWith("Висшият съдебен съвет единодушно реши да отстрани"));
+        assertTrue(body.getNews().getNewsContent()
+                .endsWith("директорът на бюрото за контрол над СДР Бойко Рашков. "));
+
+    }
+
+    @Test
     public void testCapitalNewsShouldWork() {
         ResponseEntity<DetailsNewsResource> response = this.restTemplate
                 .getForEntity(VERSION_PREFIX + "/capital/3155166", DetailsNewsResource.class);

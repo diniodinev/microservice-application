@@ -1,7 +1,5 @@
 package com.example.rss.reading;
 
-import java.util.List;
-
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
