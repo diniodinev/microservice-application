@@ -89,5 +89,10 @@ public class RestTemplateTests extends BaseIntegrationTest {
         assertThat(body.getInitialDate(), is(notNullValue()));
         assertThat(body.getUri(), not(isEmptyString()));
 
+        // Test tags removal
+        assertTrue(body.getNews().getNewsContent().startsWith("Промените в Закона за енергетиката,"));
+        assertTrue(body.getNews().getNewsContent()
+                .endsWith("ще бъдат временно лишавани от правото си да извършват тази дейност."));
+
     }
 }

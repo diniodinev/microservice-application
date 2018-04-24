@@ -1,5 +1,7 @@
 package com.example.rss.core;
 
+import java.util.List;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
@@ -23,11 +25,11 @@ public class DnesBgHtmlPage extends BaseNewsHtmlPage {
         super(link);
         logger.info("Reading news with url \n {}", link);
         setLink(link);
-        setDocument(removeUnnecessaryElements(getDocument(link)));
+        setDocument(removeUnnecessaryElements(getDocument(link), null));
     }
 
     @Override
-    public Document removeUnnecessaryElements(Document document) {
+    public Document removeUnnecessaryElements(Document document, List<String> excludePaths) {
         if (logger.isDebugEnabled()) {
             logger.debug("Remove unnecessery elements from the page: %s .", getLink());
         }

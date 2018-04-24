@@ -3,6 +3,7 @@ package com.example.rss.service;
 import com.example.rss.core.BaseNewsHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
+import com.example.rss.entity.News;
 import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.AuthorRepository;
 import com.example.rss.utils.tags.ContentTags;
@@ -33,6 +34,15 @@ public abstract class BaseNewsExtraction implements ExtractionNewsService {
             newsAuthor.setNames(author);
         }
         return newsAuthor;
+    }
+
+    @Override
+    public News extractNews(BaseNewsHtmlPage page, Content newsContent, Author newsAuthor) {
+        News newsToSave = new News();
+        newsToSave.setNewsContant(newsContent);
+        newsToSave.setAuthor(newsAuthor);
+        newsToSave.setUri(page.getLink());
+        return newsToSave;
     }
 
 }

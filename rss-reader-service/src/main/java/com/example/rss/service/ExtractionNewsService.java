@@ -21,4 +21,6 @@ public interface ExtractionNewsService {
     Content extractContent(BaseNewsHtmlPage parsedPage, ContentTags contentTags);
 
     Author extractAuthor(BaseNewsHtmlPage page, AuthorRepository authorRepository, String author);
+
+    News extractNews(BaseNewsHtmlPage page, Content newsContent, Author newsAuthor);
 }

@@ -81,11 +81,9 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
         Author newsAuthor = extractAuthor(page, authorRepository, null);
 
         // News information
-        News newsToSave = new News();
+        News newsToSave = extractNews(page, newsContent, newsAuthor);
         newsToSave.setTitle(page.extractInformationByTag(params.getTitle()));
-        newsToSave.setNewsContant(newsContent);
         newsToSave.setUri(newsUrl);
-        newsToSave.setAuthor(newsAuthor);
         newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTag(params.getCreatedDate())));
 
         newsContent.setNews(newsToSave);

@@ -74,15 +74,12 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
         Author newsAuthor = extractAuthor(page, authorRepository, null);
 
         // News information
-        News newsToSave = new News();
-        newsToSave.setNewsContant(newsContent);
-        newsToSave.setAuthor(newsAuthor);
-        newsToSave.setUri(page.getLink());
+        News newsToSave = extractNews(page, newsContent, newsAuthor);
         newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTagAndAttribute(
                 capitalNewsTags.getInitialDate(), capitalNewsTags.getInitialDateAttribute())));
         newsToSave.setTitle(page.extractInformationByTag(capitalNewsTags.getTitle()));
-        // newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTag(params.getCreatedDate())));
 
+        newsContent.setNews(newsToSave);
         return newsToSave;
     }
 
