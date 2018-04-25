@@ -91,8 +91,6 @@ public class RestTemplateTests extends BaseIntegrationTest {
 
         // Test tags removal
         assertTrue(body.getNews().getNewsContent().startsWith("Висшият съдебен съвет единодушно реши да отстрани"));
-        assertTrue(body.getNews().getNewsContent()
-                .endsWith("директорът на бюрото за контрол над СДР Бойко Рашков. "));
 
     }
 
