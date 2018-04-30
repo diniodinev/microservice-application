@@ -1,5 +1,7 @@
 package com.example.rss.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -7,9 +9,11 @@ import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import com.example.rss.core.BaseNewsHtmlPage;
@@ -21,10 +25,13 @@ import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.AuthorRepository;
 import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.tags.AuthorTags;
+import com.example.rss.utils.tags.CapitalImageTags;
 import com.example.rss.utils.tags.CapitalNewsTags;
 import com.example.rss.utils.tags.ContentTags;
+import com.example.rss.utils.tags.ImageTags;
 
 @Service
+@RefreshScope
 public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
 
     private static final Logger logger = LoggerFactory.getLogger(CapitalExtractionNewsServiceImpl.class);
@@ -45,7 +52,13 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
     private AuthorTags authorTags;
 
     @Autowired
+    private CapitalImageTags imageTags;
+
+    @Autowired
     private CapitalNewsTags capitalNewsTags;
+
+    @Autowired
+    private ImageService imageService;
 
     @Override
     public News saveNews(Integer newsNumber) {
@@ -111,17 +124,28 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
         return super.extractAuthor(page, authorRepository, author);
     }
 
-    @Override
-    public List<Image> extractSlideShowImages(BaseNewsHtmlPage page) {
-        if (page == null) {
-            logger.warn("Image extraction can't be done. Page is null.");
-            return new LinkedList<>();
-        }
-
-        List<Image> allImages = new LinkedList<>();
-
-        // TODO to be done
-        return allImages;
-    }
+    /*
+     * @Override public List<Image> extractSlideShowImages(BaseNewsHtmlPage
+     * page) { if (page == null) {
+     * logger.warn("Image extraction can't be done. Page is null."); return new
+     * LinkedList<>(); }
+     * 
+     * List<Image> allImages = new LinkedList<>();
+     * 
+     * Image image; if
+     * (!page.isImageInTag(imageTags.getSlideShowAllImagesParentSelector())) {
+     * image = new Image(); image.setLink(constructImageUrl(page)); try {
+     * image.setByteData(imageService.extractData(image.getLink())); } catch
+     * (MalformedURLException e) {
+     * logger.warn("Image extraction can't be done. The url is not valid {}.",
+     * image.getLink()); } allImages.add(image); } else { try { for (String
+     * imageUrl : page.extractAllImageLinks(imageTags)) { image = new Image();
+     * image.setLink(imageUrl);
+     * image.setByteData(imageService.extractData(image.getLink()));
+     * allImages.add(image);
+     * logger.debug(String.format("Processed slideshow image: %s",
+     * image.getLink())); } } catch (MalformedURLException e) {
+     * e.printStackTrace(); } } return allImages; }
+     */
 
 }

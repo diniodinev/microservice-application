@@ -1,6 +1,8 @@
 package com.example.rss.core;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,6 +13,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.example.rss.utils.tags.ImageTags;
 
 /**
  * Base class which provides basic methods for page, parsing, tag extraction,
@@ -25,7 +29,6 @@ public class BaseNewsHtmlPage {
 
     private Document document;
     private String link;
-
 
     public BaseNewsHtmlPage() {
         super();
@@ -110,6 +113,44 @@ public class BaseNewsHtmlPage {
         }
     }
 
+    public List<String> extractAllImageLinks(ImageTags imageTags) {
+        List<String> allImagesRow = extractAllInformationInTag(imageTags.getSlideShowAllImagesParentSelector(),
+                imageTags.getContentImage(), "src");
+        List<String> resultUrls = new ArrayList<>(allImagesRow.size());
+        if (!allImagesRow.isEmpty()) {
+            for (String image : allImagesRow) {
+                resultUrls.add(constructImageUrl(image, imageTags));
+            }
+        }
+        return resultUrls;
+
+    }
+
+    /**
+     * In a specific parent tag find all sub tags and extract their
+     * <code>attr<code>.
+     * 
+     * @param rootTag
+     * @param cssQuerySelectorInRootElement
+     * @param attr
+     * @return
+     */
+    public List<String> extractAllInformationInTag(String rootTag, String cssQuerySelectorInRootElement, String attr) {
+        Element rootElement = document.select(rootTag).first();
+        List<String> extractedAttributes = new LinkedList<>();
+        if (rootElement != null) {
+            for (Element subElement : rootElement.select(cssQuerySelectorInRootElement)) {
+                String selected = subElement.attr(attr);
+                if (StringUtils.isNotBlank(selected)) {
+                    extractedAttributes.add(selected.trim());
+                }
+            }
+        } else {
+            logger.warn("For the specified document, there is no tag with name {} and attribute {}.", rootTag, attr);
+        }
+        return extractedAttributes;
+    }
+
     public String extractInformationByTagAndAttribute(String parentChildTag, String attr) {
         if (document.select(StringUtils.substringBefore(parentChildTag, " ")).first() != null) {
             String selected = document.select(StringUtils.substringBefore(parentChildTag, " ")).first()
@@ -131,6 +172,55 @@ public class BaseNewsHtmlPage {
                     tagName, attr);
             return false;
         }
+    }
+
+    /**
+     * Check if image with attribute src present in a given tag
+     * 
+     * @param parentTag
+     *            in which we search for an image
+     * @return true if in tag with parent selector <code>parentTags</code>
+     *         presents image with src HTML element.
+     */
+    public boolean isImageInTag(String parentTag) {
+        if (document.select(parentTag).first() != null) {
+            String selected = document.select(parentTag).first().select("img").attr("src");
+            return selected.length() > 0 ? true : false;
+        } else {
+            logger.warn("For the specified document, there is no presence of tag with name {} and attribute {}.", "img",
+                    "src");
+            return false;
+        }
+    }
+
+    public String getImageSource(Element elementImage, ImageTags imageTags) {
+        if (elementImage != null) {
+            String selected = elementImage.select("img").attr("src");
+            return selected.length() > 0 ? constructImageUrl(selected, imageTags) : null;
+        } else {
+            logger.warn("For the specified document, there is no presence of tag with name {} and attribute {}.", "img",
+                    "src");
+            return null;
+        }
+    }
+
+    /**
+     * Construct absolute image path
+     * 
+     * @param suffix
+     *            extracted suffix of an image
+     * @param imageTags
+     *            <{@code ImageTags} object with configuration information for
+     *            the images
+     * @return absolute path for image or null if image is not found in a
+     *         specific parentTag.
+     */
+    public String constructImageUrl(String suffix, ImageTags imageTags) {
+        if (StringUtils.isNotBlank(suffix)) {
+            return imageTags.getImagesBaseUrl() + suffix;
+        }
+        logger.warn("Absolute image path can't be constructed prefix is empty.");
+        return null;
     }
 
     /**
@@ -163,7 +253,7 @@ public class BaseNewsHtmlPage {
      *         specified cssSelector
      */
     public Document removeAllTags(final Document document, final String cssSelector) {
-        if (document != null && cssSelector != null && !document.select(cssSelector).isEmpty()) {
+        if (document != null && StringUtils.isNotBlank(cssSelector) && !document.select(cssSelector).isEmpty()) {
             for (Element element : document.select(cssSelector)) {
                 element.remove();
             }

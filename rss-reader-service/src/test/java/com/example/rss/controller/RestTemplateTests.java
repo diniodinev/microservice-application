@@ -113,4 +113,16 @@ public class RestTemplateTests extends BaseIntegrationTest {
                 .endsWith("ще бъдат временно лишавани от правото си да извършват тази дейност."));
 
     }
+
+    @Test
+    public void testCapitalSlideShow() {
+        ResponseEntity<DetailsNewsResource> response = this.restTemplate
+                .getForEntity(VERSION_PREFIX + "/capital/3169248", DetailsNewsResource.class);
+        DetailsNewsResource body = response.getBody();
+
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(body.getInitialDate(), is(notNullValue()));
+        assertThat(body.getUri(), not(isEmptyString()));
+    }
+
 }
