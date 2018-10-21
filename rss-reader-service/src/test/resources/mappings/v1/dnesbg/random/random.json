@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/v1/dnesbg/random"
+    },
+    "response": {
+        "status": 200,
+        "bodyFileName": "dnes-bg-random-news.json",
+        "headers": {
+           "Content-Type": "application/json;charset=UTF-8"
+        }
+    }
+}

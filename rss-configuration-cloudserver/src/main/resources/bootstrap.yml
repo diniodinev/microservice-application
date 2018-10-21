@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-server
+    name: rss-zuul-apigateway
   cloud:
     config:
       enabled: false
