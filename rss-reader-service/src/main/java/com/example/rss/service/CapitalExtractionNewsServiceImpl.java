@@ -61,15 +61,6 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
     private ImageService imageService;
 
     @Override
-    public News saveNews(Integer newsNumber) {
-        News news = extractNews(newsNumber);
-        if (news != null) {
-            newsRepository.save(news);
-        }
-        return news;
-    }
-
-    @Override
     public News extractNews(Integer number) {
         BaseNewsHtmlPage page = parsePage(number, readingCapitalPage);
 
@@ -79,7 +70,7 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
         }
 
         // Extract content and images
-        Content newsContent = extractContent(page, capitalContentTags);
+        Content newsContent = extractContent(page, capitalContentTags, imageTags);
 
         // Extract
 
@@ -87,7 +78,9 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
         Author newsAuthor = extractAuthor(page, authorRepository, null);
 
         // News information
-        News newsToSave = extractNews(page, newsContent, newsAuthor);
+        //TODO REPLACE 	with  News oldNews = newsRepository.findOneByUri(newsUrl); when get Link
+        News oldNews = newsRepository.findOne(number.longValue());
+        News newsToSave = extractNews(oldNews,page, newsContent, newsAuthor);
         newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTagAndAttribute(
                 capitalNewsTags.getInitialDate(), capitalNewsTags.getInitialDateAttribute())));
         newsToSave.setTitle(page.extractInformationByTag(capitalNewsTags.getTitle()));

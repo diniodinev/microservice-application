@@ -95,6 +95,19 @@ public class RestTemplateTests extends BaseIntegrationTest {
     }
 
     @Test
+    public void testDnesbgSlideshowShouldWork() {
+        ResponseEntity<DetailsNewsResource> response = this.restTemplate.getForEntity(VERSION_PREFIX + "/dnesbg/357158",
+                DetailsNewsResource.class);
+        DetailsNewsResource body = response.getBody();
+
+        assertThat(body.getTitle(), is("Кадрите, които не сте виждали, но историята не бива да забравя"));
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(body.getAuthorResource().getNames(), is(notNullValue()));
+        assertThat(body.getInitialDate(), is(notNullValue()));
+        assertThat(body.getUri(), not(isEmptyString()));
+    }
+
+    @Test
     public void testCapitalNewsShouldWork() {
         ResponseEntity<DetailsNewsResource> response = this.restTemplate
                 .getForEntity(VERSION_PREFIX + "/capital/3155166", DetailsNewsResource.class);

@@ -35,9 +35,12 @@ public class News extends AbstractAuditingEntity {
     @Column(name = "URI")
     private String uri;
 
+    @Column(name = "REM_RETRIES")
+    private long remainingNotificationTries;
+
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "CONTENT_NEWS_ID", referencedColumnName = "ID")
-    private Content newsContant;
+    private Content newsContent;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID")
@@ -51,12 +54,14 @@ public class News extends AbstractAuditingEntity {
         super();
     }
 
-    public News(long id, String title, String uri, Content newsContant, Author author, DateTime initialDate) {
+    public News(long id, String title, String uri, long remainingNotificationTries, Content newsContent, Author author,
+            DateTime initialDate) {
         super();
         this.id = id;
         this.title = title;
         this.uri = uri;
-        this.newsContant = newsContant;
+        this.remainingNotificationTries = remainingNotificationTries;
+        this.newsContent = newsContent;
         this.author = author;
         this.initialDate = initialDate;
     }
@@ -85,12 +90,12 @@ public class News extends AbstractAuditingEntity {
         this.uri = uri;
     }
 
-    public Content getNewsContant() {
-        return newsContant;
+    public Content getNewsContent() {
+        return newsContent;
     }
 
-    public void setNewsContant(Content newsContant) {
-        this.newsContant = newsContant;
+    public void setNewsContent(Content newsContent) {
+        this.newsContent = newsContent;
     }
 
     public Author getAuthor() {
@@ -107,6 +112,14 @@ public class News extends AbstractAuditingEntity {
 
     public void setInitialDate(DateTime initialDate) {
         this.initialDate = initialDate;
+    }
+
+    public long getRemainingNotificationTries() {
+        return remainingNotificationTries;
+    }
+
+    public void setRemainingNotificationTries(long remainingNotificationTries) {
+        this.remainingNotificationTries = remainingNotificationTries;
     }
 
 }

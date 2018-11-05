@@ -1,11 +1,18 @@
 package com.example.rss.web.resources;
 
-import org.joda.time.DateTime;
+import static org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion.NON_NULL;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.joda.time.DateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+@JsonSerialize(include=NON_NULL)
 public class CrawlerInfoResource extends NewsResource {
 
     private String crawledSiteName;
 
+    @DateTimeFormat(iso = ISO.DATE)
     private DateTime lastStart;
 
     private int lastCrawledNews;

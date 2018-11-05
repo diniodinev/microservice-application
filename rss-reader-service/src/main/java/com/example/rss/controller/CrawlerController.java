@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.rss.ampq.PagesQueueService;
 import com.example.rss.controller.feed.AbstractController;
 import com.example.rss.entity.CrawlerInfo;
 import com.example.rss.repository.CrawlerInfoRepository;
@@ -42,6 +43,9 @@ public class CrawlerController extends AbstractController {
     @Autowired
     private CrawlerInfoAssembler crawlerInfoAssembler;
 
+    @Autowired
+    private PagesQueueService queueService;
+
     private RestTemplate restTemplate;
 
     public CrawlerController(RestTemplateBuilder restTemplateBuilder) {
@@ -61,11 +65,9 @@ public class CrawlerController extends AbstractController {
         int startNews = dnesBgCrawlerInfo.getLastRead();
 
         for (int i = 1; i <= number; i++) {
-            restTemplate
-                    .getForObject(StringUtils.substringBeforeLast(request.getRequestURL().toString(), "/dnesbgcontinue")
-                            + "/dnesbg/" + (i + startNews), DnesBgNewsController.class);
-
+            queueService.enqueue(String.valueOf(i + startNews));
             dnesBgCrawlerInfo.setLastRead(i + startNews);
+            LOG.info("News with id {} sent to the queue.", (i + startNews));
         }
         return crawlerInfoAssembler.toResource(crawlerInfoRepository.save(dnesBgCrawlerInfo));
 

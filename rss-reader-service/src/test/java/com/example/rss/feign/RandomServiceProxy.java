@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.rss.web.resources.DetailsNewsResource;
 
-@FeignClient(name = "RandomServiceProxy", url = "http://localhost:8080/")
+@FeignClient(path = "/v1/dnesbg/", name = "rss-reader-service", url = "http://localhost:12345")
 public interface RandomServiceProxy {
 
-    @RequestMapping(value = "/v1/dnesbg/random", method = RequestMethod.GET)
+    @RequestMapping(value = "random", method = RequestMethod.GET)
     public DetailsNewsResource randomNews();
 
 }

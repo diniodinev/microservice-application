@@ -35,13 +35,13 @@ public class BaseNewsHtmlPage {
     }
 
     public BaseNewsHtmlPage(final String link) {
-        logger.info("Reading news with url \n {}", link);
+        logger.info("Reading news with url {}", link);
         this.link = link;
         this.document = removeUnnecessaryElements(getDocument(link), null);
     }
 
     public BaseNewsHtmlPage(final String link, final List<String> excludePaths) {
-        logger.info("Reading news with url \n {}", link);
+        logger.info("Reading news with url  {}", link);
         this.link = link;
         this.document = removeUnnecessaryElements(getDocument(link), excludePaths);
     }
@@ -232,7 +232,7 @@ public class BaseNewsHtmlPage {
      * @return
      */
     public String extractInformationAfter(String tagName, String separator) {
-        if (document.select(tagName).first() != null) {
+    	if (document.select(tagName).first() != null) {
             return StringUtils.substringAfter(document.select(tagName).first().text(), separator).trim();
         } else {
             logger.warn("For the specified document, there is no tag with name {}", tagName);

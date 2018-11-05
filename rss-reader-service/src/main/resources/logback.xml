@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%date{HH:mm:ss.SSS} %magenta([%thread]) %highlight([%-5level]) %logger{36}.%M - %msg%n</pattern>
-        </encoder>
-    </appender>
-    <root level="info">
-        <appender-ref ref="STDOUT" />
-    </root>
+<configuration debug="false">
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
+  <!-- Methode 2 -->
+  <appender name="JSON" class="ch.qos.logback.core.FileAppender">
+    <encoder>
+      <pattern>%date{HH:mm:ss.SSS} %magenta([%thread]) %logger{36}.%M -
+        %msg%n</pattern>
+    </encoder>
+    <file>rss-reader.json</file>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <includeMdc>true</includeMdc>
+      <throwableConverter
+        class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+        <maxDepthPerThrowable>60</maxDepthPerThrowable>
+        <maxLength>10240</maxLength>
+        <shortenedClassNameLength>40</shortenedClassNameLength>
+        <rootCauseFirst>true</rootCauseFirst>
+      </throwableConverter>
+    </encoder>
+  </appender>
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+    <!-- Methode 1 -->
+    <appender-ref ref="FILE" />
+    <!-- Methode 2 -->
+    <appender-ref ref="JSON" />
+  </root>
 </configuration>
+

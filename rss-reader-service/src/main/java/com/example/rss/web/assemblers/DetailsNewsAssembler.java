@@ -33,7 +33,7 @@ public class DetailsNewsAssembler extends ResourceAssemblerSupport<News, Details
         detailsNewsResource.setUri(entity.getUri());
 
         detailsNewsResource.setAuthorResource(authorAssembler.toResource(entity.getAuthor()));
-        detailsNewsResource.setNews(contentAssembler.toResource(entity.getNewsContant()));
+        detailsNewsResource.setNews(contentAssembler.toResource(entity.getNewsContent()));
 
         detailsNewsResource.setInitialDate(entity.getInitialDate().toDate());
         return detailsNewsResource;

@@ -23,7 +23,7 @@
 				"site.dnesbg.titleSelector": "div.article-title h1",
 				"site.dnesbg.descriptionTag": "div.descr",
 				"site.dnesbg.contentTag": "div.article",
-				"site.dnesbg.uriImageSelector": "div.article-photo",
+				"site.dnesbg.singleImageTag": "div.article-photo",
 				"site.dnesbg.contentImage": "img[src~=(images/photos|photos)]",
 				"site.dnesbg.slideShowSelector": "img[src~=(images/slideshows)]",
 				"site.dnesbg.slideShowAllImagesParentSelector": "div.gallery-center",

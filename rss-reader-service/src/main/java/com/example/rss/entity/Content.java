@@ -35,7 +35,7 @@ public class Content extends AbstractAuditingEntity {
     @JoinColumn(name = "Image_Id", referencedColumnName = "id")
     private List<Image> images;
 
-    @OneToOne(mappedBy = "newsContant")
+    @OneToOne(mappedBy = "newsContent")
     private News news;
 
     public Content() {
