@@ -1,11 +1,11 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.17' apply false
-    id 'io.spring.dependency-management' version '1.1.4' apply false
+    id "org.springframework.boot" version "2.7.17" apply false
+    id "io.spring.dependency-management" version "1.1.4" apply false
 }
 
 allprojects {
-    group = 'com.example'
-    version = '1.0.0'
+    group = "com.example"
+    version = "1.0.0"
 
     repositories {
         mavenCentral()
@@ -13,8 +13,8 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
+    apply plugin: "java"
+    apply plugin: "io.spring.dependency-management"
 
     java {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -23,7 +23,8 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.8"
+            mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.8")
         }
     }
 }
