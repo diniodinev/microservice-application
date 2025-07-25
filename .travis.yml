@@ -1,21 +1,19 @@
-sudo: false
-dist: trusty
-
 language: java
+dist: focal
 
 jdk:
-  - oraclejdk8
+  - openjdk17
 
 env:
   global:
     - MAVEN_OPTS="-Xms1024m -Xmx4096m -XX:PermSize=1024m"
     - JAVA_OPTS="-Xmx256m"
 install:
- - mvn install
+ - mvn -B -DskipTests install
 
 cache:
   directories:
-  - $HOME/.m2
+    - $HOME/.m2
 
 branches:
   only:
@@ -23,9 +21,6 @@ branches:
     - /^feature.*$/
 
    
-notifications:
-  email: false
-  
 notifications:
   email: false
 addons:
@@ -37,4 +32,4 @@ addons:
       - master
 script:
   # other script steps might be done before running the actual analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+  - mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
