@@ -1,0 +1,2 @@
+rootProject.name = 'rss-parent'
+include 'rss-configuration-cloudserver', 'rss-discovery-server', 'rss-reader-service'

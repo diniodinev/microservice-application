@@ -11,3 +11,11 @@ Used technologies:
 - **rss-configuration-cloudserver** - centralized configuration server
 - **rss-discovery-server** - Eureka discovery service
 - **rss-reader-service** - Spring Boot service exposing RSS feeds
+
+## Building
+
+Use Gradle to build all modules:
+
+```bash
+gradle build
+```
