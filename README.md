@@ -7,7 +7,7 @@ Used technologies:
 - Spring Cloud Config Server
 - Spring Cloud Netflix Eureka
 
-[![Build Status](https://app.travis-ci.com/diniodinev/microservice-application.svg?token=3BDcxNzpyMjNmE1JazUs&branch=master)](https://app.travis-ci.com/diniodinev/microservice-application)
+[![CI](https://github.com/diniodinev/microservice-application/actions/workflows/gradle.yml/badge.svg)](https://github.com/diniodinev/microservice-application/actions/workflows/gradle.yml)
 
 ## Modules
 
