@@ -1,0 +1,44 @@
+logging:
+  level:
+    org.springframework.web: debug
+    s7.Application: WARN
+    org.hibernate.SQL: INFO
+    com.zaxxer.hikari.HikariConfig: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: INFO
+  config: classpath:logback.xml
+
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      dialect: org.hibernate.dialect.HSQLDialect   # ✅ add this line
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        enable_lazy_load_no_trans: true
+        max_fetch_depth: 3
+        jdbc.fetch_size: 50
+        jdbc.batch_size: 10
+        connection.provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
+
+  datasource:
+    url: jdbc:hsqldb:file:~/restoreFolder/rss
+    username: sa
+    password:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    platform: rss
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 2000000
+      connection-test-query: SELECT 1
+      pool-name: SpringBootJPAHikariCP
+
+feign:
+  hystrix:
+    enabled: false
