@@ -2,12 +2,13 @@ package com.example.rss.service;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
        	News newsToSave = extractNews(oldNews,page, newsContent, newsAuthor);
         newsToSave.setTitle(page.extractInformationByTag(params.getTitle()));
         newsToSave.setUri(newsUrl);
-        newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTag(params.getCreatedDate())));
+        newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTag(params.getCreatedDate())).toInstant());
 
         newsContent.setNews(newsToSave);
         return newsToSave;
@@ -138,26 +139,32 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
     }
 
     // Contains Specific DnesBgLogic
-    private DateTime extractNewsCreatedDate(String date) {
+    private OffsetDateTime extractNewsCreatedDate(String date) {
         logger.debug("Input date before transformation {}", date);
-        DateTime createdDateTime = new DateTime();
-        Locale locale = new java.util.Locale("bg", "BG");
-        // Replace 3 letters months with their full representation in order JODA
-        // to parse them.
-        date = CustomDateUtils.replaceWithFullMonthName(date);
-        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd MMM yyyy HH:mm").withLocale(locale);
-
-        if (date != null) {
-            if (!StringUtils.contains(date, '|')) {
-                createdDateTime = dtf.parseDateTime(date.subSequence(0, date.indexOf(',')).toString());
-            } else {
-                // If news is changed get the initial date only.
-                String initial = StringUtils.substringAfter(date, "| ");
-                createdDateTime = dtf.parseDateTime(initial.subSequence(0, initial.indexOf(',')).toString());
-            }
+        if (date == null) {
+            return OffsetDateTime.now();
         }
+
+        // Convert short month names to full (if needed)
+        date = CustomDateUtils.replaceWithFullMonthName(date);
+
+        Locale locale = new Locale("bg", "BG");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm", locale);
+
+        String datePart;
+        if (!date.contains("|")) {
+            datePart = date.substring(0, date.indexOf(','));
+        } else {
+            String initial = StringUtils.substringAfter(date, "| ");
+            datePart = initial.substring(0, initial.indexOf(','));
+        }
+
+        LocalDateTime localDateTime = LocalDateTime.parse(datePart, formatter);
+        OffsetDateTime createdDateTime = localDateTime.atOffset(ZoneOffset.UTC); // adjust offset as needed
+
         logger.debug("Output date after transformation {}", createdDateTime);
         return createdDateTime;
     }
+
 
 }

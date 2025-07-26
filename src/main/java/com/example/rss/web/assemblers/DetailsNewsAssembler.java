@@ -1,4 +1,5 @@
 package com.example.rss.web.assemblers;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +35,8 @@ public class DetailsNewsAssembler implements RepresentationModelAssembler<News, 
         detailsNewsResource.setAuthorResource(authorAssembler.toModel(entity.getAuthor()));
         detailsNewsResource.setNews(contentAssembler.toModel(entity.getNewsContent()));
 
-        detailsNewsResource.setInitialDate(entity.getInitialDate().toDate());
+        detailsNewsResource.setInitialDate(Date.from(entity.getInitialDate()));
+
         return detailsNewsResource;
     }
 

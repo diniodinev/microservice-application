@@ -1,21 +1,22 @@
 package com.example.rss.controller.feed;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.rss.service.RssReaderService;
 import com.example.rss.web.assemblers.BbcNewsResourceAssemblers;
 import com.example.rss.web.resources.NewsResource;
+import com.rometools.rome.feed.synd.SyndEntry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RefreshScope
-public class BbcFeedController extends AbstractController {
+public class BbcFeedController {
 
     @Value("${site.bbc.topstories}")
     private String bbcTopstoris;
@@ -33,45 +34,45 @@ public class BbcFeedController extends AbstractController {
     private BbcNewsResourceAssemblers bbcNewsResourceAssemblers;
 
     @Autowired
-    RssReaderService rssReaderService;
+    private RssReaderService rssReaderService;
 
-    @RequestMapping(value = "/bbc/topstories", method = RequestMethod.GET)
+    @GetMapping("/bbc/topstories")
     public NewsResource getBbcTopStories() {
-        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcTopstoris).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toModel(rssReaderService.readFeed(bbcTopstoris).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/bbc/topstories/all", method = RequestMethod.GET)
-    public List<NewsResource> getAllBbcTopStories() {
-        return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcTopstoris).getEntries());
+    @GetMapping("/bbc/topstories/all")
+    public CollectionModel<NewsResource> getAllBbcTopStories() {
+        return bbcNewsResourceAssemblers.toCollectionModel(rssReaderService.readFeed(bbcTopstoris).getEntries());
     }
 
-    @RequestMapping(value = "/bbc/world", method = RequestMethod.GET)
+    @GetMapping("/bbc/world")
     public NewsResource getBbcWorld() {
-        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcWorld).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toModel(rssReaderService.readFeed(bbcWorld).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/bbc/world/all", method = RequestMethod.GET)
-    public List<NewsResource> getAllBbcWorld() {
-        return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcWorld).getEntries());
+    @GetMapping("/bbc/world/all")
+    public CollectionModel<NewsResource> getAllBbcWorld() {
+        return bbcNewsResourceAssemblers.toCollectionModel(rssReaderService.readFeed(bbcWorld).getEntries());
     }
 
-    @RequestMapping(value = "/bbc/bbcUk", method = RequestMethod.GET)
+    @GetMapping("/bbc/uk")
     public NewsResource getBbcUk() {
-        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcUk).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toModel(rssReaderService.readFeed(bbcUk).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/bbc/bbcUk/all", method = RequestMethod.GET)
-    public List<NewsResource> getAllBbcUk() {
-        return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcUk).getEntries());
+    @GetMapping("/bbc/uk/all")
+    public CollectionModel<NewsResource> getAllBbcUk() {
+        return bbcNewsResourceAssemblers.toCollectionModel(rssReaderService.readFeed(bbcUk).getEntries());
     }
 
-    @RequestMapping(value = "/bbc/science", method = RequestMethod.GET)
+    @GetMapping("/bbc/science")
     public NewsResource getBbcScience() {
-        return bbcNewsResourceAssemblers.toResource(rssReaderService.readFeed(bbcScience).getEntries().get(0));
+        return bbcNewsResourceAssemblers.toModel(rssReaderService.readFeed(bbcScience).getEntries().get(0));
     }
 
-    @RequestMapping(value = "/bbc/science/all", method = RequestMethod.GET)
-    public List<NewsResource> getAllBbcScience() {
-        return bbcNewsResourceAssemblers.toResources(rssReaderService.readFeed(bbcScience).getEntries());
+    @GetMapping("/bbc/science/all")
+    public CollectionModel<NewsResource> getAllBbcScience() {
+        return bbcNewsResourceAssemblers.toCollectionModel(rssReaderService.readFeed(bbcScience).getEntries());
     }
 }

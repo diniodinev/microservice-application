@@ -1,6 +1,8 @@
 package com.example.rss.controller;
 
 import java.io.IOException;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -56,7 +58,7 @@ public class CrawlerController extends AbstractController {
             return new CrawlerInfoResource();
         }
 
-        dnesBgCrawlerInfo.setInitialDate(DateTime.now());
+        dnesBgCrawlerInfo.setInitialDate(OffsetDateTime.now());
         int startNews = dnesBgCrawlerInfo.getLastRead();
 
         for (int i = 1; i <= number; i++) {
