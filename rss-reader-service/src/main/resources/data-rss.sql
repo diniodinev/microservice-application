@@ -1,2 +1,0 @@
---Insert dnes.bg
-INSERT INTO SITE_INFO("CREATED_BY", "CREATED_DATE", "LAST_MODIFIED_BY", "LAST_MODIFIED_DATE", "TITLE", "URI" )VALUES ( 'Dinyo',CURRENT_DATE,'Dinyo',CURRENT_DATE,'dnes.bg','https://www.dnes.bg/');

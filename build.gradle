@@ -1,29 +1,63 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.17' apply false
-    id 'io.spring.dependency-management' version '1.1.4' apply false
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
 }
 
-allprojects {
-    group = 'com.example'
-    version = '1.0.0'
+group = 'com.example'
+version = '1.0.0'
 
-    repositories {
-        mavenCentral()
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.1"
     }
 }
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
-
-    java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-config-client'
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.8"
-        }
-    }
+    implementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    implementation 'com.rometools:rome:1.18.0'
+    implementation 'org.yaml:snakeyaml'
+    implementation 'org.springframework.hateoas:spring-hateoas'
+    implementation 'org.hsqldb:hsqldb'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.jadira.usertype:usertype.core:5.0.0.GA'
+    implementation 'joda-time:joda-time'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.7.5'
+    implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.29'
+    implementation 'org.jsoup:jsoup:1.17.1'
+    implementation 'commons-validator:commons-validator:1.7'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.github.tomakehurst:wiremock-standalone:2.35.0'
+
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'io.springfox:springfox-swagger2:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
+    implementation 'io.github.openfeign:feign-okhttp'
+    implementation 'io.github.openfeign:feign-gson:12.1'
+    implementation 'io.github.openfeign:feign-slf4j'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+
+    implementation 'org.springframework.boot:spring-boot-starter-jetty'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
 }

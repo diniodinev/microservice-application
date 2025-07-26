@@ -1,0 +1,70 @@
+{
+	"name": "rss-reader-service",
+	"profiles": [
+		"default"
+	],
+	"label": null,
+	"version": "a31c898e32be859bfa024a6f601860adac11046d",
+	"state": null,
+	"propertySources": [
+		{
+			"name": "https://github.com/diniodinev/spring-cloud-config-repo/local/rss-reader-service.yml",
+			"source": {
+				"configuration.projectName": "RSS Reader Local",
+				"site.dnesbg.today": "https://www.dnes.bg/rss.php?today",
+				"site.dnesbg.bulgaria": "https://www.dnes.bg/rss.php?cat=1",
+				"site.dnesbg.world": "https://www.dnes.bg/rss.php?cat=2",
+				"site.dnesbg.technologies": "https://www.dnes.bg/rss.php?cat=4",
+				"site.dnesbg.rootUrl": "https://m.dnes.bg/politika/2017/11/10/.",
+				"site.dnesbg.commentUrl": "https://m.dnes.bg/comments.php?id=",
+				"site.dnesbg.commentUrlSeparator": "&cp=",
+				"site.dnesbg.last": 365662,
+				"site.dnesbg.datetimeFormatter": "dd MMM yyyy HH:mm",
+				"site.dnesbg.titleSelector": "div.article-title h1",
+				"site.dnesbg.descriptionTag": "div.descr",
+				"site.dnesbg.contentTag": "div.article",
+				"site.dnesbg.singleImageTag": "div.article-photo",
+				"site.dnesbg.contentImage": "img[src~=(images/photos|photos)]",
+				"site.dnesbg.slideShowSelector": "img[src~=(images/slideshows)]",
+				"site.dnesbg.slideShowAllImagesParentSelector": "div.gallery-center",
+				"site.dnesbg.authorSelector": "div.author-name",
+				"site.dnesbg.authorAfterTextSelector": "По публикацията работи: ",
+				"site.dnesbg.createdDateSelector": "div.art_author",
+				"site.dnesbg.commentTextSelector": "div.right",
+				"site.dnesbg.commentUsernameSelector": "div.author-name",
+				"site.dnesbg.commentBoxSelector": "div.comment-box",
+				"site.dnesbg.commentUpSelector": "a[class*=comments-grades-up]",
+				"site.dnesbg.commentDownSelector": "a[class*=comments-grades-down]",
+				"site.dnesbg.excludePaths": "div.span.article_author_bottom,div.photo_descr,div.feedback_comment,div.article_related_right",
+				"site.bbc.topstories": "https://feeds.bbci.co.uk/news/rss.xml",
+				"site.bbc.world": "https://feeds.bbci.co.uk/news/world/rss.xml",
+				"site.bbc.uk": "https://feeds.bbci.co.uk/news/uk/rss.xml",
+				"site.bbc.science": "https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+				"site.capital.base": "https://www.capital.bg/politika_i_ikonomika/imena/2018/03/27/",
+                "site.capital.urlSufix": "_",
+                "site.capital.bulgaria": "https://www.capital.bg/rss/?rubrid=2249",
+                "site.capital.world": "https://www.capital.bg/rss/?rubrid=2253",
+                "site.capital.technologies": "https://www.capital.bg/rss/?rubrid=2274",
+                "site.capital.galeries": "https://www.capital.bg/rss/?rubrid=2344",
+                "site.capital.contentTag": "div#ourStoryContent",
+                "site.capital.descriptionTag": "div.showhead h2",
+                "site.capital.authorTag": "div.author span.name",
+                "site.capital.title": "div.content h1",
+                "site.capital.secondTitle": "div.content h2",
+                "site.capital.initialDate": "div.showHeadTop span.text",
+                "site.capital.initialDateAttribute": "data-pubdate",
+                "site.capital.excludePaths": "div.info,div.amore,table.news_tblwide,ul.filterLightPhoto",
+                "site.capital.singleImageTag": "div.bigPhotoGal",
+                "site.capital.imagesBaseUrl": "https://www.capital.bg",
+                "site.capital.contentImage": "img[src~=^/shimg/.*.jpg$]",
+                "site.capital.slideShowAllImagesParentSelector": "div.megaPhoto"
+			}
+		},
+		{
+			"name": "https://github.com/diniodinev/spring-cloud-config-repo/rss-reader-service.properties",
+			"source": {
+				"configuration.projectName": "RSS Reader"
+			}
+		}
+	]
+}

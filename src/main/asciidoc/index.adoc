@@ -1,0 +1,48 @@
+= RSS News reader API Documentation
+Dinyo Dinev
+:doctype: book
+:toc: left
+:toclevels: 4
+:source-highlighter: prettify
+:numbered:
+:icons: font
+:hide-uri-scheme:
+
+This API documentation describes RSS Reader web endpoints.
+
+
+[[dnesbg-endpoints]]
+== Dnes bg endpoints
+For dnes.bg site the service provides many endpoints for RSS feed information. 
+
+=== Dnes bg Today
+To retrieve the last dnes bg news information make `GET` request to `/v1/dnesbg/today`, as shown
+in the following curl-based example:
+
+include::{snippets}/dnesbgtoday/curl-request.adoc[]
+
+And for this request we get the last news for dnesbg site.
+
+include::{snippets}/dnesbgtoday/http-response.adoc[]
+
+=== Dnes bg World
+
+To retrieve the last dnes bg world news information make `GET` request to `/v1/dnesbg/world`, as shown
+in the following curl-based example:
+include::{snippets}/dnesbgworld/curl-request.adoc[]
+
+And for this request we get the last news for dnesbg site.
+
+include::{snippets}/dnesbgworld/http-response.adoc[]
+
+=== Dnes bg World All
+
+To retrieve the all dnes bg world news information make `GET` request to `/v1/dnesbg/world/all`, as shown
+in the following curl-based example:
+include::{snippets}/dnesbgworldall/httpie-request[]
+
+And for this request we get the last news for dnesbg site.
+
+include::{snippets}/dnesbgworldall/httpie-request.adoc[]
+
+
