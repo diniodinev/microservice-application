@@ -1,9 +1,10 @@
 spring:
   application:
     name: rss-reader-service
+  config:
+    import: optional:classpath:/
   cloud:
     config:
-      uri: http://localhost:8888
-      failFast: false
-      retry:
-        maxAttempts: 20
+      enabled: false
+      import-check:
+        enabled: false

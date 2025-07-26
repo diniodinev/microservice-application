@@ -22,7 +22,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import com.example.rss.db.DbOperations;
 
 @SpringBootApplication
-@EnableDiscoveryClient
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableFeignClients(basePackages = "com.example.rss")
 public class Application {
