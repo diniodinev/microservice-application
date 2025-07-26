@@ -1,5 +1,7 @@
 package com.example.rss.core;
 
+import com.example.rss.service.ImageTags;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,12 +16,10 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.rss.utils.tags.ImageTags;
-
 /**
  * Base class which provides basic methods for page, parsing, tag extraction,
  * attribute extraction etc.
- * 
+ *
  * @author Dinyo Dinev
  *
  */
@@ -129,7 +129,7 @@ public class BaseNewsHtmlPage {
     /**
      * In a specific parent tag find all sub tags and extract their
      * <code>attr<code>.
-     * 
+     *
      * @param rootTag
      * @param cssQuerySelectorInRootElement
      * @param attr
@@ -176,7 +176,7 @@ public class BaseNewsHtmlPage {
 
     /**
      * Check if image with attribute src present in a given tag
-     * 
+     *
      * @param parentTag
      *            in which we search for an image
      * @return true if in tag with parent selector <code>parentTags</code>
@@ -206,7 +206,7 @@ public class BaseNewsHtmlPage {
 
     /**
      * Construct absolute image path
-     * 
+     *
      * @param suffix
      *            extracted suffix of an image
      * @param imageTags
@@ -226,7 +226,7 @@ public class BaseNewsHtmlPage {
     /**
      * Extracts the first trimmed content for the special <code>tagName</code>
      * and extract the part of it after special <code>separator</code>.
-     * 
+     *
      * @param tagName
      * @param separator
      * @return
@@ -244,7 +244,7 @@ public class BaseNewsHtmlPage {
     /**
      * Remove all tags for the given selector <code>cssSelector</code> for given
      * {@link Document document}.
-     * 
+     *
      * @param document
      *            from which we want to remove tags
      * @param cssSelector
@@ -264,7 +264,7 @@ public class BaseNewsHtmlPage {
     /**
      * Remove all tags for the given selectors list <code>cssSelectors</code>
      * for given {@link Document document}.
-     * 
+     *
      * @param document
      *            from which we want to remove tags
      * @param cssSelectors
@@ -281,9 +281,9 @@ public class BaseNewsHtmlPage {
 
     /**
      * Remove redundant code from the page.
-     * 
+     *
      * Note! Must be override in sub-classes.
-     * 
+     *
      * @param document
      *            in which we want to remove a content
      * @return sub-document cleaned from unnecessary elements.

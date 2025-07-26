@@ -1,15 +1,10 @@
 package com.example.rss.service;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +14,13 @@ import org.springframework.stereotype.Service;
 import com.example.rss.core.BaseNewsHtmlPage;
 import com.example.rss.entity.Author;
 import com.example.rss.entity.Content;
-import com.example.rss.entity.Image;
 import com.example.rss.entity.News;
 import com.example.rss.reading.ReadingPage;
 import com.example.rss.repository.AuthorRepository;
 import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.tags.AuthorTags;
-import com.example.rss.utils.tags.CapitalImageTags;
 import com.example.rss.utils.tags.CapitalNewsTags;
 import com.example.rss.utils.tags.ContentTags;
-import com.example.rss.utils.tags.ImageTags;
 
 @Service
 @RefreshScope
@@ -79,10 +71,10 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
 
         // News information
         //TODO REPLACE 	with  News oldNews = newsRepository.findOneByUri(newsUrl); when get Link
-        News oldNews = newsRepository.findOne(number.longValue());
+        News oldNews = newsRepository.findById(number.longValue()).orElse(null);
         News newsToSave = extractNews(oldNews,page, newsContent, newsAuthor);
-        newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTagAndAttribute(
-                capitalNewsTags.getInitialDate(), capitalNewsTags.getInitialDateAttribute())));
+//        newsToSave.setInitialDate(extractNewsCreatedDate(page.extractInformationByTagAndAttribute(
+//                capitalNewsTags.getInitialDate(), capitalNewsTags.getInitialDateAttribute())));
         newsToSave.setTitle(page.extractInformationByTag(capitalNewsTags.getTitle()));
 
         newsContent.setNews(newsToSave);
@@ -122,9 +114,9 @@ public class CapitalExtractionNewsServiceImpl extends BaseNewsExtraction {
      * page) { if (page == null) {
      * logger.warn("Image extraction can't be done. Page is null."); return new
      * LinkedList<>(); }
-     * 
+     *
      * List<Image> allImages = new LinkedList<>();
-     * 
+     *
      * Image image; if
      * (!page.isImageInTag(imageTags.getSlideShowAllImagesParentSelector())) {
      * image = new Image(); image.setLink(constructImageUrl(page)); try {

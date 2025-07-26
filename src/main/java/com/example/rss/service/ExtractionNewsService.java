@@ -9,7 +9,6 @@ import com.example.rss.entity.Image;
 import com.example.rss.entity.News;
 import com.example.rss.repository.AuthorRepository;
 import com.example.rss.utils.tags.ContentTags;
-import com.example.rss.utils.tags.ImageTags;
 
 public interface ExtractionNewsService {
 

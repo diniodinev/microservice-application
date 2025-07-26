@@ -21,7 +21,6 @@ import com.example.rss.repository.AuthorRepository;
 import com.example.rss.repository.ContentRepository;
 import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.tags.ContentTags;
-import com.example.rss.utils.tags.ImageTags;
 
 public abstract class BaseNewsExtraction implements ExtractionNewsService {
 
@@ -32,7 +31,7 @@ public abstract class BaseNewsExtraction implements ExtractionNewsService {
 
 	@Autowired
 	private NewsRepository newsRepository;
-	
+
 	@Autowired
 	private ContentRepository contentRepository;
 
@@ -74,13 +73,14 @@ public abstract class BaseNewsExtraction implements ExtractionNewsService {
 		} else {
 			newsToSave = oldNews;
 			newsToSave.setId(oldNews.getId());
-			
-			Content newContent = contentRepository.findOne(oldNews.getId());
+
+			Content newContent = contentRepository.findById(oldNews.getId()).orElse(null);
+
 			newContent.setNewsContent(newsContent.getNewsContent());
 			contentRepository.save(newContent);
 		}
 
-		
+
 		newsToSave.setAuthor(newsAuthor);
 		newsToSave.setUri(page.getLink());
 		newsToSave.setRemainingNotificationTries(rssNotificationService.getTotalNotificationTries());

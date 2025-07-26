@@ -28,6 +28,7 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.5.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
@@ -37,6 +38,10 @@ dependencies {
     implementation 'org.springframework.hateoas:spring-hateoas'
     implementation 'org.hsqldb:hsqldb'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
     implementation 'org.jadira.usertype:usertype.core:5.0.0.GA'
     implementation 'joda-time:joda-time'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.7.5'
@@ -44,6 +49,11 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.17.1'
     implementation 'commons-validator:commons-validator:1.7'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.github.tomakehurst:wiremock-standalone:2.35.0'

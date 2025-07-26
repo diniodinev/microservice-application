@@ -33,7 +33,7 @@ public class CrawlerInfoAssembler implements RepresentationModelAssembler<Crawle
     contentResource.setFirstUpdatedNews(entity.getFirstUpdatedNews());
     contentResource.setLastUpdatedNews(entity.getLastUpdatedNews());
     contentResource.setLastRead(entity.getLastRead());
-    contentResource.setLastStart(entity.getInitialDate());
+    //contentResource.setLastStart(entity.getInitialDate());
 
     return contentResource;
   }

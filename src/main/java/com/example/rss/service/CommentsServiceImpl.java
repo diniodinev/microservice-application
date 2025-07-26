@@ -1,5 +1,6 @@
 package com.example.rss.service;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class CommentsServiceImpl implements CommentsService {
 				// If present update its value
 				processedComment.get().setLikes(comment.getLikes());
 				processedComment.get().setDislikes(comment.getDislikes());
-				processedComment.get().setLastModifiedDate(new DateTime().now());
+				//processedComment.get().setLastModifiedDate(LocalDateTime.now());
 
 				// Update
 				commentsRepository.save(processedComment.get());
@@ -121,7 +122,7 @@ public class CommentsServiceImpl implements CommentsService {
 			nextComment.setContent(el.select(params.getCommentsText()).get(1).text());
 			nextComment.setLikes(Integer.valueOf(el.select(params.getCommentsUp()).first().text()));
 			nextComment.setDislikes(Integer.valueOf(el.select(params.getCommentsDown()).first().text()));
-			nextComment.setRelatedNews(newsRepository.findOne(newsId));
+			nextComment.setRelatedNews(newsRepository.findById(newsId).orElse(null));
 			commentsList.add(nextComment);
 		}
 

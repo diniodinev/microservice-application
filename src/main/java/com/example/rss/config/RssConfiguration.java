@@ -1,13 +1,11 @@
 package com.example.rss.config;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -20,30 +18,36 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.rss.config.security.AuditorAwareImpl;
 
+import java.time.Duration;
+
+import javax.sql.DataSource;
+
 @Configuration
 public class RssConfiguration {
 
-	/** Logger. */
 	private static final Logger LOG = LoggerFactory.getLogger(RssConfiguration.class);
 
 	@Value("classpath:/scripts/add-sites.sql")
 	private Resource schemaScript;
 
 	@Bean
-	AuditorAware<String> auditorProvider() {
+	public AuditorAware<String> auditorProvider() {
 		return new AuditorAwareImpl();
 	}
 
 	@Value("${ribbon.ConnectionTimeout:2000}")
-	int connectionTimeout;
+	private int connectionTimeout;
 
 	@Value("${ribbon.ReadTimeout:5000}")
-	int readTimeout;
+	private int readTimeout;
 
 	@Bean
 	@LoadBalanced
-	public RestTemplate restTemplateRibbon(RestTemplateBuilder restTemplateBuilder) {
-		return restTemplateBuilder.setConnectTimeout(connectionTimeout).setReadTimeout(readTimeout).build();
+	public RestTemplate restTemplateRibbon(RestTemplateBuilder builder) {
+		return builder
+				.setConnectTimeout(Duration.ofMillis(connectionTimeout))
+				.setReadTimeout(Duration.ofMillis(readTimeout))
+				.build();
 	}
 
 	@Bean
@@ -62,5 +66,4 @@ public class RssConfiguration {
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
-
 }

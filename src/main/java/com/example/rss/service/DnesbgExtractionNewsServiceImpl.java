@@ -3,9 +3,6 @@ package com.example.rss.service;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.util.Locale;
-import java.util.UUID;
-
-import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -14,10 +11,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.example.rss.core.BaseNewsHtmlPage;
@@ -30,9 +24,6 @@ import com.example.rss.repository.NewsRepository;
 import com.example.rss.utils.CustomDateUtils;
 import com.example.rss.utils.DnesBgParams;
 import com.example.rss.utils.tags.ContentTags;
-import com.example.rss.utils.tags.DnesbgImageTags;
-import com.example.rss.utils.tags.ImageTags;
-import org.slf4j.MDC;
 
 @Service
 public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
@@ -51,7 +42,7 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
     @Autowired
     private DnesbgImageTags imageTags;
 
-    @Resource
+    @Autowired
     private ReadingPage readingDnesBgPage;
 
     @Autowired
@@ -78,7 +69,7 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
 
         // News information
         News oldNews = newsRepository.findOneByUri(newsUrl);
-        
+
        	News newsToSave = extractNews(oldNews,page, newsContent, newsAuthor);
         newsToSave.setTitle(page.extractInformationByTag(params.getTitle()));
         newsToSave.setUri(newsUrl);
@@ -91,7 +82,7 @@ public class DnesbgExtractionNewsServiceImpl extends BaseNewsExtraction {
     @Override
     public Author extractAuthor(BaseNewsHtmlPage page, AuthorRepository authorRepository, String author) {
         author = page.extractInformationAfter(params.getAuthor(), params.getAuthorAfterText());
-       
+
         logger.debug("Extracted author names: {}", author);
         return super.extractAuthor(page, authorRepository, author);
     }
