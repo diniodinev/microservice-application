@@ -19,10 +19,10 @@ public class Comment extends AbstractAuditingEntity {
     @Column(name = "COMMENT_ID")
     private long id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGVARCHAR")
     private String authorName;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "LONGVARCHAR")
     private String content;
 
     @Column(name = "LIKES")

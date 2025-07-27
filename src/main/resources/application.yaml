@@ -44,3 +44,18 @@ spring:
 feign:
   hystrix:
     enabled: false
+
+site:
+  bbc:
+    topstories: https://feeds.bbci.co.uk/news/rss.xml
+    world: https://feeds.bbci.co.uk/news/world/rss.xml
+    uk: https://feeds.bbci.co.uk/news/uk/rss.xml
+    science: https://feeds.bbci.co.uk/news/science_and_environment/rss.xml
+  dnesbg:
+    today: https://www.dnes.bg/rss.php?cat=1
+    world: https://www.dnes.bg/rss.php?cat=2
+
+configuration:
+  projectName: NewsAggregator
+
+

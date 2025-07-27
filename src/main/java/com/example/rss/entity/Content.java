@@ -20,7 +20,7 @@ public class Content extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "CONTENT", columnDefinition = "TEXT")
+    @Column(name = "CONTENT", columnDefinition = "LONGVARCHAR")
     private String newsContent;
 
     @Column(name = "DESCRIPTION")
