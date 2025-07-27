@@ -16,7 +16,6 @@ repositories {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.1"
-        mavenBom "org.eclipse.jetty:jetty-bom:11.0.15"
     }
 }
 
@@ -57,15 +56,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'com.github.tomakehurst:wiremock-jre8:2.27.2'
 
-    implementation('org.springframework.boot:spring-boot-starter-jetty') {
-        exclude group: 'org.eclipse.jetty.ee10' // Exclude Jetty 12
-    }
-
-    // Jetty 11 modules (optional, if you need fine-grained control)
-    implementation 'org.eclipse.jetty:jetty-server:11.0.15'
-    implementation 'org.eclipse.jetty:jetty-servlet:11.0.15'
-    implementation 'org.eclipse.jetty:jetty-webapp:11.0.15'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
@@ -81,6 +71,7 @@ dependencies {
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
     testImplementation 'org.eclipse.jetty:jetty-util:9.4.51.v20230217'
 
+    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-params'
@@ -111,8 +102,9 @@ tasks.withType(Test) {
 
 configurations.all {
     resolutionStrategy.eachDependency {
-        if (requested.group == 'org.eclipse.jetty') {
-            useVersion '11.0.15'
+        if (requested.group == "org.eclipse.jetty") {
+            useVersion "9.4.51.v20230217"
+            because "WireMock 2.35.0 requires Jetty 9.4"
         }
     }
 }
