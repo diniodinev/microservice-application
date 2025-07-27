@@ -66,7 +66,11 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.github.tomakehurst:wiremock-standalone:2.35.0'
+    // Use the JRE8 variant which contains all Jetty dependencies and is
+    // available from Maven Central. The previously referenced beta
+    // standalone build was not published, causing dependency resolution
+    // errors during the SonarQube analysis step.
+    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
 
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
