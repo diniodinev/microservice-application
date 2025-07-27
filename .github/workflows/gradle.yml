@@ -37,14 +37,17 @@ jobs:
         with:
           name: gradle-problems-report
           path: build/reports/problems/problems-report.html
-      - name: Print Gradle Problems Report
+      - name: Print Gradle Problem Messages
         if: always()
         run: |
-          if [ -f build/reports/problems/problems-report.html ]; then
-            echo "---- Gradle Problems Report (HTML file) ----"
-            # Convert to plain text by stripping tags
-            sed -e 's/<[^>]*>//g' build/reports/problems/problems-report.html | head -n 100
+          REPORT=build/reports/problems/problems-report.html
+          if [ -f "$REPORT" ]; then
+            echo "---- Gradle Problems ----"
+            grep -A 2 'class="problem"' "$REPORT" \
+              | grep -E 'summary|location' \
+              | sed -E 's/<[^>]+>//g' \
+              | sed '/^\s*$/d'
           else
             echo "No problems-report.html file found."
           fi
-    
+
