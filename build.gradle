@@ -21,8 +21,8 @@ repositories {
 
 sonar {
     properties {
-        property "sonar.projectKey", "your_project_key"
-        property "sonar.organization", "your_organization" // for SonarCloud
+        property "sonar.projectKey", "diniodinev-github_sitereader"
+        property "sonar.organization", "Dinyo" // for SonarCloud
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.login", System.getenv("SONAR_TOKEN")
     }
