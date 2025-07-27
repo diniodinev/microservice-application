@@ -8,6 +8,7 @@ Used technologies:
 - Spring Cloud Netflix Eureka
 
 [![CI](https://github.com/diniodinev/microservice-application/actions/workflows/gradle.yml/badge.svg)](https://github.com/diniodinev/microservice-application/actions/workflows/gradle.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=diniodinev-github_sitereader&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=diniodinev-github_sitereader)
 
 ## Modules
 
