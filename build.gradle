@@ -68,7 +68,7 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.github.tomakehurst:wiremock-standalone:3.0.0-beta-11'
+    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
 
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'io.springfox:springfox-swagger2:3.0.0'
