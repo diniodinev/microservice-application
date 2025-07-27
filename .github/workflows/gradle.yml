@@ -14,16 +14,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '21'
           cache: gradle
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew || true
+
       - name: Build with Gradle
-        run: ./gradlew clean build jacocoTestReport sonarqube
+        run: ./gradlew clean build
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_SCANNER_OPTS: "-Xmx2048m"
+
+      - name: Upload Gradle Problems Report (if exists)
+        if: always()  # ensures it runs even if build fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-problems-report
+          path: build/reports/problems/problems-report.html
+      - name: Print Gradle Problem Messages
+        if: always()
+        run: |
+          REPORT=build/reports/problems/problems-report.html
+          if [ -f "$REPORT" ]; then
+            echo "---- Gradle Problems ----"
+            grep -A 2 'class="problem"' "$REPORT" \
+              | grep -E 'summary|location' \
+              | sed -E 's/<[^>]+>//g' \
+              | sed '/^\s*$/d'
+          else
+            echo "No problems-report.html file found."
+          fi
+

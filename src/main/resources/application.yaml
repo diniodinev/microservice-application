@@ -10,8 +10,8 @@ logging:
 spring:
   jpa:
     show-sql: false
+    database-platform: org.hibernate.dialect.HSQLDialect
     hibernate:
-      dialect: org.hibernate.dialect.HSQLDialect   # ✅ add this line
       ddl-auto: update
     properties:
       hibernate:
