@@ -37,14 +37,14 @@ jobs:
         with:
           name: gradle-problems-report
           path: build/reports/problems/problems-report.html
-      - name: Print Gradle Problem Messages
+      - name: Print Full Gradle Problems Report
         if: always()
         run: |
           REPORT=build/reports/problems/problems-report.html
           if [ -f "$REPORT" ]; then
-            echo "---- Gradle Problems ----"
-            grep -A 2 'class="problem"' "$REPORT" \
-              | grep -E 'summary|location' \
+            echo "---- Gradle Problems (Raw Extract) ----"
+            # Extract all problem blocks with context
+            awk '/<div class="problem"/,/<\/div>/' "$REPORT" \
               | sed -E 's/<[^>]+>//g' \
               | sed '/^\s*$/d'
           else
