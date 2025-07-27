@@ -6,7 +6,6 @@ logging:
     com.zaxxer.hikari.HikariConfig: INFO
     org.hibernate.type.descriptor.sql.BasicBinder: INFO
   config: classpath:logback.xml
-
 spring:
   jpa:
     show-sql: false
@@ -15,6 +14,9 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        ignore_explicit_access_type: true
+        archive:
+          autodetection: class
         show_sql: true
         format_sql: true
         enable_lazy_load_no_trans: true
@@ -24,10 +26,10 @@ spring:
         connection.provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
 
   datasource:
-    url: jdbc:hsqldb:file:~/restoreFolder/rss
+    jdbc-url: jdbc:hsqldb:file:~/restoreFolder/rss
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
     username: sa
     password:
-    driver-class-name: org.hsqldb.jdbc.JDBCDriver
     platform: rss
     type: com.zaxxer.hikari.HikariDataSource
     hikari:

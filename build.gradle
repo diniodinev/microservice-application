@@ -40,7 +40,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
-    implementation 'org.jadira.usertype:usertype.core:5.0.0.GA'
     implementation 'joda-time:joda-time'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.7.5'
     implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.29'

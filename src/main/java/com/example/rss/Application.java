@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -23,6 +24,7 @@ import com.example.rss.db.DbOperations;
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableFeignClients(basePackages = "com.example.rss")
+@EntityScan(basePackages = "com.example.rss.entity")
 public class Application {
 
     /** Logger. */
