@@ -26,7 +26,7 @@ spring:
         connection.provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
 
   datasource:
-    jdbc-url: jdbc:hsqldb:file:~/restoreFolder/rss
+    url: jdbc:hsqldb:file:~/restoreFolder/rss
     driver-class-name: org.hsqldb.jdbc.JDBCDriver
     username: sa
     password:
